@@ -7,11 +7,6 @@ module.exports = {
       watch: true, // Enable watching
       watch: ["."], // Watch the current directory
     },
-    {
-      name: "service-worker", // Name of the service worker
-      script: "./service-worker/index.js", // Main script of the service worker
-      watch: ["./service-worker"], // Watch the service worker directory
-    },
   ],
 
   deploy: {
