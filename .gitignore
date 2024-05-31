@@ -160,5 +160,5 @@ cython_debug/
 #.idea/
 
 # Sever Security Files
-Afaq_New_Server_Key.pem
+*.pem
 

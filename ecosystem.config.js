@@ -11,9 +11,9 @@ module.exports = {
 
   deploy: {
     production: {
-      key: "Afaq_New_Server_Key.pem",
+      key: "elcaminoquecreas.pem",
       user: "ubuntu",
-      host: "3.107.68.178",
+      host: "18.226.181.19",
       ref: "origin/main",
       repo: "git@github.com:shahryar-cmyk/astrology_attacher.git",
       path: "/home/ubuntu/astrology_attacher",
