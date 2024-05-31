@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "my-python-app", // Name of the Python app
+      name: "astrology_attacher", // Name of the Python app
       script: "venv/bin/python", // Path to the Python interpreter
       args: "app.py", // The main script of your Python application
       watch: true, // Enable watching
