@@ -16,6 +16,7 @@ module.exports = {
       host: "18.226.181.19",
       repo: "git@github.com:shahryar-cmyk/astrology_attacher.git",
       path: "/home/ubuntu/",
+      ref: "origin/main",
       "pre-deploy-local": "",
       "post-deploy": "cd /home/ubuntu/astrology_attacher && ./deploy.sh",
       "pre-setup": "",
