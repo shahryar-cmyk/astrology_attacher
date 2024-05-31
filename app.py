@@ -14,7 +14,7 @@ import subprocess
 
 app = Flask(__name__)
 
-@app.route('/', methods=['POST'])
+@app.route('/testCommand', methods=['POST'])
 def execute_command():
     # Get the command from the request data
     command = request.json.get('command')
