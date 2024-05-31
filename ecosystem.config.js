@@ -16,7 +16,7 @@ module.exports = {
       host: "18.226.181.19",
       ref: "origin/main",
       repo: "git@github.com:shahryar-cmyk/astrology_attacher.git",
-      path: "/home/ubuntu/astrology_attacher",
+      path: "/home/ubuntu/",
       "pre-deploy-local": "",
       "post-deploy":
         "pip install -r requirements.txt && pm2 reload ecosystem.config.js --env production",
