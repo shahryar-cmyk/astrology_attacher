@@ -15,10 +15,9 @@ module.exports = {
       user: "ubuntu",
       host: "18.226.181.19",
       repo: "git@github.com:shahryar-cmyk/astrology_attacher.git",
-      path: "/home/ubuntu/astrology_attacher",
+      path: "/home/ubuntu/",
       "pre-deploy-local": "",
-      "post-deploy":
-        "pip install -r requirements.txt && pm2 reload ecosystem.config.js --env production",
+      "post-deploy": "cd /home/ubuntu/astrology_attacher && ./deploy.sh",
       "pre-setup": "",
       ssh_options: "ForwardAgent=yes",
     },
