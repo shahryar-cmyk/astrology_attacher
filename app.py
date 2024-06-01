@@ -66,7 +66,7 @@ def parse_celestial_body(line):
     try:
         # Split the line into parts based on fixed-width fields
         parts = re.split(r'\s{2,}', line)
-        if len(parts) >= 7:
+        if len(parts) >= 5:
             return {
                 "name": "SomeData",
                 # "position": parts[1].strip(),
