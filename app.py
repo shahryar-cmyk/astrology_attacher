@@ -27,10 +27,10 @@ def execute_command():
             return jsonify({"error": error}), 500
 
         # Parse the output
-        # parsed_output = parse_swetest_output(output)
+        parsed_output = parse_swetest_output(output)
 
         # Return the parsed result as a JSON response
-        return jsonify({"result": output})
+        return jsonify({"result": parsed_output})
 
     except ValueError as e:
         return jsonify({"error": f"Invalid input type: {str(e)}"}), 400
