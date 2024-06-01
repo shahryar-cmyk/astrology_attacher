@@ -21,10 +21,6 @@ def execute_command():
         # Execute the command using subprocess
         result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
         output = result.stdout
-        error = result.stderr
-
-        if error:
-            return jsonify({"error": error}), 500
 
         # Parse the output
         parsed_output = parse_swetest_output(output)
@@ -44,13 +40,18 @@ def parse_swetest_output(output):
     result = {}
 
     try:
-        # Implement your parsing logic here
-        # Example:
-        result["some_info"] = lines[0]
-        # result["some_other_info"] = lines[1]
+        # Example parsing logic, adapt this to the actual output format of swetest
+        if len(lines) > 0:
+            result["command"] = lines[0]
+        if len(lines) > 1:
+            result["date"] = lines[1]
+        if len(lines) > 2:
+            result["UT"] = lines[2]
+        if len(lines) > 3:
+            result["TT"] = lines[3]
 
     except IndexError as e:
-        return {"error": f"Error parsing output: {str(e)}"}
+        result["error"] = f"Error parsing output: {str(e)}"
 
     return result  # Always return a dictionary
 
