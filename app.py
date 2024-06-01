@@ -56,23 +56,6 @@ def parse_swetest_output(output):
             result["Sun"] = parse_celestial_body(lines[6])
         if len(lines) > 7:
             result["Moon"] = parse_celestial_body(lines[7])
-        if len(lines) > 8:
-            result["Mercury"] = parse_celestial_body(lines[8])
-        if len(lines) > 9:
-            result["Venus"] = parse_celestial_body(lines[9])
-        if len(lines) > 10:
-            result["Mars"] = parse_celestial_body(lines[10])
-        if len(lines) > 11:
-            result["Jupiter"] = parse_celestial_body(lines[11])
-        if len(lines) > 12:
-            result["Saturn"] = parse_celestial_body(lines[12])
-        if len(lines) > 13:
-            result["Uranus"] = parse_celestial_body(lines[13])
-        if len(lines) > 14:
-            result["Neptune"] = parse_celestial_body(lines[14])
-        if len(lines) > 15:
-            result["Pluto"] = parse_celestial_body(lines[15])
-    
 
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
@@ -90,7 +73,7 @@ def parse_celestial_body(line):
                 "longitude": parts[2].strip(),
                 "latitude": parts[3].strip(),
                 "speed": parse_speed(parts[4].strip()),
-                "distance": parts[5].strip()
+                "distance": parse_distance(parts[5].strip())
             }
     except Exception as e:
         return {"error": f"Error parsing celestial body line: {str(e)}"}
@@ -118,17 +101,20 @@ def parse_speed(speed_str):
     return None
 
 def parse_distance(distance_str):
-    # Example distance string: "17°27'55.38368914 11.07.1996 20:14:35 UT"
+    # Example distance strings: "17°27'55.38368914 11.07.1996 20:14:35 UT" or "-0°36'30.83018524"
     try:
-        match = re.match(r"(\d+)°(\d+)'([\d\.]+)\s(.+)", distance_str)
+        # Match pattern with optional date and time
+        match = re.match(r"(-?\d+)°(\d+)'([\d\.]+)\s*(.*)", distance_str)
         if match:
             degree, minutes, seconds, date_time = match.groups()
-            return {
+            distance_info = {
                 "degree": int(degree),
                 "minutes": int(minutes),
-                "seconds": float(seconds),
-                "date": date_time
+                "seconds": float(seconds)
             }
+            if date_time:  # Add date and time if present
+                distance_info["date"] = date_time.strip()
+            return distance_info
     except Exception as e:
         return {"error": f"Error parsing distance: {str(e)}"}
 
