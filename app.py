@@ -44,19 +44,44 @@ def parse_swetest_output(output):
     result = {}
 
     try:
-        # Extract general information
-        result["command"] = lines[0].split(': ')[1]
-        result["date"] = lines[1].split()[2]
-        result["gregorian"] = lines[1].split()[2]
-        result["UT"] = lines[1].split()[3]
-        result["version"] = lines[1].split()[5]
-        result["UT_Julian"] = lines[2].split()[1]
-        result["delta_t"] = lines[2].split()[4]
-        result["TT_Julian"] = lines[3].split()[1]
-        result["Epsilon_t"] = lines[4].split()[2]
-        result["Epsilon_m"] = lines[4].split()[3]
-        result["Nutation_longitude"] = lines[5].split()[1]
-        result["Nutation_obliquity"] = lines[5].split()[3]
+        # Extract general information with checks for list length
+        result["command"] = lines[0].split(': ')[1] if len(lines[0].split(': ')) > 1 else "Unknown command"
+        date_line = lines[1].split()
+        if len(date_line) >= 6:
+            result["date"] = date_line[2]
+            result["gregorian"] = date_line[2]
+            result["UT"] = date_line[3]
+            result["version"] = date_line[5]
+        else:
+            raise ValueError("Date line is not in the expected format")
+
+        ut_julian_line = lines[2].split()
+        if len(ut_julian_line) >= 5:
+            result["UT_Julian"] = ut_julian_line[1]
+            result["delta_t"] = ut_julian_line[4]
+        else:
+            raise ValueError("UT Julian line is not in the expected format")
+
+        tt_julian_line = lines[3].split()
+        if len(tt_julian_line) >= 2:
+            result["TT_Julian"] = tt_julian_line[1]
+        else:
+            raise ValueError("TT Julian line is not in the expected format")
+
+        epsilon_line = lines[4].split()
+        if len(epsilon_line) >= 4:
+            result["Epsilon_t"] = epsilon_line[2]
+            result["Epsilon_m"] = epsilon_line[3]
+        else:
+            raise ValueError("Epsilon line is not in the expected format")
+
+        nutation_line = lines[5].split()
+        if len(nutation_line) >= 4:
+            result["Nutation_longitude"] = nutation_line[1]
+            result["Nutation_obliquity"] = nutation_line[3]
+        else:
+            raise ValueError("Nutation line is not in the expected format")
+
     except IndexError as e:
         raise ValueError(f"Error parsing general information: {str(e)}. Line: {lines}")
 
@@ -65,16 +90,19 @@ def parse_swetest_output(output):
         if line.strip():
             try:
                 parts = re.split(r'\s{2,}', line)
-                body = parts[0].split()[0]
-                details = {
-                    "position": parts[0].split(' ', 1)[1],
-                    "longitude": parts[1],
-                    "latitude": parts[2],
-                    "speed": parts[3],
-                    "distance": parts[4],
-                    "date": parts[5]
-                }
-                celestial_bodies[body] = details
+                if len(parts) >= 6:
+                    body = parts[0].split()[0]
+                    details = {
+                        "position": parts[0].split(' ', 1)[1],
+                        "longitude": parts[1],
+                        "latitude": parts[2],
+                        "speed": parts[3],
+                        "distance": parts[4],
+                        "date": parts[5]
+                    }
+                    celestial_bodies[body] = details
+                else:
+                    raise ValueError("Celestial body line is not in the expected format")
             except IndexError as e:
                 raise ValueError(f"Error parsing celestial body information: {str(e)}. Line: {line}")
 
