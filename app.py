@@ -48,7 +48,15 @@ def parse_swetest_output(output):
         if len(lines) > 2:
             result["UT"] = lines[2]
         if len(lines) > 3:
-            result["TT"] = lines[3]
+            result["Nutation"] = lines[3]
+        if len(lines) > 4:
+            result["Sun"] = lines[4]
+        if len(lines) > 5:
+            result["Moon"] = lines[5]
+        if len(lines) > 6:
+            result["Mercury"] = lines[6]
+        if len(lines) > 7:
+            result["Venus"] = lines[7]
 
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
