@@ -66,20 +66,36 @@ def parse_celestial_body(line):
     try:
         # Split the line into parts based on fixed-width fields
         parts = re.split(r'\s{2,}', line)
-        if len(parts) >= 5:
+        if len(parts) >= 6:
             return {
-                # "name":parts[1].strip(),
+                "name": parts[0].strip(),
                 "position": parts[1].strip(),
                 "longitude": parts[2].strip(),
                 "latitude": parts[3].strip(),
                 "speed": parts[4].strip(),
-                "distance": parts[5].strip(),
-                # "datetime": parts[6].strip()  # Combined date and time
+                "distance": parse_distance(parts[5].strip())
             }
     except Exception as e:
         return {"error": f"Error parsing celestial body line: {str(e)}"}
 
-    return parts
+    return None
+
+def parse_distance(distance_str):
+    # Example distance string: "17°27'55.38368914 11.07.1996 20:14:35 UT"
+    try:
+        match = re.match(r"(\d+)°(\d+)'([\d\.]+)\s(.+)", distance_str)
+        if match:
+            degree, minutes, seconds, date_time = match.groups()
+            return {
+                "degree": degree,
+                "minutes": minutes,
+                "seconds": seconds,
+                "date": date_time
+            }
+    except Exception as e:
+        return {"error": f"Error parsing celestial body line: {str(e)}"}
+
+    return None
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
