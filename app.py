@@ -80,21 +80,22 @@ def parse_swetest_output(output):
 
 def parse_celestial_body(line):
     try:
-        # Split the line into parts based on fixed-width fields
-        parts = re.split(r'\s{2,}', line)
+        # Split the line by spaces and filter out empty strings
+        parts = [part.strip() for part in line.strip().split(" ") if part.strip()]
         if len(parts) >= 6:
             return {
-                "name": parts[0].strip(),
-                "position": parts[1].strip(),
-                "longitude": parts[2].strip(),
-                "latitude": parts[3].strip(),
-                "speed": parse_speed(parts[4].strip()),
-                "distance": parse_distance(parts[5].strip())
+                "name": parts[0],
+                "position": parts[1],
+                "longitude": parts[2],
+                "latitude": parts[3],
+                "speed": parse_speed(parts[4]),
+                "distance": parse_distance(parts[5])
             }
     except Exception as e:
         return {"error": f"Error parsing celestial body line: {str(e)}"}
 
     return None
+
 
 def parse_speed(speed_str):
     # Example speed strings: "-4° 7'28.47829196" or "-0° 0' 0.47457045"
