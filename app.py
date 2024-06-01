@@ -38,7 +38,7 @@ def execute_command():
 def parse_swetest_output(output):
     lines = output.splitlines()  # Split by newline characters
     result = {}
-
+# Issue is in Uranus Seconds
     try:
         if len(lines) > 0:
             result["command"] = lines[0]
@@ -53,7 +53,7 @@ def parse_swetest_output(output):
         if len(lines) > 5:
             result["Nutation"] = lines[5]
         if len(lines) > 6:
-            result["Sun"] = parse_celestial_body(lines[6])
+            result["Sun"] = lines[6]
         if len(lines) > 7:
             result["Moon"] = parse_celestial_body(lines[7])
         if len(lines) > 8:
@@ -67,7 +67,7 @@ def parse_swetest_output(output):
         if len(lines) > 12:
             result["Saturn"] = parse_celestial_body(lines[12])
         if len(lines) > 13:
-            result["Uranus"] = parse_celestial_body(lines[13])
+            result["Uranus"] = lines[13]
         if len(lines) > 14:
             result["Neptune"] = parse_celestial_body(lines[14])
         if len(lines) > 15:
@@ -80,28 +80,61 @@ def parse_swetest_output(output):
 
 def parse_celestial_body(line):
     try:
-        # Regular expression to match the position
-        position_regex = r"(\d+°\s*\d{1,2}'\d{1,2}\.\d+)\s+"
-
-        # Find the position part in the line
-        match = re.search(position_regex, line)
-        position = match.group(1) if match else ""
-
-        # Extract the components of the position
-        position_parts = re.split(r"[°'\s]", position)
-
-        # Return the parsed position in the desired format
-        return {
-            "position": {
-                "degree": position_parts[0],
-                "sign": position_parts[1] if len(position_parts) > 1 else "",
-                "minutes": position_parts[2] if len(position_parts) > 2 else "",
-                "seconds": position_parts[3] if len(position_parts) > 3 else ""
+        # Split the line into parts based on fixed-width fields
+        parts = re.split(r'\s{2,}', line)
+        if len(parts) >= 6:
+            return {
+                "name": parts[0].strip(),
+                "position": parts[1].strip(),
+                "longitude": parts[2].strip(),
+                "latitude": parts[3].strip(),
+                "speed": parse_speed(parts[4].strip()),
+                "distance": parse_distance(parts[5].strip())
             }
-            
-        }
     except Exception as e:
         return {"error": f"Error parsing celestial body line: {str(e)}"}
+
+    return None
+
+def parse_speed(speed_str):
+    # Example speed strings: "-4° 7'28.47829196" or "-0° 0' 0.47457045"
+    try:
+        match = re.match(r"(-?\d+)°\s*(\d+)'(?:\s*(\d+\.\d+)|(\d+)\.(\d+))", speed_str)
+        if match:
+            degree, minutes, seconds_decimal, seconds_whole, seconds_fraction = match.groups()
+            if seconds_decimal:
+                seconds = float(seconds_decimal)
+            else:
+                seconds = float(f"{seconds_whole}.{seconds_fraction}")
+            return {
+                "degree": int(degree),
+                "minutes": int(minutes),
+                "seconds": seconds
+            }
+    except Exception as e:
+        return {"error": f"Error parsing speed: {str(e)}"}
+
+    return None
+
+def parse_distance(distance_str):
+    # Example distance strings: "17°27'55.38368914 11.07.1996 20:14:35 UT" or "-0°36'30.83018524"
+    try:
+        # Match pattern with optional date and time
+        match = re.match(r"(-?\d+)°(\d+)'([\d\.]+)\s*(.*)", distance_str)
+        if match:
+            degree, minutes, seconds, date_time = match.groups()
+            distance_info = {
+                "degree": int(degree),
+                "minutes": int(minutes),
+                "seconds": float(seconds)
+            }
+            if date_time:  # Add date and time if present
+                distance_info["date"] = date_time.strip()
+            return distance_info
+    except Exception as e:
+        return {"error": f"Error parsing distance: {str(e)}"}
+
+    return None
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
