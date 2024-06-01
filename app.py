@@ -93,7 +93,7 @@ def parse_distance(distance_str):
                 "date": date_time
             }
     except Exception as e:
-        return {"error": f"Error parsing celestial body line: {str(e)}"}
+        return {"error": f"Error parsing distance: {str(e)}"}
 
     return None
 
