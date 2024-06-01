@@ -43,38 +43,42 @@ def parse_swetest_output(output):
     lines = output.split('\n')
     result = {}
     
-    # Extract general information
-    result["command"] = lines[0].split(': ')[1]
-    result["date"] = lines[1].split()[2]
-    result["gregorian"] = lines[1].split()[2]
-    result["UT"] = lines[1].split()[3]
-    result["version"] = lines[1].split()[5]
-    result["UT_Julian"] = lines[2].split()[1]
-    result["delta_t"] = lines[2].split()[4]
-    result["TT_Julian"] = lines[3].split()[1]
-    result["Epsilon_t"] = lines[4].split()[2]
-    result["Epsilon_m"] = lines[4].split()[3]
-    result["Nutation_longitude"] = lines[5].split()[1]
-    result["Nutation_obliquity"] = lines[5].split()[3]
-
-    # Extract celestial body information
+    try:
+        # Extract general information
+        result["command"] = lines[0].split(': ')[1]
+        result["date"] = lines[1].split()[2]
+        result["gregorian"] = lines[1].split()[2]
+        result["UT"] = lines[1].split()[3]
+        result["version"] = lines[1].split()[5]
+        result["UT_Julian"] = lines[2].split()[1]
+        result["delta_t"] = lines[2].split()[4]
+        result["TT_Julian"] = lines[3].split()[1]
+        result["Epsilon_t"] = lines[4].split()[2]
+        result["Epsilon_m"] = lines[4].split()[3]
+        result["Nutation_longitude"] = lines[5].split()[1]
+        result["Nutation_obliquity"] = lines[5].split()[3]
+    except IndexError as e:
+        raise ValueError(f"Error parsing general information: {str(e)}")
+    
     celestial_bodies = {}
     for line in lines[7:]:
         if line.strip():
-            parts = re.split(r'\s{2,}', line)
-            body = parts[0].split()[0]
-            details = {
-                "position": parts[0].split(' ', 1)[1],
-                "longitude": parts[1],
-                "latitude": parts[2],
-                "speed": parts[3],
-                "distance": parts[4],
-                "date": parts[5]
-            }
-            celestial_bodies[body] = details
-    
-    result.update(celestial_bodies)
+            try:
+                parts = re.split(r'\s{2,}', line)
+                body = parts[0].split()[0]
+                details = {
+                    "position": parts[0].split(' ', 1)[1],
+                    "longitude": parts[1],
+                    "latitude": parts[2],
+                    "speed": parts[3],
+                    "distance": parts[4],
+                    "date": parts[5]
+                }
+                celestial_bodies[body] = details
+            except IndexError as e:
+                raise ValueError(f"Error parsing celestial body information: {str(e)}")
 
+    result.update(celestial_bodies)
     return result
 
 if __name__ == '__main__':
