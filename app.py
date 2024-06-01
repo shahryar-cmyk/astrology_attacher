@@ -38,7 +38,7 @@ def execute_command():
 def parse_swetest_output(output):
     lines = output.splitlines()  # Split by newline characters
     result = {}
-
+# Issue is in Uranus Seconds
     try:
         if len(lines) > 0:
             result["command"] = lines[0]
@@ -67,7 +67,7 @@ def parse_swetest_output(output):
         if len(lines) > 12:
             result["Saturn"] = parse_celestial_body(lines[12])
         if len(lines) > 13:
-            result["Uranus"] = parse_celestial_body(lines[13])
+            result["Uranus"] = lines[13]
         if len(lines) > 14:
             result["Neptune"] = parse_celestial_body(lines[14])
         if len(lines) > 15:
