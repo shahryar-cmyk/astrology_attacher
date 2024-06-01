@@ -46,15 +46,13 @@ def parse_swetest_output(output):
     try:
         # Implement your parsing logic here
         # Example:
-        # result["some_info"] = lines[0]
+        result["some_info"] = lines[0]
         # result["some_other_info"] = lines[1]
 
     except IndexError as e:
         return {"error": f"Error parsing output: {str(e)}"}
 
-    return result["some_info"] = lines[0]
-
-# Rest of your code remains unchanged
+    return result  # Always return a dictionary
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
