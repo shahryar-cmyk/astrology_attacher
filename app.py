@@ -42,7 +42,7 @@ def execute_command():
 def parse_swetest_output(output):
     lines = output.split('\n')
     result = {}
-    
+
     try:
         # Extract general information
         result["command"] = lines[0].split(': ')[1]
@@ -58,8 +58,8 @@ def parse_swetest_output(output):
         result["Nutation_longitude"] = lines[5].split()[1]
         result["Nutation_obliquity"] = lines[5].split()[3]
     except IndexError as e:
-        raise ValueError(f"Error parsing general information: {str(e)}")
-    
+        raise ValueError(f"Error parsing general information: {str(e)}. Line: {lines}")
+
     celestial_bodies = {}
     for line in lines[7:]:
         if line.strip():
@@ -76,7 +76,7 @@ def parse_swetest_output(output):
                 }
                 celestial_bodies[body] = details
             except IndexError as e:
-                raise ValueError(f"Error parsing celestial body information: {str(e)}")
+                raise ValueError(f"Error parsing celestial body information: {str(e)}. Line: {line}")
 
     result.update(celestial_bodies)
     return result
