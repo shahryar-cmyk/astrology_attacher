@@ -44,8 +44,10 @@ def parse_swetest_output(output):
     result = {}
 
     try:
-        # Extract general information with checks for list length
-        result["command"] = lines[0].split(': ')[1] if len(lines[0].split(': ')) > 1 else "Unknown command"
+        # Extract general information
+        command_line = lines[0].split(': ')
+        result["command"] = command_line[1] if len(command_line) > 1 else "Unknown command"
+
         date_line = lines[1].split()
         if len(date_line) >= 6:
             result["date"] = date_line[2]
