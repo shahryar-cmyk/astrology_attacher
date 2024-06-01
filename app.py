@@ -71,7 +71,7 @@ def parse_celestial_body(line):
                 "name": parts[0].strip(),
                 "position": parts[1].strip(),
                 "longitude": parts[2].strip(),
-                "latitude": parse_distance(parts[3].strip()),
+                "latitude": parts[3].strip(),
                 "speed": parts[4].strip(),
                 "distance": parse_distance(parts[5].strip())
             }
