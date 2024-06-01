@@ -56,6 +56,22 @@ def parse_swetest_output(output):
             result["Sun"] = parse_celestial_body(lines[6])
         if len(lines) > 7:
             result["Moon"] = parse_celestial_body(lines[7])
+        if len(lines) > 8:
+            result["Mercury"] = parse_celestial_body(lines[8])
+        if len(lines) > 9:
+            result["Venus"] = parse_celestial_body(lines[9])
+        if len(lines) > 10:
+            result["Mars"] = parse_celestial_body(lines[10])
+        if len(lines) > 11:
+            result["Jupiter"] = parse_celestial_body(lines[11])
+        if len(lines) > 12:
+            result["Saturn"] = parse_celestial_body(lines[12])
+        if len(lines) > 13:
+            result["Uranus"] = parse_celestial_body(lines[13])
+        if len(lines) > 14:
+            result["Neptune"] = parse_celestial_body(lines[14])
+        if len(lines) > 15:
+            result["Pluto"] = parse_celestial_body(lines[15])
 
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
