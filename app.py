@@ -64,8 +64,9 @@ def parse_swetest_output(output):
 
 def parse_celestial_body(line):
     try:
+        # Split the line into parts based on fixed-width fields
         parts = re.split(r'\s{2,}', line)
-        if len(parts) >= 8:
+        if len(parts) >= 7:
             return {
                 "name": parts[0].strip(),
                 "position": parts[1].strip(),
@@ -73,11 +74,12 @@ def parse_celestial_body(line):
                 "latitude": parts[3].strip(),
                 "speed": parts[4].strip(),
                 "distance": parts[5].strip(),
-                "date": parts[6].strip(),
-                "time": parts[7].strip()
+                "datetime": parts[6].strip()  # Combined date and time
             }
     except Exception as e:
         return {"error": f"Error parsing celestial body line: {str(e)}"}
+
+    return None
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
