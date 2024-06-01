@@ -90,7 +90,7 @@ def parse_celestial_body(line):
                 "longitude": parts[2].strip(),
                 "latitude": parts[3].strip(),
                 "speed": parse_speed(parts[4].strip()),
-                "distance": parse_distance(parts[5].strip())
+                "distance": parts[5].strip()
             }
     except Exception as e:
         return {"error": f"Error parsing celestial body line: {str(e)}"}
