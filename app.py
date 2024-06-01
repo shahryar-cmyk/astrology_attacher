@@ -79,7 +79,7 @@ def parse_celestial_body(line):
     except Exception as e:
         return {"error": f"Error parsing celestial body line: {str(e)}"}
 
-    return None
+    return parts
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
