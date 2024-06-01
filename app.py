@@ -56,6 +56,9 @@ def parse_swetest_output(output):
             result["Sun"] = parse_celestial_body(lines[6])
         if len(lines) > 7:
             result["Moon"] = parse_celestial_body(lines[7])
+        if len(lines) > 8:
+            result["Mercury"] = parse_celestial_body(lines[8])
+    
 
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
