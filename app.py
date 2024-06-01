@@ -53,7 +53,7 @@ def parse_swetest_output(output):
         if len(lines) > 5:
             result["Nutation"] = lines[5]
         if len(lines) > 6:
-            result["Sun"] = parse_celestial_body(lines[6])
+            result["Sun"] = lines[6]
         if len(lines) > 7:
             result["Moon"] = parse_celestial_body(lines[7])
         if len(lines) > 8:
@@ -67,7 +67,7 @@ def parse_swetest_output(output):
         if len(lines) > 12:
             result["Saturn"] = parse_celestial_body(lines[12])
         if len(lines) > 13:
-            result["Uranus"] = lines[13]
+            result["Uranus"] = parse_celestial_body(lines[13])
         if len(lines) > 14:
             result["Neptune"] = parse_celestial_body(lines[14])
         if len(lines) > 15:
