@@ -40,7 +40,6 @@ def parse_swetest_output(output):
     result = {}
 
     try:
-        # Example parsing logic, adapt this to the actual output format of swetest
         if len(lines) > 0:
             result["command"] = lines[0]
         if len(lines) > 1:
@@ -54,14 +53,31 @@ def parse_swetest_output(output):
         if len(lines) > 5:
             result["Nutation"] = lines[5]
         if len(lines) > 6:
-            result["Sun"] = lines[6]
+            result["Sun"] = parse_celestial_body(lines[6])
         if len(lines) > 7:
-            result["Moon"] = lines[7]
+            result["Moon"] = parse_celestial_body(lines[7])
 
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
 
     return result  # Always return a dictionary
+
+def parse_celestial_body(line):
+    try:
+        parts = re.split(r'\s{2,}', line)
+        if len(parts) >= 8:
+            return {
+                "name": parts[0].strip(),
+                "position": parts[1].strip(),
+                "longitude": parts[2].strip(),
+                "latitude": parts[3].strip(),
+                "speed": parts[4].strip(),
+                "distance": parts[5].strip(),
+                "date": parts[6].strip(),
+                "time": parts[7].strip()
+            }
+    except Exception as e:
+        return {"error": f"Error parsing celestial body line: {str(e)}"}
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
