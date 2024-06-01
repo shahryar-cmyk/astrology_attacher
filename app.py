@@ -72,11 +72,31 @@ def parse_celestial_body(line):
                 "position": parts[1].strip(),
                 "longitude": parts[2].strip(),
                 "latitude": parts[3].strip(),
-                "speed": parts[4].strip(),
+                "speed": parse_speed(parts[4].strip()),
                 "distance": parse_distance(parts[5].strip())
             }
     except Exception as e:
         return {"error": f"Error parsing celestial body line: {str(e)}"}
+
+    return None
+
+def parse_speed(speed_str):
+    # Example speed strings: "-4° 7'28.47829196" or "-0° 0' 0.47457045"
+    try:
+        match = re.match(r"(-?\d+)°\s*(\d+)'(?:\s*(\d+\.\d+)|(\d+)\.(\d+))", speed_str)
+        if match:
+            degree, minutes, seconds_decimal, seconds_whole, seconds_fraction = match.groups()
+            if seconds_decimal:
+                seconds = float(seconds_decimal)
+            else:
+                seconds = float(f"{seconds_whole}.{seconds_fraction}")
+            return {
+                "degree": int(degree),
+                "minutes": int(minutes),
+                "seconds": seconds
+            }
+    except Exception as e:
+        return {"error": f"Error parsing speed: {str(e)}"}
 
     return None
 
@@ -87,9 +107,9 @@ def parse_distance(distance_str):
         if match:
             degree, minutes, seconds, date_time = match.groups()
             return {
-                "degree": degree,
-                "minutes": minutes,
-                "seconds": seconds,
+                "degree": int(degree),
+                "minutes": int(minutes),
+                "seconds": float(seconds),
                 "date": date_time
             }
     except Exception as e:
