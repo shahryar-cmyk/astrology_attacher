@@ -68,12 +68,12 @@ def parse_celestial_body(line):
         parts = re.split(r'\s{2,}', line)
         if len(parts) >= 5:
             return {
-                "name":parts[1].strip(),
-                # "position": parts[1].strip(),
-                # "longitude": parts[2].strip(),
-                # "latitude": parts[3].strip(),
-                # "speed": parts[4].strip(),
-                # "distance": parts[5].strip(),
+                # "name":parts[1].strip(),
+                "position": parts[1].strip(),
+                "longitude": parts[2].strip(),
+                "latitude": parts[3].strip(),
+                "speed": parts[4].strip(),
+                "distance": parts[5].strip(),
                 # "datetime": parts[6].strip()  # Combined date and time
             }
     except Exception as e:
