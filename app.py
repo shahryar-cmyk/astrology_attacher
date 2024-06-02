@@ -118,46 +118,23 @@ def parse_house_output(output):
     result = {}
     
     try:
-        planet_positions = lines[6:16]  # Adjust this slice according to the actual output format
-        for line in planet_positions:
-            # Extract planet name and position using regular expression
-            match = re.match(r"(\w+)\s+(.+)", line)
-
-            if match:
-                planet_name = match.group(1)
-                position = match.group(2).strip()
+        for line in lines:
+            parts = line.split()  # Assuming each part of the line is separated by whitespace
+            if len(parts) == 5:  # Check if the line has the expected number of parts
+                planet_name = parts[0]
+                degree = int(parts[1])
+                degree_sign = parts[2]
+                minute = int(parts[3])
+                second = int(parts[4])
+                
                 result[planet_name] = {
-                        "name": planet_name,
-                        "position": position
-                    }
-
-                # # Extract the degree part of the position
-                # degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", position)
-                # degree_match_sign = re.findall(r'[a-zA-Z]+', position)
-                # degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', position)
-                # degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
-                # degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
-                # degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
-               
-                # if degree_match:
-                #     degree = int(degree_match.group(1))
-                #     degree_sign = degree_match_sign[0] if degree_match_sign else ""
-                #     min_sec_split = degree_match_min[0].split("'") if len(degree_match_min) > 1 else ["", ""]
-                #     minute = min_sec_split[0]
-                #     second = min_sec_split[1] if len(min_sec_split) > 1 else ""
-                    
-                #     result[planet_name] = {
-                #         "positionDegree": degree,
-                #         "position_sign": degree_sign,
-                #         "position_min": minute,
-                #         "position_sec": second,
-                #     }
-                # else:
-                #     result[planet_name] = {"error": f"Error parsing degree from position: {position}"}
-
+                    "positionDegree": degree,
+                    "position_sign": degree_sign,
+                    "position_min": minute,
+                    "position_sec": second,
+                }
             else:
                 result["error"] = f"Error parsing line: {line}"
-
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
 
