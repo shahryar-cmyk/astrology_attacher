@@ -3,8 +3,7 @@ import subprocess
 import re
 
 app = Flask(__name__)
-# Check the Data Again with swetest tommorow.
-# Difference in Moon, Venus 
+
 @app.route('/testCommand', methods=['POST'])
 def execute_command():
     try:
@@ -39,64 +38,33 @@ def execute_command():
 def parse_swetest_output(output):
     lines = output.splitlines()  # Split by newline characters
     result = {}
-# Issue is in Uranus Seconds
     try:
-        # if len(lines) > 0:
-        #     result["command"] = lines[0]
-        # if len(lines) > 1:
-        #     result["date"] = lines[1]
-        # if len(lines) > 2:
-        #     result["UT"] = lines[2]
-        # if len(lines) > 3:
-        #     result["TT"] = lines[3]
-        # if len(lines) > 4:
-        #     result["Epsilon"] = lines[4]
-        # if len(lines) > 5:
-        #     result["Nutation"] = lines[5]
-        if len(lines) > 6:
-            result["Sun"] = lines[6]
-        if len(lines) > 7:
-            result["Moon"] = lines[7]
-        if len(lines) > 8:
-            result["Mercury"] = lines[8]
-        if len(lines) > 9:
-            result["Venus"] = lines[9]
-        if len(lines) > 10:
-            result["Mars"] = lines[10]
-        if len(lines) > 11:
-            result["Jupiter"] = lines[11]
-        if len(lines) > 12:
-            result["Saturn"] = lines[12]
-        if len(lines) > 13:
-            result["Uranus"] = lines[13]
-        if len(lines) > 14:
-            result["Neptune"] = lines[14]
-        if len(lines) > 15:
-            result["Pluto"] = lines[15]
-
+        celestial_bodies = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
+        for i, body in enumerate(celestial_bodies):
+            if len(lines) > i + 6:
+                result[body] = parse_celestial_body(body, lines[i + 6])
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
 
-    return result  # Always return a dictionary
+    return result
 
-def parse_celestial_body(line):
+def parse_celestial_body(name, line):
     try:
-        # Split the line by spaces and filter out empty strings
-        parts = [part.strip() for part in line.strip().split(" ") if part.strip()]
-        if len(parts) >= 6:
+        # Extract the components using regex
+        match = re.match(r'([A-Za-z]+)\s+(\d+)\s+([a-z]{2})\s+(\d+)\'(\d+\.\d+)', line.strip())
+        if match:
+            position_degree, position_sign, position_minute, position_second = match.groups()[1:]
             return {
-                "name": parts[0],
-                "position degree": parts[1],
-                "position sign": parts[2],
-                "position minSec": parts[3],
-                # "speed": parse_speed(parts[4]),
-                # "distance": parse_distance(parts[5])
+                "name": name,
+                "positionDegree": int(position_degree),
+                "positionSign": position_sign,
+                "positionMinute": int(position_minute),
+                "positionSecond": float(position_second)
             }
     except Exception as e:
         return {"error": f"Error parsing celestial body line: {str(e)}"}
 
     return None
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
