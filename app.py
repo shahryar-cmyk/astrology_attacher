@@ -79,24 +79,6 @@ def parse_swetest_output(output):
 
     return result  # Always return a dictionary
 
-def parse_celestial_body(line):
-    try:
-        # Split the line by spaces and filter out empty strings
-        parts = [part.strip() for part in line.strip().split(" ") if part.strip()]
-        if len(parts) >= 6:
-            return {
-                "name": parts[0],
-                "position degree": parts[1],
-                "position sign": parts[2],
-                "position minSec": parts[3],
-                # "speed": parse_speed(parts[4]),
-                # "distance": parse_distance(parts[5])
-            }
-    except Exception as e:
-        return {"error": f"Error parsing celestial body line: {str(e)}"}
-
-    return None
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
