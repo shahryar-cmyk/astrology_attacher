@@ -121,8 +121,10 @@ def parse_house_output(output):
         if len(lines) > 0:
             # Extract planet name and position using regular expression
             match = re.match(r"(\w+)\s+(.+)", lines[8])
+            remove_empty_space = match.group(2).strip()
+            
             result = {
-                "house1": match.group(2).strip(),
+                "house1": remove_empty_space.split(" ")[0],
                 "house2": lines[9],
                 "house3": lines[10],
                 "house4": lines[11],
