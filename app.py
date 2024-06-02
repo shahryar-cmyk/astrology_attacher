@@ -124,7 +124,7 @@ def parse_house_output(output):
             remove_empty_space = match.group(2).strip()
             
             result = {
-                "house1": remove_empty_space.split(" ")[2],
+                "house1": remove_empty_space,
                 "house2": lines[9],
                 "house3": lines[10],
                 "house4": lines[11],
