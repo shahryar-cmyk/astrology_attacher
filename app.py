@@ -4,7 +4,7 @@ import re
 
 app = Flask(__name__)
 
-@app.route('/testCommand', methods=['POST'])
+@app.route('/planets', methods=['POST'])
 def execute_command():
     try:
         # Get the parameters from the request data and ensure they are integers
