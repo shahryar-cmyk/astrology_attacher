@@ -49,13 +49,13 @@ def parse_swetest_output(output):
                 planet_name = match.group(1)
                 position = match.group(2).strip()
 
-                # Extract the degree and minute part of the position
-                degree_minute_match = re.match(r"\w+\s+(\d{1,2})'\d+\.\d+", position)
-                if degree_minute_match:
-                    degree = int(degree_minute_match.group(1))
-                    result[planet_name] = {"positionDegree": degree, "positionDegreeMin": position}
+                # Extract the degree part of the position
+                degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", position)
+                if degree_match:
+                    degree = int(degree_match.group(1))
+                    result[planet_name] = {"positionDegree": degree}
                 else:
-                    result[planet_name] = {"error": f"Error parsing degree and minute from position: {position}"}
+                    result[planet_name] = {"error": f"Error parsing degree from position: {position}"}
             else:
                 result["error"] = f"Error parsing line: {line}"
 
