@@ -56,7 +56,7 @@ def parse_swetest_output(output):
                 # Extract the degree part of the position
                 degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", position)
                 degree_match_sign = re.findall(r'[a-zA-Z]+', position1)
-                degree_match_MinSec = re.findall(r'(\d+)\'(\d+\.\d+)', position2)
+                degree_match_MinSec = re.findall(r'(\d+)?\'(\d+\.\d+)', position2)
 
 
                 if degree_match:
