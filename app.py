@@ -59,12 +59,16 @@ def parse_swetest_output(output):
                 degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', position2)
                 degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
                 degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
+                # Split the string by apostrophes
+                degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
+               
+
                 
 
                 if degree_match:
                     degree = int(degree_match.group(1))
                     degree_sign = degree_match_sign
-                    result[planet_name] = {"positionDegree": degree,"DegreeSign":degree_sign[0], "position": degree_match_min_sec_again_spaces_removed,}
+                    result[planet_name] = {"positionDegree": degree,"DegreeSign":degree_sign[0], "position": degree_match_min,}
                 else:
                     result[planet_name] = {"error": f"Error parsing degree from position: {position}"}
             else:
