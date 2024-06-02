@@ -56,12 +56,13 @@ def parse_swetest_output(output):
                 # Extract the degree part of the position
                 degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", position)
                 degree_match_sign = re.findall(r'[a-zA-Z]+', position1)
+                degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', position2)
                 
 
                 if degree_match:
                     degree = int(degree_match.group(1))
                     degree_sign = degree_match_sign
-                    result[planet_name] = {"positionDegree": degree,"DegreeSign":degree_sign, "position": position2,}
+                    result[planet_name] = {"positionDegree": degree,"DegreeSign":degree_sign, "position": degree_match_min_sec,}
                 else:
                     result[planet_name] = {"error": f"Error parsing degree from position: {position}"}
             else:
