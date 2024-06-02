@@ -120,7 +120,7 @@ def parse_house_output(output):
     try:
         if len(lines) > 0:
             result = {
-                "positionDegree": lines,
+                "positionDegree": lines[9],
             }
         else:
             result["error"] = "Error parsing line: No lines in the output"
