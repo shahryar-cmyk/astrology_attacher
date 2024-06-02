@@ -97,45 +97,5 @@ def parse_celestial_body(line):
     return None
 
 
-def parse_speed(speed_str):
-    # Example speed strings: "-4° 7'28.47829196" or "-0° 0' 0.47457045"
-    try:
-        match = re.match(r"(-?\d+)°\s*(\d+)'(?:\s*(\d+\.\d+)|(\d+)\.(\d+))", speed_str)
-        if match:
-            degree, minutes, seconds_decimal, seconds_whole, seconds_fraction = match.groups()
-            if seconds_decimal:
-                seconds = float(seconds_decimal)
-            else:
-                seconds = float(f"{seconds_whole}.{seconds_fraction}")
-            return {
-                "degree": int(degree),
-                "minutes": int(minutes),
-                "seconds": seconds
-            }
-    except Exception as e:
-        return {"error": f"Error parsing speed: {str(e)}"}
-
-    return None
-
-def parse_distance(distance_str):
-    # Example distance strings: "17°27'55.38368914 11.07.1996 20:14:35 UT" or "-0°36'30.83018524"
-    try:
-        # Match pattern with optional date and time
-        match = re.match(r"(-?\d+)°(\d+)'([\d\.]+)\s*(.*)", distance_str)
-        if match:
-            degree, minutes, seconds, date_time = match.groups()
-            distance_info = {
-                "degree": int(degree),
-                "minutes": int(minutes),
-                "seconds": float(seconds)
-            }
-            if date_time:  # Add date and time if present
-                distance_info["date"] = date_time.strip()
-            return distance_info
-    except Exception as e:
-        return {"error": f"Error parsing distance: {str(e)}"}
-
-    return None
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
