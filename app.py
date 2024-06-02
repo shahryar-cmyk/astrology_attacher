@@ -55,7 +55,7 @@ def parse_swetest_output(output):
 
                 if degree_match:
                     degree = int(degree_match.group(1))
-                    degree_sign = degree_match_sign.group(1)
+                    degree_sign = degree_match_sign.group(0)
                     result[planet_name] = {"positionDegree": degree,"allData":degree_sign}
                 else:
                     result[planet_name] = {"error": f"Error parsing degree from position: {position}"}
