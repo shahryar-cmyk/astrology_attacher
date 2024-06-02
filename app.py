@@ -113,27 +113,29 @@ def house_endpoint():
     except Exception as e:
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
-import re
-
 def parse_house_output(output):
     lines = output.splitlines()  # Split by newline characters
     result = {}
     
     try:
         if len(lines) > 0:
-            for line in lines:
-                match = re.match(r"(\w+)\s+(.+)", line)
-                if match:
-                    planet_name = match.group(1)
-                    position = match.group(2).strip()
-                    # Update the result dictionary with each matched planet name and position
-                    result[planet_name] = position
+            # Extract planet name and position using regular expression
+            match = re.match(r"(\w+)\s+(.+)", lines[8])
+            result = {
+                "house1": match.group(2).strip(),
+                "house2": lines[9],
+                "house3": lines[10],
+                "house4": lines[11],
+                "house5": lines[12],
+                "house6": lines[13],
+            }
         else:
             result["error"] = "Error parsing line: No lines in the output"
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
-    
+
     return result  # Always return a dictionary
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
