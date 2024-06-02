@@ -90,8 +90,8 @@ def house_endpoint():
         ut_hour = int(request.json.get('ut_hour'))
         ut_min = int(request.json.get('ut_min'))
         ut_sec = int(request.json.get('ut_sec'))
-        lat_deg = request.json.get('lat_deg')
-        lon_deg = request.json.get('lon_deg')
+        # lat_deg = request.json.get('lat_deg')
+        # lon_deg = request.json.get('lon_deg')
 
         # Construct the command with zero-padded values
         command = f"swetest -b11.7.1996 -ut20:14:35 -p -house74.55,32.4333333,P -fPL -roundsec"
