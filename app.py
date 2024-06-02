@@ -44,10 +44,18 @@ def parse_swetest_output(output):
         for line in planet_positions:
             # Extract planet name and position using regular expression
             match = re.match(r"(\w+)\s+(.+)", line)
+
             if match:
                 planet_name = match.group(1)
                 position = match.group(2).strip()
-                result[planet_name] = position
+
+                # Extract the degree part of the position
+                degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", position)
+                if degree_match:
+                    degree = int(degree_match.group(1))
+                    result[planet_name] = {"positionDegree": degree}
+                else:
+                    result[planet_name] = {"error": f"Error parsing degree from position: {position}"}
             else:
                 result["error"] = f"Error parsing line: {line}"
 
