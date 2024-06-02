@@ -3,7 +3,7 @@ import subprocess
 import re
 
 app = Flask(__name__)
-
+# Check the Data Again with swetest tommorow.
 @app.route('/testCommand', methods=['POST'])
 def execute_command():
     try:
@@ -85,9 +85,9 @@ def parse_celestial_body(line):
         if len(parts) >= 6:
             return {
                 "name": parts[0],
-                "position": parts[1],
-                "longitude": parts[2],
-                "latitude": parts[3],
+                "position degree": parts[1],
+                "position sign": parts[2],
+                "position minSec": parts[3],
                 "speed": parse_speed(parts[4]),
                 "distance": parse_distance(parts[5])
             }
