@@ -104,7 +104,7 @@ def house_endpoint():
         # parsed_output = parse_swetest_output(output)
 
         # Return the parsed result as a JSON response
-        return jsonify({"result": result})
+        return jsonify({"result": output})
 
     except ValueError as e:
         return jsonify({"error": f"Invalid input type: {str(e)}"}), 400
