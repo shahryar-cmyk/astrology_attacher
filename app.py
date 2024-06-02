@@ -53,7 +53,7 @@ def parse_swetest_output(output):
                 degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", position)
                 if degree_match:
                     degree = int(degree_match.group(1))
-                    result[planet_name] = {"positionDegree": degree,}
+                    result[planet_name] = {"positionDegree": degree,"allData":position}
                 else:
                     result[planet_name] = {"error": f"Error parsing degree from position: {position}"}
             else:
