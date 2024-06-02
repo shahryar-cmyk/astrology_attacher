@@ -43,16 +43,16 @@ def parse_swetest_output(output):
     try:
         if len(lines) > 0:
             result["command"] = lines[0]
-        if len(lines) > 1:
-            result["date"] = lines[1]
-        if len(lines) > 2:
-            result["UT"] = lines[2]
-        if len(lines) > 3:
-            result["TT"] = lines[3]
-        if len(lines) > 4:
-            result["Epsilon"] = lines[4]
-        if len(lines) > 5:
-            result["Nutation"] = lines[5]
+        # if len(lines) > 1:
+        #     result["date"] = lines[1]
+        # if len(lines) > 2:
+        #     result["UT"] = lines[2]
+        # if len(lines) > 3:
+        #     result["TT"] = lines[3]
+        # if len(lines) > 4:
+        #     result["Epsilon"] = lines[4]
+        # if len(lines) > 5:
+        #     result["Nutation"] = lines[5]
         if len(lines) > 6:
             result["Sun"] = lines[6]
         if len(lines) > 7:
