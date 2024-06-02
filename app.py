@@ -122,16 +122,16 @@ def parse_house_output(output):
             parts = line.split()  # Assuming each part of the line is separated by whitespace
             if len(parts) == 5:  # Check if the line has the expected number of parts
                 planet_name = parts[0]
-                degree = int(parts[1])
-                degree_sign = parts[2]
-                minute = int(parts[3])
-                second = int(parts[4])
+                # degree = int(parts[1])
+                # degree_sign = parts[2]
+                # minute = int(parts[3])
+                # second = int(parts[4])
                 
                 result[planet_name] = {
-                    "positionDegree": degree,
-                    "position_sign": degree_sign,
-                    "position_min": minute,
-                    "position_sec": second,
+                    "positionDegree": parts[1],
+                    "position_sign": parts[2],
+                    "position_min": parts[3],
+                    "position_sec": parts[4],
                 }
             else:
                 result["error"] = f"Error parsing line: {line}"
