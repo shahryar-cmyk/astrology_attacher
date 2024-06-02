@@ -118,18 +118,17 @@ def parse_house_output(output):
     result = {}
     
     try:
-                result[planet_name] = {
-                    "positionDegree": lines[1],
-                    "position_sign": lines[2],
-                    "position_min": lines[3],
-                    "position_sec": lines[4],
-                }
-            else:
-                result["error"] = f"Error parsing line: {line}"
+        if len(lines) > 0:
+            result = {
+                "positionDegree": lines,
+            }
+        else:
+            result["error"] = "Error parsing line: No lines in the output"
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
 
     return result  # Always return a dictionary
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
