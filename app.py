@@ -41,8 +41,8 @@ def parse_swetest_output(output):
     result = {}
 # Issue is in Uranus Seconds
     try:
-        if len(lines) > 0:
-            # result["command"] = lines[0]
+        # if len(lines) > 0:
+        #     result["command"] = lines[0]
         # if len(lines) > 1:
         #     result["date"] = lines[1]
         # if len(lines) > 2:
