@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import subprocess
 import re
-from apis.second_api import app as second_app 
+# from apis.second_api import app as second_app 
 
 app = Flask(__name__)
 
