@@ -4,6 +4,7 @@ import re
 
 app = Flask(__name__)
 # Check the Data Again with swetest tommorow.
+# Difference in Moon, Venus 
 @app.route('/testCommand', methods=['POST'])
 def execute_command():
     try:
@@ -16,7 +17,7 @@ def execute_command():
         ut_sec = int(request.json.get('ut_sec'))
 
         # Construct the command with zero-padded values
-        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -fPZgSBDT -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -ep"
+        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -fPL -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -ep"
 
         # Execute the command using subprocess
         result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
@@ -53,25 +54,25 @@ def parse_swetest_output(output):
         if len(lines) > 5:
             result["Nutation"] = lines[5]
         if len(lines) > 6:
-            result["Sun"] = parse_celestial_body(lines[6])
+            result["Sun"] = lines[6]
         if len(lines) > 7:
-            result["Moon"] = parse_celestial_body(lines[7])
+            result["Moon"] = lines[7]
         if len(lines) > 8:
-            result["Mercury"] = parse_celestial_body(lines[8])
+            result["Mercury"] = lines[8]
         if len(lines) > 9:
-            result["Venus"] = parse_celestial_body(lines[9])
+            result["Venus"] = lines[9]
         if len(lines) > 10:
-            result["Mars"] = parse_celestial_body(lines[10])
+            result["Mars"] = lines[10]
         if len(lines) > 11:
-            result["Jupiter"] = parse_celestial_body(lines[11])
+            result["Jupiter"] = lines[11]
         if len(lines) > 12:
-            result["Saturn"] = parse_celestial_body(lines[12])
+            result["Saturn"] = lines[12]
         if len(lines) > 13:
-            result["Uranus"] = parse_celestial_body(lines[13])
+            result["Uranus"] = lines[13]
         if len(lines) > 14:
-            result["Neptune"] = parse_celestial_body(lines[14])
+            result["Neptune"] = lines[14]
         if len(lines) > 15:
-            result["Pluto"] = parse_celestial_body(lines[15])
+            result["Pluto"] = lines[15]
 
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
