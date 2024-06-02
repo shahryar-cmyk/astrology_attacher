@@ -51,9 +51,9 @@ def parse_swetest_output(output):
 def parse_celestial_body(name, line):
     try:
         # Extract the components using regex
-        match = re.match(r'([A-Za-z]+)\s+(\d+)\s+([a-z]{2})\s+(\d+)\'(\d+\.\d+)', line.strip())
+        match = re.match(r'\s*([A-Za-z]+)\s+(\d+)\s+([a-z]{2})\s+(\d+)\'(\d+\.\d+)', line.strip())
         if match:
-            position_degree, position_sign, position_minute, position_second = match.groups()[1:]
+            _, position_degree, position_sign, position_minute, position_second = match.groups()
             return {
                 "name": name,
                 "positionDegree": int(position_degree),
