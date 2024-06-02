@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 import subprocess
 import re
-# from apis.second_api import app as second_app 
 
 app = Flask(__name__)
 
@@ -49,27 +48,28 @@ def parse_swetest_output(output):
             if match:
                 planet_name = match.group(1)
                 position = match.group(2).strip()
-                position1 = match.group(2).strip()
-                position2 = match.group(2).strip()
-
-
 
                 # Extract the degree part of the position
                 degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", position)
-                degree_match_sign = re.findall(r'[a-zA-Z]+', position1)
-                degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', position2)
+                degree_match_sign = re.findall(r'[a-zA-Z]+', position)
+                degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', position)
                 degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
                 degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
-                # Split the string by apostrophes
                 degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
                
-
-                
-
                 if degree_match:
                     degree = int(degree_match.group(1))
-                    degree_sign = degree_match_sign
-                    result[planet_name] = {"positionDegree": degree,"position_sign":degree_sign[0], "position_min": degree_match_min[0],"position_sec": degree_match_min[1],}
+                    degree_sign = degree_match_sign[0] if degree_match_sign else ""
+                    min_sec_split = degree_match_min[0].split("'") if len(degree_match_min) > 1 else ["", ""]
+                    minute = min_sec_split[0]
+                    second = min_sec_split[1] if len(min_sec_split) > 1 else ""
+                    
+                    result[planet_name] = {
+                        "positionDegree": degree,
+                        "position_sign": degree_sign,
+                        "position_min": minute,
+                        "position_sec": second,
+                    }
                 else:
                     result[planet_name] = {"error": f"Error parsing degree from position: {position}"}
             else:
@@ -79,6 +79,11 @@ def parse_swetest_output(output):
         result["error"] = f"Error parsing output: {str(e)}"
 
     return result  # Always return a dictionary
+
+@app.route('/second_endpoint', methods=['GET'])
+def second_endpoint():
+    # Define your second API logic here
+    return jsonify({"message": "This is the second endpoint"})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
