@@ -127,7 +127,7 @@ def parse_house_output(output):
                 planet_name = match.group(1)
                 position = match.group(2).strip()
                 result[planet_name] = {
-                        "name": degree,
+                        "name": planet_name,
                         "position": position
                     }
 
