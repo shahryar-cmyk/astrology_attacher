@@ -126,12 +126,12 @@ def parse_house_output(output):
             match = re.split(pattern, lines[8])
             
             result = {
-                "house1": match,
-                "house2": lines[9],
-                "house3": lines[10],
-                "house4": lines[11],
-                "house5": lines[12],
-                "house6": lines[13],
+                "house1": re.split(pattern, lines[8]),
+                "house2": re.split(pattern, lines[9]),
+                "house3": re.split(pattern, lines[10]),
+                "house4": re.split(pattern, lines[11]),
+                "house5": re.split(pattern, lines[12]),
+                "house6": re.split(pattern, lines[13]),,
             }
         else:
             result["error"] = "Error parsing line: No lines in the output"
