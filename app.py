@@ -17,7 +17,7 @@ def execute_command():
         ut_sec = int(request.json.get('ut_sec'))
 
         # Construct the command with zero-padded values
-        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -fPL -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -ep"
+        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -fPLZ -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -ep"
 
         # Execute the command using subprocess
         result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
