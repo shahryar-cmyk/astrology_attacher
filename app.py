@@ -3,8 +3,7 @@ import subprocess
 import re
 
 app = Flask(__name__)
-# Check the Data Again with swetest tommorow.
-# Difference in Moon, Venus 
+
 @app.route('/testCommand', methods=['POST'])
 def execute_command():
     try:
@@ -39,46 +38,23 @@ def execute_command():
 def parse_swetest_output(output):
     lines = output.splitlines()  # Split by newline characters
     result = {}
-# Issue is in Uranus Seconds
+    
     try:
-        # if len(lines) > 0:
-        #     result["command"] = lines[0]
-        # if len(lines) > 1:
-        #     result["date"] = lines[1]
-        # if len(lines) > 2:
-        #     result["UT"] = lines[2]
-        # if len(lines) > 3:
-        #     result["TT"] = lines[3]
-        # if len(lines) > 4:
-        #     result["Epsilon"] = lines[4]
-        # if len(lines) > 5:
-        #     result["Nutation"] = lines[5]
-        if len(lines) > 6:
-            result["Sun"] = lines[6]
-        if len(lines) > 7:
-            result["Moon"] = lines[7]
-        if len(lines) > 8:
-            result["Mercury"] = lines[8]
-        if len(lines) > 9:
-            result["Venus"] = lines[9]
-        if len(lines) > 10:
-            result["Mars"] = lines[10]
-        if len(lines) > 11:
-            result["Jupiter"] = lines[11]
-        if len(lines) > 12:
-            result["Saturn"] = lines[12]
-        if len(lines) > 13:
-            result["Uranus"] = lines[13]
-        if len(lines) > 14:
-            result["Neptune"] = lines[14]
-        if len(lines) > 15:
-            result["Pluto"] = lines[15]
+        planet_positions = lines[6:16]  # Adjust this slice according to the actual output format
+        for line in planet_positions:
+            # Extract planet name and position using regular expression
+            match = re.match(r"(\w+)\s+(.+)", line)
+            if match:
+                planet_name = match.group(1)
+                position = match.group(2).strip()
+                result[planet_name] = position
+            else:
+                result["error"] = f"Error parsing line: {line}"
 
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
 
     return result  # Always return a dictionary
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
