@@ -88,8 +88,8 @@ def parse_celestial_body(line):
                 "position degree": parts[1],
                 "position sign": parts[2],
                 "position minSec": parts[3],
-                "speed": parse_speed(parts[4]),
-                "distance": parse_distance(parts[5])
+                # "speed": parse_speed(parts[4]),
+                # "distance": parse_distance(parts[5])
             }
     except Exception as e:
         return {"error": f"Error parsing celestial body line: {str(e)}"}
