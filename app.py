@@ -107,7 +107,7 @@ def house_endpoint():
         # Parse the output
         parsed_output = parse_house_output(output)
         # Parse the asteriod pholus output
-        parsed_asteriod_pholus_output = parse_asteriod_output(asteriod_pholus_output)
+        parsed_asteriod_pholus_output = parse_asteroid_output(asteriod_pholus_output)
 
         # Return the parsed result as a JSON response
         return jsonify({"result": parsed_output,
