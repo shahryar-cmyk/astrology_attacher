@@ -125,9 +125,10 @@ def parse_house_output(output):
             for i in range(8, 14):  # Loop through lines 8 to 13 (houses 1 to 6)
                     match = re.split(pattern, lines[i])[1]
                     degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
+                    
                     result[f"house{i - 7}"] = {
-                        "positionDegree": int(degree_match.group(1)) if degree_match else None,
-                        "position_sign": degree_match.group(2) if degree_match else None
+                        "positionDegree": int(degree_match.group(1)) if degree_match else None
+                        "position_sign": match
 
                         
                     }
