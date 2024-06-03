@@ -107,15 +107,15 @@ def house_endpoint():
         asteriod_9 = f"swetest -ps -xs31 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_10 = f"swetest -ps -xs15 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_11 = f"swetest -ps -xs624 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
-        asteriod_12 = f"swetest -ps -xs52 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
-        asteriod_13 = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
-        asteriod_14 = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
-        asteriod_15 = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
-        asteriod_16 = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
-        asteriod_17 = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
-        asteriod_18 = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
-        asteriod_19 = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
-        asteriod_20 = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        asteriod_12 = f"swetest -ps -xs511 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        asteriod_13 = f"swetest -ps -xs704 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        asteriod_14 = f"swetest -ps -xs107 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        asteriod_15 = f"swetest -ps -xs65 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        asteriod_16 = f"swetest -ps -xs121 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        asteriod_17 = f"swetest -ps -xs10199 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        asteriod_18 = f"swetest -ps -xs7 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        asteriod_19 = f"swetest -ps -xs136108 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        asteriod_20 = f"swetest -ps -xs136472 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_21 = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_22 = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_23 = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
@@ -185,6 +185,16 @@ def house_endpoint():
         asteriod_8_result = subprocess.run(asteriod_8, shell=True, check=True, capture_output=True, text=True)
         asteriod_9_result = subprocess.run(asteriod_9, shell=True, check=True, capture_output=True, text=True)
         asteriod_10_result = subprocess.run(asteriod_10, shell=True, check=True, capture_output=True, text=True)
+        asteriod_11_result = subprocess.run(asteriod_11, shell=True, check=True, capture_output=True, text=True)
+        asteriod_12_result = subprocess.run(asteriod_12, shell=True, check=True, capture_output=True, text=True)
+        asteriod_13_result = subprocess.run(asteriod_13, shell=True, check=True, capture_output=True, text=True)
+        asteriod_14_result = subprocess.run(asteriod_14, shell=True, check=True, capture_output=True, text=True)
+        asteriod_15_result = subprocess.run(asteriod_15, shell=True, check=True, capture_output=True, text=True)
+        asteriod_16_result = subprocess.run(asteriod_16, shell=True, check=True, capture_output=True, text=True)
+        asteriod_17_result = subprocess.run(asteriod_17, shell=True, check=True, capture_output=True, text=True)
+        asteriod_18_result = subprocess.run(asteriod_18, shell=True, check=True, capture_output=True, text=True)
+        asteriod_19_result = subprocess.run(asteriod_19, shell=True, check=True, capture_output=True, text=True)
+        asteriod_20_result = subprocess.run(asteriod_20, shell=True, check=True, capture_output=True, text=True)
 
 
         output = result.stdout
@@ -199,6 +209,16 @@ def house_endpoint():
         asteriod_8_output = asteriod_8_result.stdout
         asteriod_9_output = asteriod_9_result.stdout
         asteriod_10_output = asteriod_10_result.stdout
+        asteriod_11_output = asteriod_11_result.stdout
+        asteriod_12_output = asteriod_12_result.stdout
+        asteriod_13_output = asteriod_13_result.stdout
+        asteriod_14_output = asteriod_14_result.stdout
+        asteriod_15_output = asteriod_15_result.stdout
+        asteriod_16_output = asteriod_16_result.stdout
+        asteriod_17_output = asteriod_17_result.stdout
+        asteriod_18_output = asteriod_18_result.stdout
+        asteriod_19_output = asteriod_19_result.stdout
+        asteriod_20_output = asteriod_20_result.stdout
 
 
 
@@ -216,10 +236,20 @@ def house_endpoint():
         parsed_asteriod_8_output = parse_asteroid_output(asteriod_8_output)
         parsed_asteriod_9_output = parse_asteroid_output(asteriod_9_output)
         parsed_asteriod_10_output = parse_asteroid_output(asteriod_10_output)
+        parsed_asteriod_11_output = parse_asteroid_output(asteriod_11_output)
+        parsed_asteriod_12_output = parse_asteroid_output(asteriod_12_output)
+        parsed_asteriod_13_output = parse_asteroid_output(asteriod_13_output)
+        parsed_asteriod_14_output = parse_asteroid_output(asteriod_14_output)
+        parsed_asteriod_15_output = parse_asteroid_output(asteriod_15_output)
+        parsed_asteriod_16_output = parse_asteroid_output(asteriod_16_output)
+        parsed_asteriod_17_output = parse_asteroid_output(asteriod_17_output)
+        parsed_asteriod_18_output = parse_asteroid_output(asteriod_18_output)
+        parsed_asteriod_19_output = parse_asteroid_output(asteriod_19_output)
+        parsed_asteriod_20_output = parse_asteroid_output(asteriod_20_output)
 
         # Return the parsed result as a JSON response
         return jsonify({"result": parsed_output,
-                        "asteriod_Data": [parsed_asteriod_pholus_output,parsed_asteriod_1_output,parsed_asteriod_2_output,parsed_asteriod_3_output,parsed_asteriod_4_output,parsed_asteriod_5_output,parsed_asteriod_6_output,parsed_asteriod_7_output,parsed_asteriod_8_output,parsed_asteriod_9_output,parsed_asteriod_10_output]})
+                        "asteriod_Data": [parsed_asteriod_pholus_output,parsed_asteriod_1_output,parsed_asteriod_2_output,parsed_asteriod_3_output,parsed_asteriod_4_output,parsed_asteriod_5_output,parsed_asteriod_6_output,parsed_asteriod_7_output,parsed_asteriod_8_output,parsed_asteriod_9_output,parsed_asteriod_10_output,parsed_asteriod_11_output,parsed_asteriod_12_output,parsed_asteriod_13_output,parsed_asteriod_14_output,parsed_asteriod_15_output,parsed_asteriod_16_output,parsed_asteriod_17_output,parsed_asteriod_18_output,parsed_asteriod_19_output,parsed_asteriod_20_output]})
 
     except ValueError as e:
         return jsonify({"error": f"Invalid input type: {str(e)}"}), 400
