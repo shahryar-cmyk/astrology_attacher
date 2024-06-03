@@ -111,7 +111,7 @@ def house_endpoint():
 
         # Return the parsed result as a JSON response
         return jsonify({"result": parsed_output,
-                        "asteriod_Data": parsed_asteriod_pholus_output})
+                        "asteriod_Data": [parsed_asteriod_pholus_output]})
 
     except ValueError as e:
         return jsonify({"error": f"Invalid input type: {str(e)}"}), 400
