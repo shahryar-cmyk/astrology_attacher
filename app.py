@@ -121,36 +121,30 @@ def parse_house_output(output):
     try:
         if len(lines) > 0:
             pattern = r'\s{4,}'  # Pattern to split by 4 or more spaces
+            result = {}
             for i in range(8, 14):  # Loop through lines 8 to 13 (houses 1 to 6)
-                match = re.split(pattern, lines[i])[1]
-                degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
-                
-                degree_sign_match = re.findall(r'\b\w{2}\b', lines[i])
-                degree_match_min_sec = re.sub(r'^.*?\b\w{2}\b', '', lines[i]).strip()
-                
-                if degree_match_min_sec:
-                    degree_match_min_sec = degree_match_min_sec.replace(" ", "")
-                    min_sec_split = degree_match_min_sec.split("'")
+                    match = re.split(pattern, lines[i])[1]
+                    degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
+                    degree_match_sign = re.findall(r'[a-zA-Z]+', match)
+                    degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', match)
+                    degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
+                    degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
+                    degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
+                    degree_sign = degree_match_sign[0] if degree_match_sign else ""
+                    min_sec_split = degree_match_min[0].split("'") if len(degree_match_min) > 1 else ["", ""]
                     minute = min_sec_split[0]
                     second = min_sec_split[1] if len(min_sec_split) > 1 else ""
-                else:
-                    minute = ""
-                    second = ""
-
-                degree_sign = degree_sign_match[0] if degree_sign_match else ""
-                
-                result[f"house{i - 7}"] = {
-                    "positionDegree": degree_match.group(1) if degree_match else "",
-                    "position_sign": degree_sign,
-                    "position_min": minute,
-                    "position_sec": second,
-                }
+                    # result[f"house{i - 7}"] = degree_match.group(1)
+                     result[f"house{i - 7}"] = {
+                        "positionDegree": degree_match.group(1),
+                        "position_sign": degree_sign,
+                        "position_min": minute,
+                        "position_sec": second,
+                    }
         else:
             result["error"] = "Error parsing line: No lines in the output"
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
-    except Exception as e:
-        result["error"] = f"Unexpected error: {str(e)}"
 
     return result  # Always return a dictionary
 
