@@ -439,10 +439,6 @@ def parse_asteroid_output(asteroid_pholus_output):
             degree_match1 = re.match(r"(\d{1,2})\s\w{2}\s.*", match1)
             degree_match_sign1 = re.findall(r'[a-zA-Z]+', match1)   
             degree_sign1 = degree_match_sign1[0] if degree_match_sign1 else ""
-            degree_match_min_sec1 = re.sub(r'^.*?[a-zA-Z]', '', match1)
-            degree_match_min_sec_again1 = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec1)
-            degree_match_min_sec_again_spaces_removed1 = degree_match_min_sec_again1.replace(" ", "")
-            degree_match_min1 = degree_match_min_sec_again_spaces_removed1.split("'")
          
 
             result[name] = {
