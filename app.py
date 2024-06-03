@@ -99,14 +99,17 @@ def house_endpoint():
 
         # Execute the command using subprocess
         result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
+        asteriod_pholus_result = subprocess.run(asteriod_pholus, shell=True, check=True, capture_output=True, text=True)
         output = result.stdout
+        asteriod_pholus_output = asteriod_pholus_result.stdout
+
 
         # Parse the output
         parsed_output = parse_house_output(output)
 
         # Return the parsed result as a JSON response
         return jsonify({"result": parsed_output,
-                        "asteriod_pholus": asteriod_pholus})
+                        "asteriod_pholus": asteriod_pholus_output})
 
     except ValueError as e:
         return jsonify({"error": f"Invalid input type: {str(e)}"}), 400
