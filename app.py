@@ -434,10 +434,11 @@ def parse_asteroid_output(asteroid_pholus_output):
             degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
             degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
             pattern1 = r'\s{3,}'  # Pattern to split by 3 or more spaces
+            match1 = re.split(pattern1, lines[6])[1]
          
 
             result[name] = {
-                    "positionDegree": int(degree_match.group(1)) if degree_match else None,
+                    "positionDegree": int(degree_match.group(1)) if degree_match else match1.group(1),
                     "position_sign": degree_sign,
                     "position_min": degree_match_min[0],
                     "position_sec": degree_match_min[1] if len(degree_match_min) > 1 else "",    
