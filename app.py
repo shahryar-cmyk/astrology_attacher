@@ -123,10 +123,11 @@ def parse_house_output(output):
             # match = re.match(r"(\w+)\s+(.+)", lines[8])
             # remove_empty_space = match.group(2).strip()
             pattern = r'\s{4,}'
-            match = re.split(pattern, lines[8])
+            match = re.split(pattern, lines[8])[1]
+            degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
             
             result = {
-                "house1": re.split(pattern, lines[8])[1],
+                "house1": degree_match.group(1) if degree_match else "",
                 "house2": re.split(pattern, lines[9])[1],
                 "house3": re.split(pattern, lines[10])[1],
                 "house4": re.split(pattern, lines[11])[1],
