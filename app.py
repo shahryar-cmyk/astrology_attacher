@@ -125,16 +125,12 @@ def parse_house_output(output):
             for i in range(8, 14):  # Loop through lines 8 to 13 (houses 1 to 6)
                     match = re.split(pattern, lines[i])[1]
                     degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
-                    degree_sign = degree_match_sign[0] if degree_match_sign else ""
-                    min_sec_split = degree_match_min[0].split("'") if len(degree_match_min) > 1 else ["", ""]
-                    minute = min_sec_split[0]
-                    second = min_sec_split[1] if len(min_sec_split) > 1 else ""
                     # result[f"house{i - 7}"] = degree_match.group(1)
                      result[f"house{i - 7}"] = {
                         "positionDegree": degree_match.group(1),
-                        "position_sign": degree_sign,
-                        "position_min": minute,
-                        "position_sec": second,
+                        "position_sign": match,
+                        "position_min": match,
+                        "position_sec": match,
                     }
         else:
             result["error"] = "Error parsing line: No lines in the output"
