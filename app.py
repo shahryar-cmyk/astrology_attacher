@@ -127,7 +127,7 @@ def parse_house_output(output):
                     degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
                     
                     result[f"house{i - 7}"] = {
-                        "positionDegree": int(degree_match.group(1)) if degree_match else None
+                        "positionDegree": int(degree_match.group(1)) if degree_match else None,
                         "position_sign": match
 
                         
