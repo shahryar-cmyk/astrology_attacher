@@ -137,7 +137,7 @@ def parse_house_output(output):
                     result[f"house{i - 7}"] = {
                         "positionDegree": int(degree_match.group(1)) if degree_match else None,
                         "position_sign": degree_sign,
-                        "position_min": degree_match_min_sec_again,
+                        "position_min": degree_match_min_sec_again_spaces_removed,
 
                         
                     }
