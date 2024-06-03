@@ -448,7 +448,7 @@ def parse_asteroid_output(asteroid_pholus_output):
             result[name] = {
                     "positionDegree": int(degree_match.group(1)) if degree_match else int(degree_match1.group(1)),
                     "position_sign": int(degree_match.group(1)) if degree_sign else degree_sign1,
-                    "position_min": int(degree_match.group(1)) if degree_match_min[0] else degree_sign1,
+                    "position_min": degree_match_min[0],
                     "position_sec": degree_match_min[1] if len(degree_match_min) > 1 else "",    
             }
         else:
