@@ -433,7 +433,7 @@ def parse_asteroid_output(asteroid_pholus_output):
             degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
             degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
             degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
-            pattern1 = r'\s{3,}'  # Pattern to split by 3 or more spaces
+            pattern1 = r'\s{2,}'  # Pattern to split by 3 or more spaces
             match1 = re.split(pattern1, lines[6])[1]
             degree_match1 = re.match(r"(\d{1,2})\s\w{2}\s.*", match1)
          
