@@ -113,27 +113,19 @@ def house_endpoint():
     except Exception as e:
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
+
 def parse_house_output(output):
     lines = output.splitlines()  # Split by newline characters
     result = {}
     
     try:
         if len(lines) > 0:
-            # Extract planet name and position using regular expression
-            # match = re.match(r"(\w+)\s+(.+)", lines[8])
-            # remove_empty_space = match.group(2).strip()
-            pattern = r'\s{4,}'
-            match = re.split(pattern, lines[8])[1]
-            degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
-            
-            result = {
-                "house1": degree_match.group(1) if degree_match else "",
-                "house2": re.split(pattern, lines[9])[1],
-                "house3": re.split(pattern, lines[10])[1],
-                "house4": re.split(pattern, lines[11])[1],
-                "house5": re.split(pattern, lines[12])[1],
-                "house6": re.split(pattern, lines[13])[1],
-            }
+            pattern = r'\s{4,}'  # Pattern to split by 4 or more spaces
+            result = {}
+            for i in range(8, 14):  # Loop through lines 8 to 13 (houses 1 to 6)
+                    match = re.split(pattern, lines[i])[1]
+                    degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
+                    result[f"house{i - 7}"] = degree_match.group(1) if degree_match else "Error parsing degree"
         else:
             result["error"] = "Error parsing line: No lines in the output"
     except IndexError as e:
