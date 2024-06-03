@@ -126,7 +126,7 @@ def parse_house_output(output):
             match = re.split(pattern, lines[8])
             
             result = {
-                "house1": re.split(pattern, lines[8].group(1)),
+                "house1": re.split(pattern, lines[8][0]),
                 "house2": re.split(pattern, lines[9]),
                 "house3": re.split(pattern, lines[10]),
                 "house4": re.split(pattern, lines[11]),
