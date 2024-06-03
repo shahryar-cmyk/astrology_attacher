@@ -434,22 +434,13 @@ def parse_asteroid_output(asteroid_pholus_output):
             degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
             degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
             pattern1 = r'\s{3,}'  # Pattern to split by 3 or more spaces
-            match1 = re.split(pattern1, lines[6])[1]
-            # name = re.split(pattern1, lines[6])[0]
-            degree_match1 = re.match(r"(\d{1,2})\s\w{2}\s.*", match1)
-            degree_match_sign1 = re.findall(r'[a-zA-Z]+', match1)   
-            degree_sign1 = degree_match_sign1[0] if degree_match_sign1 else ""
-            degree_match_min_sec1 = re.sub(r'^.*?[a-zA-Z]', '', match1)
-            degree_match_min_sec_again1 = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec1)
-            degree_match_min_sec_again_spaces_removed1 = degree_match_min_sec_again1.replace(" ", "")
-            degree_match_min1 = degree_match_min_sec_again_spaces_removed1.split("'")
          
 
             result[name] = {
-                    "positionDegree": int(degree_match.group(1)) if degree_match else degree_match1,
-                    "position_sign": int(degree_match.group(1)) if degree_sign else degree_sign1,
-                    "position_min": int(degree_match.group(1)) if degree_match_min[0] else degree_sign1,
-                    "position_sec": degree_match_min[1] if len(degree_match_min) > 1 else degree_match_min1[1],    
+                    "positionDegree": int(degree_match.group(1)) if degree_match else None,
+                    "position_sign": degree_sign,
+                    "position_min": degree_match_min[0],
+                    "position_sec": degree_match_min[1] if len(degree_match_min) > 1 else "",    
             }
         else:
             result["error"] = "Error parsing output: No lines in the output"
