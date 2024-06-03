@@ -138,8 +138,7 @@ def parse_house_output(output):
                         "positionDegree": int(degree_match.group(1)) if degree_match else None,
                         "position_sign": degree_sign,
                         "position_min": degree_match_min[0],
-
-                        
+                        "position_sec": degree_match_min[1] if len(degree_match_min) > 1 else "",                 
                     }
         else:
             result["error"] = "Error parsing line: No lines in the output"
