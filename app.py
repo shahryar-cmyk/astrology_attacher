@@ -190,15 +190,15 @@ def house_endpoint():
         output = result.stdout
         asteriod_pholus_output = asteriod_pholus_result.stdout
         asteriod_1_output = asteriod_1_result.stdout
-        asteriod_2_output = asteriod_2.stdout
-        asteriod_3_output = asteriod_3.stdout
-        asteriod_4_output = asteriod_4.stdout
-        asteriod_5_output = asteriod_5.stdout
-        asteriod_6_output = asteriod_6.stdout
-        asteriod_7_output = asteriod_7.stdout
-        asteriod_8_output = asteriod_8.stdout
-        asteriod_9_output = asteriod_9.stdout
-        asteriod_10_output = asteriod_10.stdout
+        asteriod_2_output = asteriod_2_result.stdout
+        asteriod_3_output = asteriod_3_result.stdout
+        asteriod_4_output = asteriod_4_result.stdout
+        asteriod_5_output = asteriod_5_result.stdout
+        asteriod_6_output = asteriod_6_result.stdout
+        asteriod_7_output = asteriod_7_result.stdout
+        asteriod_8_output = asteriod_8_result.stdout
+        asteriod_9_output = asteriod_9_result.stdout
+        asteriod_10_output = asteriod_10_result.stdout
 
 
 
