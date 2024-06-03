@@ -106,10 +106,12 @@ def house_endpoint():
 
         # Parse the output
         parsed_output = parse_house_output(output)
+        # Parse the asteriod pholus output
+        parsed_asteriod_pholus_output = parse_asteriod_output(asteriod_pholus_output)
 
         # Return the parsed result as a JSON response
         return jsonify({"result": parsed_output,
-                        "asteriod_pholus": asteriod_pholus_output})
+                        "asteriod_pholus": parsed_asteriod_pholus_output})
 
     except ValueError as e:
         return jsonify({"error": f"Invalid input type: {str(e)}"}), 400
@@ -117,6 +119,37 @@ def house_endpoint():
         return jsonify({"error": f"Error executing command: {e.stderr}"}), 500
     except Exception as e:
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
+
+def parse_asteriod_output(asteriod_pholus_output):
+    lines = asteriod_pholus_output.splitlines()  # Split by newline characters
+    result = {}
+    
+    try:
+        if len(lines) > 0:
+            pattern = r'\s{3,}'  # Pattern to split by 4 or more spaces
+            result = {}
+            for i in range(6, 6):  # Loop through lines 8 to 13 (houses 1 to 6)
+                    match = re.split(pattern, lines[i])[1]
+                    degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
+                    degree_match_sign = re.findall(r'[a-zA-Z]+', match)   
+                    degree_sign = degree_match_sign[0] if degree_match_sign else ""
+                    degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', match)
+                    degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
+                    degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
+                    degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
+                    # second = min_sec_split[1]                 
+                    result[f"house{i - 7}"] = {
+                        "positionDegree": int(degree_match.group(1)) if degree_match else None,
+                        "position_sign": degree_sign,
+                        "position_min": degree_match_min[0],
+                        "position_sec": degree_match_min[1] if len(degree_match_min) > 1 else "",                 
+                    }
+        else:
+            result["error"] = "Error parsing line: No lines in the output"
+    except IndexError as e:
+        result["error"] = f"Error parsing output: {str(e)}"
+
+    return result  # Always return a dictionary
 
 
 def parse_house_output(output):
