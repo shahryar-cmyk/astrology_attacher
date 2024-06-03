@@ -95,6 +95,7 @@ def house_endpoint():
 
         # Construct the command with zero-padded values
         command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -p -house{lat_deg},{lon_deg},P -fPZ -roundsec"
+        asteriod_pholus = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d}"
 
         # Execute the command using subprocess
         result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
@@ -104,7 +105,8 @@ def house_endpoint():
         parsed_output = parse_house_output(output)
 
         # Return the parsed result as a JSON response
-        return jsonify({"result": parsed_output})
+        return jsonify({"result": parsed_output,
+                        "asteriod_pholus": asteriod_pholus})
 
     except ValueError as e:
         return jsonify({"error": f"Invalid input type: {str(e)}"}), 400
@@ -131,8 +133,6 @@ def parse_house_output(output):
                     degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
                     degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
                     degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
-                    min_sec_split = degree_match_min[0].split("'") if len(degree_match_min) > 1 else ["", ""]
-                    minute = min_sec_split[0]
                     # second = min_sec_split[1]                 
                     result[f"house{i - 7}"] = {
                         "positionDegree": int(degree_match.group(1)) if degree_match else None,
