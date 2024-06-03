@@ -128,7 +128,7 @@ def parse_house_output(output):
                     degree_match_sign = re.findall(r'[a-zA-Z]+', re.split(pattern, lines[i])[1])
                     result[f"house{i - 7}"] = {
                         "positionDegree": int(degree_match.group(1)) if degree_match else None
-                        "position_sign": degree_match_sign[0] if degree_match_sign else None
+                        "position_sign": degree_match_sign
                         
                     }
         else:
