@@ -125,7 +125,7 @@ def parse_house_output(output):
                 match = re.split(pattern, lines[i])[1]
                 degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
                 
-                degree_sign_match = re.findall(r'\b\w{2}\b', lines[i])
+                 degree_match_sign = re.findall(r'[a-zA-Z]+', re.split(pattern, lines[i])[1])
                 degree_match_min_sec = re.sub(r'^.*?\b\w{2}\b', '', lines[i]).strip()
                 
                 if degree_match_min_sec:
@@ -137,11 +137,11 @@ def parse_house_output(output):
                     minute = ""
                     second = ""
 
-                degree_sign = degree_sign_match[0] if degree_sign_match else ""
+                # degree_sign = degree_sign_match[0] if degree_sign_match else ""
                 
                 result[f"house{i - 7}"] = {
                     "positionDegree": degree_match.group(1) if degree_match else "",
-                    "position_sign": degree_sign,
+                    "position_sign": degree_match_sign,
                     "position_min": minute,
                     "position_sec": second,
                 }
