@@ -129,12 +129,19 @@ def parse_asteroid_output(asteroid_pholus_output):
         if len(lines) > 0:
             pattern = r'\s{3,}'  # Pattern to split by 3 or more spaces
             match = re.split(pattern, lines[6])[1]
+            degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
+            degree_match_sign = re.findall(r'[a-zA-Z]+', match)   
+            degree_sign = degree_match_sign[0] if degree_match_sign else ""
+            degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', match)
+            degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
+            degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
+            degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
 
             result[f"pholus"] = {
-                "position_degree": match,
-                "position_sign": lines[6].strip(),
-                "position_min": lines[6].strip(),
-                "position_sec": lines[6].strip()
+                    "positionDegree": int(degree_match.group(1)) if degree_match else None,
+                    "position_sign": degree_sign,
+                    "position_min": degree_match_min[0],
+                    "position_sec": degree_match_min[1] if len(degree_match_min) > 1 else "",    
             }
         else:
             result["error"] = "Error parsing output: No lines in the output"
