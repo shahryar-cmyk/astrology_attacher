@@ -138,6 +138,7 @@ def parse_house_output(output):
                         "positionDegree": int(degree_match.group(1)) if degree_match else None,
                         "position_sign": degree_sign,
                         "position_min": minute,
+                        "position_sec": second,
 
                         
                     }
