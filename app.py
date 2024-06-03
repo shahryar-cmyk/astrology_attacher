@@ -114,8 +114,6 @@ def house_endpoint():
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
 
-import re
-
 def parse_house_output(output):
     lines = output.splitlines()  # Split by newline characters
     result = {}
@@ -123,21 +121,16 @@ def parse_house_output(output):
     try:
         if len(lines) > 0:
             pattern = r'\s{4,}'  # Pattern to split by 4 or more spaces
+            result = {}
             for i in range(8, 14):  # Loop through lines 8 to 13 (houses 1 to 6)
-                match = re.split(pattern, lines[i])[1]
-                degree_match = re.match(r"(\d{1,2})\s(\w{2})\s(\d{2})\'\s(\d{2})\"", match)
-                if degree_match:
-                    result[f"house{i - 7}"] = {
-                        "positionDegree": degree_match.group(1)
-                     
-                    }
-                else:
-                    result[f"house{i - 7}"] = "Error parsing line: Invalid format"
+                    match = re.split(pattern, lines[i])[1]
+                    degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
+                    result[f"house{i - 7}"] = degree_match.group(1)
         else:
-            result["error"] = "Error parsing output: No lines in the output"
+            result["error"] = "Error parsing line: No lines in the output"
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
-    
+
     return result  # Always return a dictionary
 
 
