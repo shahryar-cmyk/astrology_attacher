@@ -128,9 +128,10 @@ def parse_asteroid_output(asteroid_pholus_output):
     try:
         if len(lines) > 0:
             pattern = r'\s{3,}'  # Pattern to split by 3 or more spaces
+            match = re.split(pattern, lines[6])[1]
 
             result[f"pholus"] = {
-                "position_degree": lines[6].strip(),
+                "position_degree": match,
                 "position_sign": lines[6].strip(),
                 "position_min": lines[6].strip(),
                 "position_sec": lines[6].strip()
