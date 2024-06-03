@@ -128,10 +128,8 @@ def parse_house_output(output):
                 degree_match = re.match(r"(\d{1,2})\s(\w{2})\s(\d{2})\'\s(\d{2})\"", match)
                 if degree_match:
                     result[f"house{i - 7}"] = {
-                        "positionDegree": degree_match.group(1),
-                        "positionSign": match,
-                        "positionMin": match,
-                        "positionSec": degree_match.group(1),
+                        "positionDegree": degree_match.group(1)
+                     
                     }
                 else:
                     result[f"house{i - 7}"] = "Error parsing line: Invalid format"
