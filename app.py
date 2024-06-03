@@ -173,41 +173,145 @@ def house_endpoint():
 
 
         # Execute the command using subprocess
-        # result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
-# List of asteroid commands
-        asteroid_commands = [
-        asteriod_pholus, asteriod_1, asteriod_2, asteriod_3, asteriod_4, asteriod_5,
-        asteriod_6, asteriod_7, asteriod_8, asteriod_9, asteriod_10, asteriod_11,
-        asteriod_12, asteriod_13, asteriod_14, asteriod_15, asteriod_16, asteriod_17,
-        asteriod_18, asteriod_19, asteriod_20, asteriod_21, asteriod_22, asteriod_23,
-        asteriod_24, asteriod_25, asteriod_26, asteriod_27, asteriod_28, asteriod_29,
-        asteriod_30, asteriod_31, asteriod_32, asteriod_33, asteriod_34, asteriod_35,
-        asteriod_36, asteriod_37, asteriod_38, asteriod_39, asteriod_40
-        ]
-
-# Execute the main command using subprocess
         result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
+        asteriod_pholus_result = subprocess.run(asteriod_pholus, shell=True, check=True, capture_output=True, text=True)
+        asteriod_1_result = subprocess.run(asteriod_1, shell=True, check=True, capture_output=True, text=True)
+        asteriod_2_result = subprocess.run(asteriod_2, shell=True, check=True, capture_output=True, text=True)
+        asteriod_3_result = subprocess.run(asteriod_3, shell=True, check=True, capture_output=True, text=True)
+        asteriod_4_result = subprocess.run(asteriod_4, shell=True, check=True, capture_output=True, text=True)
+        asteriod_5_result = subprocess.run(asteriod_5, shell=True, check=True, capture_output=True, text=True)
+        asteriod_6_result = subprocess.run(asteriod_6, shell=True, check=True, capture_output=True, text=True)
+        asteriod_7_result = subprocess.run(asteriod_7, shell=True, check=True, capture_output=True, text=True)
+        asteriod_8_result = subprocess.run(asteriod_8, shell=True, check=True, capture_output=True, text=True)
+        asteriod_9_result = subprocess.run(asteriod_9, shell=True, check=True, capture_output=True, text=True)
+        asteriod_10_result = subprocess.run(asteriod_10, shell=True, check=True, capture_output=True, text=True)
+        asteriod_11_result = subprocess.run(asteriod_11, shell=True, check=True, capture_output=True, text=True)
+        asteriod_12_result = subprocess.run(asteriod_12, shell=True, check=True, capture_output=True, text=True)
+        asteriod_13_result = subprocess.run(asteriod_13, shell=True, check=True, capture_output=True, text=True)
+        asteriod_14_result = subprocess.run(asteriod_14, shell=True, check=True, capture_output=True, text=True)
+        asteriod_15_result = subprocess.run(asteriod_15, shell=True, check=True, capture_output=True, text=True)
+        asteriod_16_result = subprocess.run(asteriod_16, shell=True, check=True, capture_output=True, text=True)
+        asteriod_17_result = subprocess.run(asteriod_17, shell=True, check=True, capture_output=True, text=True)
+        asteriod_18_result = subprocess.run(asteriod_18, shell=True, check=True, capture_output=True, text=True)
+        asteriod_19_result = subprocess.run(asteriod_19, shell=True, check=True, capture_output=True, text=True)
+        asteriod_20_result = subprocess.run(asteriod_20, shell=True, check=True, capture_output=True, text=True)
+        asteriod_21_result = subprocess.run(asteriod_21, shell=True, check=True, capture_output=True, text=True)
+        asteriod_22_result = subprocess.run(asteriod_22, shell=True, check=True, capture_output=True, text=True)
+        asteriod_23_result = subprocess.run(asteriod_23, shell=True, check=True, capture_output=True, text=True)
+        asteriod_24_result = subprocess.run(asteriod_24, shell=True, check=True, capture_output=True, text=True)
+        asteriod_25_result = subprocess.run(asteriod_25, shell=True, check=True, capture_output=True, text=True)
+        asteriod_26_result = subprocess.run(asteriod_26, shell=True, check=True, capture_output=True, text=True)
+        asteriod_27_result = subprocess.run(asteriod_27, shell=True, check=True, capture_output=True, text=True)
+        asteriod_28_result = subprocess.run(asteriod_28, shell=True, check=True, capture_output=True, text=True)
+        asteriod_29_result = subprocess.run(asteriod_29, shell=True, check=True, capture_output=True, text=True)
+        asteriod_30_result = subprocess.run(asteriod_30, shell=True, check=True, capture_output=True, text=True)
+        asteriod_31_result = subprocess.run(asteriod_31, shell=True, check=True, capture_output=True, text=True)
+        asteriod_32_result = subprocess.run(asteriod_32, shell=True, check=True, capture_output=True, text=True)
+        asteriod_33_result = subprocess.run(asteriod_33, shell=True, check=True, capture_output=True, text=True)
+        asteriod_34_result = subprocess.run(asteriod_34, shell=True, check=True, capture_output=True, text=True)
+        asteriod_35_result = subprocess.run(asteriod_35, shell=True, check=True, capture_output=True, text=True)
+        asteriod_36_result = subprocess.run(asteriod_36, shell=True, check=True, capture_output=True, text=True)
+        asteriod_37_result = subprocess.run(asteriod_37, shell=True, check=True, capture_output=True, text=True)
+        asteriod_38_result = subprocess.run(asteriod_38, shell=True, check=True, capture_output=True, text=True)
+        asteriod_39_result = subprocess.run(asteriod_39, shell=True, check=True, capture_output=True, text=True)
+        asteriod_40_result = subprocess.run(asteriod_40, shell=True, check=True, capture_output=True, text=True)
 
-# Execute each asteroid command using a loop
-        asteroid_results = [subprocess.run(cmd, shell=True, check=True, capture_output=True, text=True) for cmd in asteroid_commands]
 
-# Extract the stdout from the main command
         output = result.stdout
+        asteriod_pholus_output = asteriod_pholus_result.stdout
+        asteriod_1_output = asteriod_1_result.stdout
+        asteriod_2_output = asteriod_2_result.stdout
+        asteriod_3_output = asteriod_3_result.stdout
+        asteriod_4_output = asteriod_4_result.stdout
+        asteriod_5_output = asteriod_5_result.stdout
+        asteriod_6_output = asteriod_6_result.stdout
+        asteriod_7_output = asteriod_7_result.stdout
+        asteriod_8_output = asteriod_8_result.stdout
+        asteriod_9_output = asteriod_9_result.stdout
+        asteriod_10_output = asteriod_10_result.stdout
+        asteriod_11_output = asteriod_11_result.stdout
+        asteriod_12_output = asteriod_12_result.stdout
+        asteriod_13_output = asteriod_13_result.stdout
+        asteriod_14_output = asteriod_14_result.stdout
+        asteriod_15_output = asteriod_15_result.stdout
+        asteriod_16_output = asteriod_16_result.stdout
+        asteriod_17_output = asteriod_17_result.stdout
+        asteriod_18_output = asteriod_18_result.stdout
+        asteriod_19_output = asteriod_19_result.stdout
+        asteriod_20_output = asteriod_20_result.stdout
+        asteriod_21_output = asteriod_21_result.stdout
+        asteriod_22_output = asteriod_22_result.stdout
+        asteriod_23_output = asteriod_23_result.stdout
+        asteriod_24_output = asteriod_24_result.stdout
+        asteriod_25_output = asteriod_25_result.stdout
+        asteriod_26_output = asteriod_26_result.stdout
+        asteriod_27_output = asteriod_27_result.stdout
+        asteriod_28_output = asteriod_28_result.stdout
+        asteriod_29_output = asteriod_29_result.stdout
+        asteriod_30_output = asteriod_30_result.stdout
+        asteriod_31_output = asteriod_31_result.stdout
+        asteriod_32_output = asteriod_32_result.stdout
+        asteriod_33_output = asteriod_33_result.stdout
+        asteriod_34_output = asteriod_34_result.stdout
+        asteriod_35_output = asteriod_35_result.stdout
+        asteriod_36_output = asteriod_36_result.stdout
+        asteriod_37_output = asteriod_37_result.stdout
+        asteriod_38_output = asteriod_38_result.stdout
+        asteriod_39_output = asteriod_39_result.stdout
+        asteriod_40_output = asteriod_40_result.stdout
 
-# Extract the stdout from each asteroid command
-        asteroid_outputs = [res.stdout for res in asteroid_results]
 
-# Parse the output
+
+
+        # Parse the output
         parsed_output = parse_house_output(output)
+        # Parse the asteriod pholus output
+        parsed_asteriod_pholus_output = parse_asteroid_output(asteriod_pholus_output)
+        parsed_asteriod_1_output = parse_asteroid_output(asteriod_1_output)
+        parsed_asteriod_2_output = parse_asteroid_output(asteriod_2_output)
+        parsed_asteriod_3_output = parse_asteroid_output(asteriod_3_output)
+        parsed_asteriod_4_output = parse_asteroid_output(asteriod_4_output)
+        parsed_asteriod_5_output = parse_asteroid_output(asteriod_5_output)
+        parsed_asteriod_6_output = parse_asteroid_output(asteriod_6_output)
+        parsed_asteriod_7_output = parse_asteroid_output(asteriod_7_output)
+        parsed_asteriod_8_output = parse_asteroid_output(asteriod_8_output)
+        parsed_asteriod_9_output = parse_asteroid_output(asteriod_9_output)
+        parsed_asteriod_10_output = parse_asteroid_output(asteriod_10_output)
+        parsed_asteriod_11_output = parse_asteroid_output(asteriod_11_output)
+        parsed_asteriod_12_output = parse_asteroid_output(asteriod_12_output)
+        parsed_asteriod_13_output = parse_asteroid_output(asteriod_13_output)
+        parsed_asteriod_14_output = parse_asteroid_output(asteriod_14_output)
+        parsed_asteriod_15_output = parse_asteroid_output(asteriod_15_output)
+        parsed_asteriod_16_output = parse_asteroid_output(asteriod_16_output)
+        parsed_asteriod_17_output = parse_asteroid_output(asteriod_17_output)
+        parsed_asteriod_18_output = parse_asteroid_output(asteriod_18_output)
+        parsed_asteriod_19_output = parse_asteroid_output(asteriod_19_output)
+        parsed_asteriod_20_output = parse_asteroid_output(asteriod_20_output)
+        parsed_asteriod_21_output = parse_asteroid_output(asteriod_21_output)
+        parsed_asteriod_22_output = parse_asteroid_output(asteriod_22_output)
+        parsed_asteriod_23_output = parse_asteroid_output(asteriod_23_output)
+        parsed_asteriod_24_output = parse_asteroid_output(asteriod_24_output)
+        parsed_asteriod_25_output = parse_asteroid_output(asteriod_25_output)
+        parsed_asteriod_26_output = parse_asteroid_output(asteriod_26_output)
+        parsed_asteriod_27_output = parse_asteroid_output(asteriod_27_output)
+        parsed_asteriod_28_output = parse_asteroid_output(asteriod_28_output)
+        parsed_asteriod_29_output = parse_asteroid_output(asteriod_29_output)
+        parsed_asteriod_30_output = parse_asteroid_output(asteriod_30_output)
+        parsed_asteriod_31_output = parse_asteroid_output(asteriod_31_output)
+        parsed_asteriod_32_output = parse_asteroid_output(asteriod_32_output)
+        parsed_asteriod_33_output = parse_asteroid_output(asteriod_33_output)
+        parsed_asteriod_34_output = parse_asteroid_output(asteriod_34_output)
+        parsed_asteriod_35_output = parse_asteroid_output(asteriod_35_output)
+        parsed_asteriod_36_output = parse_asteroid_output(asteriod_36_output)
+        parsed_asteriod_37_output = parse_asteroid_output(asteriod_37_output)
+        parsed_asteriod_38_output = parse_asteroid_output(asteriod_38_output)
+        parsed_asteriod_39_output = parse_asteroid_output(asteriod_39_output)
+        parsed_asteriod_40_output = parse_asteroid_output(asteriod_40_output)
 
-# Parse each asteroid output using a loop
-        parsed_asteroid_data = [parse_asteroid_output(out) for out in asteroid_outputs]
 
-# Return the parsed result as a JSON response
-return jsonify({
-    "result": parsed_output,
-    "asteroid_Data": parsed_asteroid_data
-})
+        # Return the parsed result as a JSON response
+        return jsonify({"result": parsed_output,
+                        "asteriod_Data": [parsed_asteriod_pholus_output,parsed_asteriod_1_output,parsed_asteriod_2_output,parsed_asteriod_3_output,parsed_asteriod_4_output,parsed_asteriod_5_output,parsed_asteriod_6_output,parsed_asteriod_7_output,parsed_asteriod_8_output,parsed_asteriod_9_output,parsed_asteriod_10_output,parsed_asteriod_11_output,parsed_asteriod_12_output,parsed_asteriod_13_output,parsed_asteriod_14_output,parsed_asteriod_15_output,parsed_asteriod_16_output,parsed_asteriod_17_output,parsed_asteriod_18_output,parsed_asteriod_19_output,parsed_asteriod_20_output,parsed_asteriod_21_output,parsed_asteriod_22_output,parsed_asteriod_23_output,parsed_asteriod_24_output,parsed_asteriod_25_output,parsed_asteriod_26_output,parsed_asteriod_27_output,parsed_asteriod_28_output,parsed_asteriod_29_output,parsed_asteriod_30_output,parsed_asteriod_31_output,parsed_asteriod_32_output,parsed_asteriod_33_output,parsed_asteriod_34_output,parsed_asteriod_35_output,parsed_asteriod_36_output,parsed_asteriod_37_output,parsed_asteriod_38_output,parsed_asteriod_39_output,parsed_asteriod_40_output]})
 
     except ValueError as e:
         return jsonify({"error": f"Invalid input type: {str(e)}"}), 400
