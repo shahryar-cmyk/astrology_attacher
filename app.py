@@ -433,13 +433,39 @@ def parse_asteroid_output(asteroid_pholus_output):
             degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
             degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
             degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
+            # Only Teharonhiawako Left 
             # When the degree is not found with the first pattern, try the second pattern
-            pattern1 = r'\s{2,}'  # Pattern to split by 3 or more spaces
-            match1 = re.split(pattern1, lines[6])[1]
-            degree_match1 = re.match(r"(\d{1,2})\s\w{2}\s.*", match1)
-            degree_match_sign1 = re.findall(r'[a-zA-Z]+', match1)   
-            degree_sign1 = degree_match_sign1[0] if degree_match_sign1 else ""
-         
+            # pattern1 = r'\s{2,}'  # Pattern to split by 3 or more spaces
+            # match1 = re.split(pattern1, lines[6])[1]
+            # degree_match1 = re.match(r"(\d{1,2})\s\w{2}\s.*", match1)
+            # degree_match_sign1 = re.findall(r'[a-zA-Z]+', match1)   
+            # degree_sign1 = degree_match_sign1[0] if degree_match_sign1 else ""
+# import re
+
+# # Define the string
+# data = "Teharonhiawako 17 aq 19'59.3278"
+
+# # Define the regex pattern
+# pattern = r"(?P<name>[a-zA-Z]+)\s+(?P<degree>\d+)\s+(?P<sign>\w+)\s+(?P<min>\d+)'(?P<sec>[\d.]+)"
+
+# # Use the pattern to search the data string
+# match = re.search(pattern, data)
+
+# # Extract the components if the pattern matches
+# if match:
+#     result = {
+#         "name": match.group("name"),
+#         "degree": match.group("degree"),
+#         "sign": match.group("sign"),
+#         "min": match.group("min"),
+#         "sec": match.group("sec")
+#     }
+#     print(result)
+# else:
+#     print("No match found.")
+
+            
+            
 
             result[name] = {
                     "positionDegree": int(degree_match.group(1)) if degree_match else degree_match1.group(1),
