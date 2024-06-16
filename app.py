@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
 import subprocess
 import re
+import win32com.client
 
 app = Flask(__name__)
 
+# For Getting the Planets Cordinates form the Swetest planet command
 @app.route('/planets', methods=['POST'])
 def execute_command():
     try:
@@ -34,7 +36,7 @@ def execute_command():
         return jsonify({"error": f"Error executing command: {e.stderr}"}), 500
     except Exception as e:
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
-
+# Function to parse the output of the swetest planet command
 def parse_swetest_output(output):
     lines = output.splitlines()  # Split by newline characters
     result = {}
@@ -512,6 +514,28 @@ def parse_house_output(output):
 
     return result  # Always return a dictionary
 
+# Dummy user data (replace this with your actual data or database access)
+
+# API to get a list of users
+@app.route('/api/users', methods=['GET'])
+def run_excel_macro():
+    xl = win32com.client.Dispatch("Excel.Application")
+    xl.Visible = True  # Set to True if you want Excel to be visible
+
+    try:
+        wb = xl.Workbooks.Open(r'C:\path\to\your\workbook.xlsx')  # Path to your Excel file
+        try:
+            # Replace "YourMacroName" with the name of your macro
+            xl.Application.Run("YourMacroName")
+            print("Macro executed successfully.")
+        except Exception as e:
+            print("Error:", e)
+        finally:
+            wb.Close(SaveChanges=True)  # Save changes after running macro
+    except Exception as e:
+        print("Error opening workbook:", e)
+    finally:
+        xl.Quit()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
