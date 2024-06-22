@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import subprocess
 import re
 import win32com.client
+import pythoncom
 
 app = Flask(__name__)
 
@@ -473,7 +474,7 @@ def parse_asteroid_output(asteroid_pholus_output):
                     "positionDegree": int(degree_match.group(1)) if degree_match else degree_match1.group(1),
                     "position_sign": degree_sign,
                     "position_min": degree_match_min[0],
-                    "position_sec": degree_match_min[1] if len(degree_match_min) > 1 else "",    
+                    "position_sec": degree_match_min[1] ,    
             }
         else:
             result["error"] = "Error parsing output: No lines in the output"
@@ -517,25 +518,38 @@ def parse_house_output(output):
 # Dummy user data (replace this with your actual data or database access)
 
 # API to get a list of users
-@app.route('/api/users', methods=['GET'])
+@app.route('/api/macro', methods=['GET'])
 def run_excel_macro():
-    xl = win32com.client.Dispatch("Excel.Application")
-    xl.Visible = True  # Set to True if you want Excel to be visible
-
+    pythoncom.CoInitialize()  # Initialize COM library
     try:
-        wb = xl.Workbooks.Open(r'C:\path\to\your\workbook.xlsx')  # Path to your Excel file
+        xl = win32com.client.Dispatch("Excel.Application")
+        xl.Visible = True  # Set to True if you want Excel to be visible
+
         try:
-            # Replace "YourMacroName" with the name of your macro
-            xl.Application.Run("YourMacroName")
-            print("Macro executed successfully.")
+            wb = xl.Workbooks.Open(r'C:\El Camino que Creas\Generador de Informes\Generador de Informes\Generador de Informes.xlsm')  # Path to your Excel file
+            try:
+                # Access the specific sheet by name
+                sheet_name = 'CN y RS (o RL)'  # Replace with your sheet name
+                sheet = wb.Sheets(sheet_name)
+
+                # Modify data in the sheet
+                # Example: Change cell A1 value to "Hello, World!"
+                sheet.Range("S26").Value = "Hello, World!"
+
+                print("Data modified successfully.")
+                return jsonify({"message": "Data modified successfully."}), 200
+            finally:                        
+                wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
-            print("Error:", e)
+            print("Error opening workbook:", e)
+            return jsonify({"error": str(e)}), 500
         finally:
-            wb.Close(SaveChanges=True)  # Save changes after running macro
+            xl.Quit()
     except Exception as e:
-        print("Error opening workbook:", e)
+        print("Error initializing Excel:", e)
+        return jsonify({"error": str(e)}), 500
     finally:
-        xl.Quit()
+        pythoncom.CoUninitialize()  # Uninitialize COM library
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
