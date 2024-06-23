@@ -97,7 +97,7 @@ def house_endpoint():
         lon_deg = request.json.get('lon_deg')
 
         # Construct the command with zero-padded values
-        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -p -house{lat_deg},{lon_deg},P -fPZ -roundsec"
+        command = f"swetest -b{birth_date_day}.{birth_date_month}.{birth_date_year} -ut{ut_hour}:{ut_min}:{ut_sec} -p -house{lat_deg},{lon_deg},P -fPZ -roundsec"
         asteriod_pholus = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_1 = f"swetest -ps -xs136199 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_2 = f"swetest -ps -xs7066 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
@@ -426,7 +426,7 @@ def parse_asteroid_output(asteroid_pholus_output):
     
     try:
         if len(lines) > 0:
-            pattern = r'\s{4,}'  # Pattern to split by 4 or more spaces
+            pattern = r'\s{3,}'  # Pattern to split by 4 or more spaces
             match = re.split(pattern, lines[6])[1]
             name = re.split(pattern, lines[6])[0]
             degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
@@ -490,7 +490,7 @@ def parse_house_output(output):
     
     try:
         if len(lines) > 0:
-            pattern = r'\s{4,}'  # Pattern to split by 4 or more spaces
+            pattern = r'\s{3,}'  # Pattern to split by 3 or more spaces
             result = {}
             for i in range(8, 14):  # Loop through lines 8 to 13 (houses 1 to 6)
                     match = re.split(pattern, lines[i])[1]
@@ -506,7 +506,7 @@ def parse_house_output(output):
                         "positionDegree": int(degree_match.group(1)) if degree_match else None,
                         "position_sign": degree_sign,
                         "position_min": degree_match_min[0],
-                        "position_sec": degree_match_min[1] if len(degree_match_min) > 1 else "",                 
+                        "position_sec": degree_match_min[1] ,                 
                     }
         else:
             result["error"] = "Error parsing line: No lines in the output"
