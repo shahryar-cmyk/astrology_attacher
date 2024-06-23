@@ -64,8 +64,8 @@ def parse_swetest_output(output):
                     degree = int(degree_match.group(1))
                     degree_sign = degree_match_sign[0] if degree_match_sign else ""
                     min_sec_split = degree_match_min[0].split("'") if len(degree_match_min) > 1 else ["", ""]
-                    minute = min_sec_split[0]
-                    second = min_sec_split[1] if len(min_sec_split) > 1 else ""
+                    minute = degree_match_min[0]
+                    second = degree_match_min[1]
                     
                     result[planet_name] = {
                         "positionDegree": degree,
