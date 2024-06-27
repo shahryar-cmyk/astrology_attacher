@@ -471,10 +471,14 @@ def parse_asteroid_output(asteroid_pholus_output):
             
 
             result[name] = {
+                "name" : name,
+                "position": {
                     "positionDegree": int(degree_match.group(1)) if degree_match else degree_match1.group(1),
                     "position_sign": degree_sign,
                     "position_min": degree_match_min[0],
-                    "position_sec": degree_match_min[1] ,    
+                    "position_sec": degree_match_min[1] ,                    
+                }
+    
             }
         else:
             result["error"] = "Error parsing output: No lines in the output"
