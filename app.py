@@ -158,7 +158,7 @@ def house_endpoint():
         asteriod_57 = f"swetest -ps -xs47171 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_58 = f"swetest -ps -xs26308 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_59 = f"swetest -ps -xs65489 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
-        asteriod_60 = f"swetest -ps -xs88611 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        # asteriod_60 = f"swetest -ps -xs88611 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_61 = f"swetest -ps -xs134860 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_62 = f"swetest -ps -xs130 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_63 = f"swetest -ps -xs42355 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
@@ -237,7 +237,7 @@ def house_endpoint():
         asteriod_57_result = subprocess.run(asteriod_57, shell=True, check=True, capture_output=True, text=True)
         asteriod_58_result = subprocess.run(asteriod_58, shell=True, check=True, capture_output=True, text=True)
         asteriod_59_result = subprocess.run(asteriod_59, shell=True, check=True, capture_output=True, text=True)
-        asteriod_60_result = subprocess.run(asteriod_60, shell=True, check=True, capture_output=True, text=True)
+        # asteriod_60_result = subprocess.run(asteriod_60, shell=True, check=True, capture_output=True, text=True)
         asteriod_61_result = subprocess.run(asteriod_61, shell=True, check=True, capture_output=True, text=True)
         asteriod_62_result = subprocess.run(asteriod_62, shell=True, check=True, capture_output=True, text=True)
         asteriod_63_result = subprocess.run(asteriod_63, shell=True, check=True, capture_output=True, text=True)
@@ -315,7 +315,7 @@ def house_endpoint():
         asteriod_57_output = asteriod_57_result.stdout
         asteriod_58_output = asteriod_58_result.stdout
         asteriod_59_output = asteriod_59_result.stdout
-        asteriod_60_output = asteriod_60_result.stdout
+        # asteriod_60_output = asteriod_60_result.stdout
         asteriod_61_output = asteriod_61_result.stdout
         asteriod_62_output = asteriod_62_result.stdout
         asteriod_63_output = asteriod_63_result.stdout
@@ -394,7 +394,7 @@ def house_endpoint():
         parsed_asteriod_57_output = parse_asteroid_output(asteriod_57_output)
         parsed_asteriod_58_output = parse_asteroid_output(asteriod_58_output)
         parsed_asteriod_59_output = parse_asteroid_output(asteriod_59_output)
-        parsed_asteriod_60_output = parse_asteroid_output(asteriod_60_output)
+        # parsed_asteriod_60_output = parse_asteroid_output(asteriod_60_output)
         parsed_asteriod_61_output = parse_asteroid_output(asteriod_61_output)
         parsed_asteriod_62_output = parse_asteroid_output(asteriod_62_output)
         parsed_asteriod_63_output = parse_asteroid_output(asteriod_63_output)
@@ -410,7 +410,7 @@ def house_endpoint():
 
         # Return the parsed result as a JSON response
         return jsonify({"result": parsed_output,
-                        "asteriod_Data": [parsed_asteriod_pholus_output,parsed_asteriod_1_output,parsed_asteriod_2_output,parsed_asteriod_3_output,parsed_asteriod_4_output,parsed_asteriod_5_output,parsed_asteriod_6_output,parsed_asteriod_7_output,parsed_asteriod_8_output,parsed_asteriod_9_output,parsed_asteriod_10_output,parsed_asteriod_11_output,parsed_asteriod_12_output,parsed_asteriod_13_output,parsed_asteriod_14_output,parsed_asteriod_15_output,parsed_asteriod_16_output,parsed_asteriod_17_output,parsed_asteriod_18_output,parsed_asteriod_19_output,parsed_asteriod_20_output,parsed_asteriod_21_output,parsed_asteriod_22_output,parsed_asteriod_23_output,parsed_asteriod_24_output,parsed_asteriod_25_output,parsed_asteriod_26_output,parsed_asteriod_27_output,parsed_asteriod_28_output,parsed_asteriod_29_output,parsed_asteriod_30_output,parsed_asteriod_31_output,parsed_asteriod_32_output,parsed_asteriod_33_output,parsed_asteriod_34_output,parsed_asteriod_35_output,parsed_asteriod_36_output,parsed_asteriod_37_output,parsed_asteriod_38_output,parsed_asteriod_39_output,parsed_asteriod_40_output,parsed_asteriod_41_output,parsed_asteriod_42_output,parsed_asteriod_43_output,parsed_asteriod_44_output,parsed_asteriod_45_output,parsed_asteriod_46_output,parsed_asteriod_47_output,parsed_asteriod_48_output,parsed_asteriod_49_output,parsed_asteriod_50_output,parsed_asteriod_51_output,parsed_asteriod_52_output,parsed_asteriod_53_output,parsed_asteriod_54_output,parsed_asteriod_55_output,parsed_asteriod_56_output,parsed_asteriod_57_output,parsed_asteriod_58_output,parsed_asteriod_59_output,parsed_asteriod_60_output,parsed_asteriod_61_output,parsed_asteriod_62_output,parsed_asteriod_63_output,parsed_asteriod_64_output,parsed_asteriod_65_output,parsed_asteriod_66_output,parsed_asteriod_67_output,parsed_asteriod_68_output,parsed_asteriod_69_output,parsed_asteriod_70_output,parsed_asteriod_71_output]})
+                        "asteriod_Data": [parsed_asteriod_pholus_output,parsed_asteriod_1_output,parsed_asteriod_2_output,parsed_asteriod_3_output,parsed_asteriod_4_output,parsed_asteriod_5_output,parsed_asteriod_6_output,parsed_asteriod_7_output,parsed_asteriod_8_output,parsed_asteriod_9_output,parsed_asteriod_10_output,parsed_asteriod_11_output,parsed_asteriod_12_output,parsed_asteriod_13_output,parsed_asteriod_14_output,parsed_asteriod_15_output,parsed_asteriod_16_output,parsed_asteriod_17_output,parsed_asteriod_18_output,parsed_asteriod_19_output,parsed_asteriod_20_output,parsed_asteriod_21_output,parsed_asteriod_22_output,parsed_asteriod_23_output,parsed_asteriod_24_output,parsed_asteriod_25_output,parsed_asteriod_26_output,parsed_asteriod_27_output,parsed_asteriod_28_output,parsed_asteriod_29_output,parsed_asteriod_30_output,parsed_asteriod_31_output,parsed_asteriod_32_output,parsed_asteriod_33_output,parsed_asteriod_34_output,parsed_asteriod_35_output,parsed_asteriod_36_output,parsed_asteriod_37_output,parsed_asteriod_38_output,parsed_asteriod_39_output,parsed_asteriod_40_output,parsed_asteriod_41_output,parsed_asteriod_42_output,parsed_asteriod_43_output,parsed_asteriod_44_output,parsed_asteriod_45_output,parsed_asteriod_46_output,parsed_asteriod_47_output,parsed_asteriod_48_output,parsed_asteriod_49_output,parsed_asteriod_50_output,parsed_asteriod_51_output,parsed_asteriod_52_output,parsed_asteriod_53_output,parsed_asteriod_54_output,parsed_asteriod_55_output,parsed_asteriod_56_output,parsed_asteriod_57_output,parsed_asteriod_58_output,parsed_asteriod_59_output,parsed_asteriod_61_output,parsed_asteriod_62_output,parsed_asteriod_63_output,parsed_asteriod_64_output,parsed_asteriod_65_output,parsed_asteriod_66_output,parsed_asteriod_67_output,parsed_asteriod_68_output,parsed_asteriod_69_output,parsed_asteriod_70_output,parsed_asteriod_71_output]})
 
     except ValueError as e:
         return jsonify({"error": f"Invalid input type: {str(e)}"}), 400
@@ -481,7 +481,7 @@ def parse_asteroid_output(asteroid_pholus_output):
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
 
-    return result  # Always return a dictionary
+    return result[name]  # Always return a dictionary
 
 
 def parse_house_output(output):
