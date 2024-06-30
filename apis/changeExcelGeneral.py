@@ -171,6 +171,11 @@ def run_excel_macro_changeData():
                         sheet.Range(f"W{index + 28}").Value = planet['position_sec']
                     else:
                         print(planet["error"])
+                
+                sheet.Range("S26").Value = quiron_parse_output["name"]
+                sheet.Range("U26").Value = quiron_parse_output["positionDegree"]
+                sheet.Range("V26").Value = quiron_parse_output["position_sign"]
+                sheet.Range("W26").Value = quiron_parse_output["position_min"]
 
                 print("Data modified successfully.")
                 return jsonify({"message": "Data modified successfully.", "result": result_data, "result2": planets, "asteriods": [quiron_parse_output] }), 200
@@ -239,7 +244,7 @@ def parse_asteroid_output(asteroid_pholus_output):
             
 
             result[name] = {
-                    "name" : name,
+                      "name" : name,
                     "positionDegree": int(degree_match.group(1)) if degree_match else degree_match1.group(1),
                     "position_sign": degree_sign,
                     "position_min": degree_match_min[0],
