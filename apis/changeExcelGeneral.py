@@ -51,6 +51,14 @@ def run_excel_macro_changeData():
         lilith_planet = f"swetest -ps -xs1181 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         # For Cerus Command 
         cerus_planet = f"swetest -ps -xs1 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        # For Pallas Command
+        pallas_planet = f"swetest -ps -xs2 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        # For Juno Command
+        juno_planet = f"swetest -ps -xs3 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        # For Vesta Command
+        vesta_planet = f"swetest -ps -xs4 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        # Eris Command
+        eris_planet = f"swetest -ps -xs136199 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
 
         # Execute the command using subprocess
         result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
@@ -58,6 +66,10 @@ def run_excel_macro_changeData():
         quiron_planet_result = subprocess.run(quiron_planet, shell=True, check=True, capture_output=True, text=True)
         lilith_planet_result = subprocess.run(lilith_planet, shell=True, check=True, capture_output=True, text=True)
         cerus_planet_result = subprocess.run(cerus_planet, shell=True, check=True, capture_output=True, text=True)
+        pallas_planet_result = subprocess.run(pallas_planet, shell=True, check=True, capture_output=True, text=True)
+        juno_planet_result = subprocess.run(juno_planet, shell=True, check=True, capture_output=True, text=True)
+        vesta_planet_result = subprocess.run(vesta_planet, shell=True, check=True, capture_output=True, text=True)
+        eris_planet_result = subprocess.run(eris_planet, shell=True, check=True, capture_output=True, text=True)
 
 
         output = result.stdout
@@ -74,6 +86,20 @@ def run_excel_macro_changeData():
 
         cerus_output = cerus_planet_result.stdout
         cerus_parse_output = parse_asteroid_output(cerus_output)
+
+        pallas_output = pallas_planet_result.stdout
+        pallas_parse_output = parse_asteroid_output(pallas_output)
+
+        juno_output = juno_planet_result.stdout
+        juno_parse_output = parse_asteroid_output(juno_output)
+
+        vesta_output = vesta_planet_result.stdout
+        vesta_parse_output = parse_asteroid_output(vesta_output)
+
+        eris_output = eris_planet_result.stdout
+        eris_parse_output = parse_asteroid_output(eris_output)
+
+
 
     
 
@@ -224,7 +250,7 @@ def run_excel_macro_changeData():
                 
 
                 print("Data modified successfully.")
-                return jsonify({"message": "Data modified successfully.", "result": result_data, "result2": planets, "asteriods": [quiron_parse_output,lilith_parse_output,result_vertex,cerus_parse_output]}), 200
+                return jsonify({"message": "Data modified successfully.", "result": result_data, "result2": planets, "asteriods": [quiron_parse_output,lilith_parse_output,result_vertex,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output]}), 200
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
