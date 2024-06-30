@@ -47,11 +47,18 @@ def run_excel_macro_changeData():
         command2 = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -fPZ -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -ep"
         # For Quirón Command From Cell D22
         quiron_planet = f"swetest -ps -xs2060 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        # For Lilith Command From Cell D23
+        lilith_planet = f"swetest -ps -xs1181 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        # For Cerus Command 
+        cerus_planet = f"swetest -ps -xs1 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
 
         # Execute the command using subprocess
         result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
         result2 = subprocess.run(command2, shell=True, check=True, capture_output=True, text=True)
         quiron_planet_result = subprocess.run(quiron_planet, shell=True, check=True, capture_output=True, text=True)
+        lilith_planet_result = subprocess.run(lilith_planet, shell=True, check=True, capture_output=True, text=True)
+        cerus_planet_result = subprocess.run(cerus_planet, shell=True, check=True, capture_output=True, text=True)
+
 
         output = result.stdout
         lines = output.splitlines()
@@ -61,9 +68,19 @@ def run_excel_macro_changeData():
 
         quiron_output = quiron_planet_result.stdout
         quiron_parse_output= parse_asteroid_output(quiron_output)
+        
+        lilith_output = lilith_planet_result.stdout
+        lilith_parse_output = parse_asteroid_output(lilith_output)
+
+        cerus_output = cerus_planet_result.stdout
+        cerus_parse_output = parse_asteroid_output(cerus_output)
+
+    
 
         result_data = {}
         planets = []
+        result_vertex = {}
+
         
         # Parse the output for houses
         if len(lines) > 0:
@@ -85,6 +102,33 @@ def run_excel_macro_changeData():
                         "position_min": degree_match_min[0],
                         "position_sec": degree_match_min[1].replace('"', ''),  # Remove double quotes from seconds
                     }
+                except IndexError as e:
+                    result_data["error"] = f"Error parsing output: {str(e)}"
+                    break
+        else:
+            result_data["error"] = "Error parsing line: No lines in the output"
+        # Parse the output for houses
+        if len(lines) > 0:
+            pattern = r'\s{3,}'  # Pattern to split by 3 or more spaces
+            for i in range(23, 24):  # Loop through lines 8 to 13 (houses 1 to 6)
+                try:
+                    match = re.split(pattern, lines[i])[1]
+                    degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
+                    degree_match_sign = re.findall(r'[a-zA-Z]+', match)
+                    degree_sign_abbr = degree_match_sign[0] if degree_match_sign else ""
+                    degree_sign = zodiac_signs.get(degree_sign_abbr.lower(), degree_sign_abbr)
+                    degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', match)
+                    degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
+                    degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
+                    degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
+                    result_vertex = {
+                        "name": re.split(pattern, lines[i])[0],
+                        "positionDegree": int(degree_match.group(1)) if degree_match else None,
+                        "position_sign": degree_sign,
+                        "position_min": degree_match_min[0],
+                        "position_sec": degree_match_min[1].replace('"', ''),  # Remove double quotes from seconds
+                    }
+                    
                 except IndexError as e:
                     result_data["error"] = f"Error parsing output: {str(e)}"
                     break
@@ -173,13 +217,14 @@ def run_excel_macro_changeData():
                     else:
                         print(planet["error"])
                 
-                # sheet.Range("R26").Value = quiron_parse_output["name"]
-                # sheet.Range("S26").Value = quiron_parse_output["positionDegree"]
-                # sheet.Range("T26").Value = quiron_parse_output["position_sign"]
-                # sheet.Range("U26").Value = quiron_parse_output["position_min"]
+                sheet.Range("R26").Value = quiron_parse_output["name"]
+                sheet.Range("S26").Value = quiron_parse_output["positionDegree"]
+                sheet.Range("T26").Value = quiron_parse_output["position_sign"]
+                sheet.Range("U26").Value = quiron_parse_output["position_min"]
+                
 
                 print("Data modified successfully.")
-                return jsonify({"message": "Data modified successfully.", "result": result_data, "result2": planets, "asteriods": [quiron_parse_output] }), 200
+                return jsonify({"message": "Data modified successfully.", "result": result_data, "result2": planets, "asteriods": [quiron_parse_output,lilith_parse_output,result_vertex,cerus_parse_output]}), 200
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
