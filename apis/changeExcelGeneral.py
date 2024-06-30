@@ -172,10 +172,10 @@ def run_excel_macro_changeData():
                     else:
                         print(planet["error"])
                 
-                sheet.Range("S26").Value = quiron_parse_output["name"]
-                sheet.Range("U26").Value = quiron_parse_output["positionDegree"]
-                sheet.Range("V26").Value = quiron_parse_output["position_sign"]
-                sheet.Range("W26").Value = quiron_parse_output["position_min"]
+                sheet.Range("R26").Value = quiron_parse_output["name"]
+                sheet.Range("S26").Value = quiron_parse_output["positionDegree"]
+                sheet.Range("T26").Value = quiron_parse_output["position_sign"]
+                sheet.Range("U26").Value = quiron_parse_output["position_min"]
 
                 print("Data modified successfully.")
                 return jsonify({"message": "Data modified successfully.", "result": result_data, "result2": planets, "asteriods": [quiron_parse_output] }), 200
