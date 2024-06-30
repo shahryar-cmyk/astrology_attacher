@@ -51,12 +51,16 @@ def run_excel_macro_changeData():
         # Execute the command using subprocess
         result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
         result2 = subprocess.run(command2, shell=True, check=True, capture_output=True, text=True)
+        quiron_planet_result = subprocess.run(quiron_planet, shell=True, check=True, capture_output=True, text=True)
 
         output = result.stdout
         lines = output.splitlines()
 
         output2 = result2.stdout
         lines2 = output2.splitlines()
+
+        quiron_output = quiron_planet_result.stdout
+        quiron_parse_output= parse_asteroid_output(quiron_output)
 
         result_data = {}
         planets = []
@@ -169,7 +173,7 @@ def run_excel_macro_changeData():
                         print(planet["error"])
 
                 print("Data modified successfully.")
-                return jsonify({"message": "Data modified successfully.", "result": result_data, "result2": planets}), 200
+                return jsonify({"message": "Data modified successfully.", "result": result_data, "result2": planets, "asteriods": [quiron_parse_output] }), 200
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
@@ -182,3 +186,70 @@ def run_excel_macro_changeData():
         return jsonify({"error": str(e)}), 500
     finally:
         pythoncom.CoUninitialize()  # Uninitialize COM library
+
+def parse_asteroid_output(asteroid_pholus_output):
+    lines = asteroid_pholus_output.splitlines()  # Split by newline characters
+    result = {}
+    
+    
+    try:
+        if len(lines) > 0:
+            pattern = r'\s{3,}'  # Pattern to split by 4 or more spaces
+            match = re.split(pattern, lines[6])[1]
+            name = re.split(pattern, lines[6])[0]
+            degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
+            degree_match_sign = re.findall(r'[a-zA-Z]+', match)   
+            degree_sign = degree_match_sign[0] if degree_match_sign else ""
+            degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', match)
+            degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
+            degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
+            degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
+            # Only Teharonhiawako Left 
+            # When the degree is not found with the first pattern, try the second pattern
+            pattern1 = r'\s{2,}'  # Pattern to split by 3 or more spaces
+            match1 = re.split(pattern1, lines[6])[1]
+            degree_match1 = re.match(r"(\d{1,2})\s\w{2}\s.*", match1)
+            # degree_match_sign1 = re.findall(r'[a-zA-Z]+', match1)   
+            # degree_sign1 = degree_match_sign1[0] if degree_match_sign1 else ""
+# import re
+
+# # Define the string
+# data = "Teharonhiawako 17 aq 19'59.3278"
+
+# # Define the regex pattern
+# pattern = r"(?P<name>[a-zA-Z]+)\s+(?P<degree>\d+)\s+(?P<sign>\w+)\s+(?P<min>\d+)'(?P<sec>[\d.]+)"
+
+# # Use the pattern to search the data string
+# match = re.search(pattern, data)
+
+# # Extract the components if the pattern matches
+# if match:
+#     result = {
+#         "name": match.group("name"),
+#         "degree": match.group("degree"),
+#         "sign": match.group("sign"),
+#         "min": match.group("min"),
+#         "sec": match.group("sec")
+#     }
+#     print(result)
+# else:
+#     print("No match found.")
+
+            
+            
+
+            result[name] = {
+                    "name" : name,
+                    "positionDegree": int(degree_match.group(1)) if degree_match else degree_match1.group(1),
+                    "position_sign": degree_sign,
+                    "position_min": degree_match_min[0],
+                    "position_sec": degree_match_min[1] ,                    
+                
+    
+            }
+        else:
+            result["error"] = "Error parsing output: No lines in the output"
+    except IndexError as e:
+        result["error"] = f"Error parsing output: {str(e)}"
+
+    return result[name]  # Always return a dictionary
