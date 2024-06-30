@@ -3,8 +3,15 @@ import subprocess
 import re
 import win32com.client
 import pythoncom
+import json
+from second_api import second_blueprint
+from apis.changeExcelGeneral import change_excel_general 
+
 
 app = Flask(__name__)
+app.register_blueprint(second_blueprint)  # Register the blueprint
+app.register_blueprint(change_excel_general)
+
 
 # For Getting the Planets Cordinates form the Swetest planet command
 @app.route('/planets', methods=['POST'])
@@ -37,11 +44,12 @@ def execute_command():
         return jsonify({"error": f"Error executing command: {e.stderr}"}), 500
     except Exception as e:
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
+
 # Function to parse the output of the swetest planet command
 def parse_swetest_output(output):
     lines = output.splitlines()  # Split by newline characters
-    result = {}
-    
+    planets = []
+
     try:
         planet_positions = lines[6:16]  # Adjust this slice according to the actual output format
         for line in planet_positions:
@@ -63,28 +71,30 @@ def parse_swetest_output(output):
                 if degree_match:
                     degree = int(degree_match.group(1))
                     degree_sign = degree_match_sign[0] if degree_match_sign else ""
-                    min_sec_split = degree_match_min[0].split("'") if len(degree_match_min) > 1 else ["", ""]
                     minute = degree_match_min[0]
-                    second = degree_match_min[1]
+                    second = degree_match_min[1].replace('"', '')  # Remove double quotes from seconds
                     
-                    result[planet_name] = {
-                        "positionDegree": degree,
-                        "position_sign": degree_sign,
-                        "position_min": minute,
-                        "position_sec": second,
-                    }
+                    planets.append({
+                        "Planet": {
+                            "planet_name": planet_name,
+                            "positionDegree": degree,
+                            "position_sign": degree_sign,
+                            "position_min": minute,
+                            "position_sec": second,
+                        }
+                    })
                 else:
-                    result[planet_name] = {"error": f"Error parsing degree from position: {position}"}
+                    planets.append({"Planet": {"error": f"Error parsing degree from position: {position}"}})
             else:
-                result["error"] = f"Error parsing line: {line}"
+                planets.append({"error": f"Error parsing line: {line}"})
 
     except IndexError as e:
-        result["error"] = f"Error parsing output: {str(e)}"
+        planets.append({"error": f"Error parsing output: {str(e)}"})
 
-    return result  # Always return a dictionary
+    return planets  # Always return a list of dictionaries
 
-@app.route('/house_endpoint', methods=['POST'])
-def house_endpoint():
+@app.route('/asteriod_endpoint', methods=['POST'])
+def asteriod_endpoint():
     try:
         # Get the parameters from the request data and ensure they are integers
         birth_date_year = int(request.json.get('birth_date_year'))
@@ -97,7 +107,7 @@ def house_endpoint():
         lon_deg = request.json.get('lon_deg')
 
         # Construct the command with zero-padded values
-        command = f"swetest -b{birth_date_day}.{birth_date_month}.{birth_date_year} -ut{ut_hour}:{ut_min}:{ut_sec} -p -house{lat_deg},{lon_deg},P -fPZ -roundsec"
+        # command = f"swetest -b{birth_date_day}.{birth_date_month}.{birth_date_year} -ut{ut_hour}:{ut_min}:{ut_sec} -p -house{lat_deg},{lon_deg},P -fPZ -roundsec"
         asteriod_pholus = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_1 = f"swetest -ps -xs136199 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         asteriod_2 = f"swetest -ps -xs7066 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
@@ -176,7 +186,7 @@ def house_endpoint():
 
 
         # Execute the command using subprocess
-        result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
+        # result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
         asteriod_pholus_result = subprocess.run(asteriod_pholus, shell=True, check=True, capture_output=True, text=True)
         asteriod_1_result = subprocess.run(asteriod_1, shell=True, check=True, capture_output=True, text=True)
         asteriod_2_result = subprocess.run(asteriod_2, shell=True, check=True, capture_output=True, text=True)
@@ -254,7 +264,7 @@ def house_endpoint():
         # asteriod_74_result = subprocess.run(asteriod_74, shell=True, check=True, capture_output=True, text=True)
 
 
-        output = result.stdout
+        # output = result.stdout
         asteriod_pholus_output = asteriod_pholus_result.stdout
         asteriod_1_output = asteriod_1_result.stdout
         asteriod_2_output = asteriod_2_result.stdout
@@ -332,7 +342,7 @@ def house_endpoint():
 
 
         # Parse the output
-        parsed_output = parse_house_output(output)
+        # parsed_output = parse_house_output(output)
         # Parse the asteriod pholus output
         parsed_asteriod_pholus_output = parse_asteroid_output(asteriod_pholus_output)
         parsed_asteriod_1_output = parse_asteroid_output(asteriod_1_output)
@@ -409,7 +419,7 @@ def house_endpoint():
 
 
         # Return the parsed result as a JSON response
-        return jsonify({"result": parsed_output,
+        return jsonify({
                         "asteriod_Data": [parsed_asteriod_pholus_output,parsed_asteriod_1_output,parsed_asteriod_2_output,parsed_asteriod_3_output,parsed_asteriod_4_output,parsed_asteriod_5_output,parsed_asteriod_6_output,parsed_asteriod_7_output,parsed_asteriod_8_output,parsed_asteriod_9_output,parsed_asteriod_10_output,parsed_asteriod_11_output,parsed_asteriod_12_output,parsed_asteriod_13_output,parsed_asteriod_14_output,parsed_asteriod_15_output,parsed_asteriod_16_output,parsed_asteriod_17_output,parsed_asteriod_18_output,parsed_asteriod_19_output,parsed_asteriod_20_output,parsed_asteriod_21_output,parsed_asteriod_22_output,parsed_asteriod_23_output,parsed_asteriod_24_output,parsed_asteriod_25_output,parsed_asteriod_26_output,parsed_asteriod_27_output,parsed_asteriod_28_output,parsed_asteriod_29_output,parsed_asteriod_30_output,parsed_asteriod_31_output,parsed_asteriod_32_output,parsed_asteriod_33_output,parsed_asteriod_34_output,parsed_asteriod_35_output,parsed_asteriod_36_output,parsed_asteriod_37_output,parsed_asteriod_38_output,parsed_asteriod_39_output,parsed_asteriod_40_output,parsed_asteriod_41_output,parsed_asteriod_42_output,parsed_asteriod_43_output,parsed_asteriod_44_output,parsed_asteriod_45_output,parsed_asteriod_46_output,parsed_asteriod_47_output,parsed_asteriod_48_output,parsed_asteriod_49_output,parsed_asteriod_50_output,parsed_asteriod_51_output,parsed_asteriod_52_output,parsed_asteriod_53_output,parsed_asteriod_54_output,parsed_asteriod_55_output,parsed_asteriod_56_output,parsed_asteriod_57_output,parsed_asteriod_58_output,parsed_asteriod_59_output,parsed_asteriod_61_output,parsed_asteriod_62_output,parsed_asteriod_63_output,parsed_asteriod_64_output,parsed_asteriod_65_output,parsed_asteriod_66_output,parsed_asteriod_67_output,parsed_asteriod_68_output,parsed_asteriod_69_output,parsed_asteriod_70_output,parsed_asteriod_71_output]})
 
     except ValueError as e:
@@ -423,6 +433,7 @@ def house_endpoint():
 def parse_asteroid_output(asteroid_pholus_output):
     lines = asteroid_pholus_output.splitlines()  # Split by newline characters
     result = {}
+    
     
     try:
         if len(lines) > 0:
@@ -487,6 +498,47 @@ def parse_asteroid_output(asteroid_pholus_output):
 
     return result[name]  # Always return a dictionary
 
+@app.route('/house_endpoint', methods=['POST'])
+def house_endpoint():
+    try:
+        # Get the parameters from the request data and ensure they are integers
+        birth_date_year = int(request.json.get('birth_date_year'))
+        birth_date_month = int(request.json.get('birth_date_month'))
+        birth_date_day = int(request.json.get('birth_date_day'))
+        ut_hour = int(request.json.get('ut_hour'))
+        ut_min = int(request.json.get('ut_min'))
+        ut_sec = int(request.json.get('ut_sec'))
+        lat_deg = request.json.get('lat_deg')
+        lon_deg = request.json.get('lon_deg')
+
+        # Construct the command with zero-padded values
+        command = f"swetest -b{birth_date_day}.{birth_date_month}.{birth_date_year} -ut{ut_hour}:{ut_min}:{ut_sec} -p -house{lat_deg},{lon_deg},P -fPZ -roundsec"
+        
+
+        # Execute the command using subprocess
+        result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
+       
+
+        output = result.stdout
+        
+
+
+        # Parse the output
+        parsed_output = parse_house_output(output)
+        # Parse the asteriod pholus output
+        
+
+        # Return the parsed result as a JSON response
+        return jsonify({ "result": parsed_output,
+                        })
+
+    except ValueError as e:
+        return jsonify({"error": f"Invalid input type: {str(e)}"}), 400
+    except subprocess.CalledProcessError as e:
+        return jsonify({"error": f"Error executing command: {e.stderr}"}), 500
+    except Exception as e:
+        return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
+
 
 def parse_house_output(output):
     lines = output.splitlines()  # Split by newline characters
@@ -506,7 +558,7 @@ def parse_house_output(output):
                     degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
                     degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
                     # second = min_sec_split[1]                 
-                    result[f"house{i - 7}"] = {
+                    result[f"Casa{i - 7}"] = {
                         "positionDegree": int(degree_match.group(1)) if degree_match else None,
                         "position_sign": degree_sign,
                         "position_min": degree_match_min[0],
@@ -522,6 +574,81 @@ def parse_house_output(output):
 # Dummy user data (replace this with your actual data or database access)
 
 # API to get a list of users
+@app.route('/api/changeData', methods=['POST'])
+def run_excel_macro_changeData():
+    pythoncom.CoInitialize()  # Initialize COM library
+    try:
+        # Get the parameters from the request data and ensure they are integers
+        birth_date_year = int(request.json.get('birth_date_year'))
+        birth_date_month = int(request.json.get('birth_date_month'))
+        birth_date_day = int(request.json.get('birth_date_day'))
+        ut_hour = int(request.json.get('ut_hour'))
+        ut_min = int(request.json.get('ut_min'))
+        ut_sec = int(request.json.get('ut_sec'))
+        lat_deg = request.json.get('lat_deg')
+        lon_deg = request.json.get('lon_deg')
+        xl = win32com.client.Dispatch("Excel.Application")
+        xl.Visible = True  # Set to True if you want Excel to be visible
+
+        # Construct the command with zero-padded values
+        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -p -house{lat_deg},{lon_deg},P -fPZ -roundsec"
+
+        # Execute the command using subprocess
+        result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
+        output = result.stdout
+        lines = output.splitlines()
+
+        result = {}
+        if len(lines) > 0:
+            pattern = r'\s{3,}'  # Pattern to split by 3 or more spaces
+            for i in range(8, 14):  # Loop through lines 8 to 13 (houses 1 to 6)
+                try:
+                    match = re.split(pattern, lines[i])[1]
+                    degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
+                    degree_match_sign = re.findall(r'[a-zA-Z]+', match)   
+                    degree_sign = degree_match_sign[0] if degree_match_sign else ""
+                    degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', match)
+                    degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
+                    degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
+                    degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
+                    result[f"Casa{i - 7}"] = {
+                        "positionDegree": int(degree_match.group(1)) if degree_match else None,
+                        "position_sign": degree_sign,
+                        "position_min": degree_match_min[0],
+                        "position_sec": degree_match_min[1],
+                    }
+                except IndexError as e:
+                    result["error"] = f"Error parsing output: {str(e)}"
+                    break
+        else:
+            result["error"] = "Error parsing line: No lines in the output"
+
+        try:
+            wb = xl.Workbooks.Open(r'C:\El Camino que Creas\Generador de Informes\Generador de Informes\Generador de Informes.xlsm')  # Path to your Excel file
+            try:
+                # Access the specific sheet by name
+                sheet_name = 'CN y RS (o RL)'  # Replace with your sheet name
+                sheet = wb.Sheets(sheet_name)
+
+                # Modify data in the sheet
+                print(degree_match.group(1))
+                sheet.Range("S26").Value = "Hello, World!"
+
+                print("Data modified successfully.")
+                return jsonify({"message": "Data modified successfully."}), 200
+            finally:
+                wb.Close(SaveChanges=True)  # Save changes after running macro
+        except Exception as e:
+            print("Error opening workbook:", e)
+            return jsonify({"error": str(e)}), 500
+        finally:
+            xl.Quit()
+    except Exception as e:
+        print("Error initializing Excel:", e)
+        return jsonify({"error": str(e)}), 500
+    finally:
+        pythoncom.CoUninitialize()  # Uninitialize COM library
+
 @app.route('/api/macro', methods=['GET'])
 def run_excel_macro():
     pythoncom.CoInitialize()  # Initialize COM library
