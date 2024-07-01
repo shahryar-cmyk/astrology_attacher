@@ -268,6 +268,7 @@ def run_excel_macro_changeData():
         chariklo_planet_result = subprocess.run(chariklo_planet, shell=True, check=True, capture_output=True, text=True)
         iris_planet_result = subprocess.run(iris_planet, shell=True, check=True, capture_output=True, text=True)
         eunomia_planet_result = subprocess.run(eunomia_planet, shell=True, check=True, capture_output=True, text=True)
+        euphrosyne_planet_result = subprocess.run(euphrosyne_planet, shell=True, check=True, capture_output=True, text=True)
         orcus_planet_result = subprocess.run(orcus_planet, shell=True, check=True, capture_output=True, text=True)
         pholus_planet_result = subprocess.run(pholus_planet, shell=True, check=True, capture_output=True, text=True)
         hermione_planet_result = subprocess.run(hermione_planet, shell=True, check=True, capture_output=True, text=True)
@@ -418,6 +419,10 @@ def run_excel_macro_changeData():
 
         eunomia_planet_output = eunomia_planet_result.stdout
         eunomia_parse_output = parse_asteroid_output(eunomia_planet_output)
+
+        # TODO: Implement the parse_asteroid_output function for the following planets Parsing is not Correct Because Before and After the Degree The value will be 1 or 2 and don't forger the points
+        euphrosyne_output = euphrosyne_planet_result.stdout
+        # euphrosyne_parse_output = parse_asteroid_output(euphrosyne_output)
 
         orcus_output = orcus_planet_result.stdout
         orcus_parse_output = parse_asteroid_output(orcus_output)
@@ -591,37 +596,37 @@ def run_excel_macro_changeData():
         typhon_output = typhon_planet_result.stdout
         typhon_parse_output = parse_asteroid_output(typhon_output)
 
-        # aspasia_output = aspasia_planet_result.stdout
-        # aspasia_parse_output = parse_asteroid_output(aspasia_output)
+        aspasia_output = aspasia_planet_result.stdout
+        aspasia_parse_output = parse_asteroid_output(aspasia_output)
 
-        # chicago_output = chicago_planet_result.stdout
-        # chicago_parse_output = parse_asteroid_output(chicago_output)
+        chicago_output = chicago_planet_result.stdout
+        chicago_parse_output = parse_asteroid_output(chicago_output)
 
-        # gyptis_output = gyptis_planet_result.stdout
-        # gyptis_parse_output = parse_asteroid_output(gyptis_output)
+        gyptis_output = gyptis_planet_result.stdout
+        gyptis_parse_output = parse_asteroid_output(gyptis_output)
 
-        # diomedes_output = diomedes_planet_result.stdout
-        # diomedes_parse_output = parse_asteroid_output(diomedes_output)
+        diomedes_output = diomedes_planet_result.stdout
+        diomedes_parse_output = parse_asteroid_output(diomedes_output)
 
-        # loreley_output = loreley_planet_result.stdout
-        # loreley_parse_output = parse_asteroid_output(loreley_output)
+        loreley_output = loreley_planet_result.stdout
+        loreley_parse_output = parse_asteroid_output(loreley_output)
 
 
 
-        # juewa_output = juewa_planet_result.stdout
-        # juewa_parse_output = parse_asteroid_output(juewa_output)
+        juewa_output = juewa_planet_result.stdout
+        juewa_parse_output = parse_asteroid_output(juewa_output)
 
-        # eunike_output = eunike_planet_result.stdout
-        # eunike_parse_output = parse_asteroid_output(eunike_output)
+        eunike_output = eunike_planet_result.stdout
+        eunike_parse_output = parse_asteroid_output(eunike_output)
 
-        # ino_output = ino_planet_result.stdout
-        # ino_parse_output = parse_asteroid_output(ino_output)
+        ino_output = ino_planet_result.stdout
+        ino_parse_output = parse_asteroid_output(ino_output)
 
-        # ismene_output = ismene_planet_result.stdout
-        # ismene_parse_output = parse_asteroid_output(ismene_output)
+        ismene_output = ismene_planet_result.stdout
+        ismene_parse_output = parse_asteroid_output(ismene_output)
 
-        # merapi_output = merapi_planet_result.stdout
-        # merapi_parse_output = parse_asteroid_output(merapi_output)
+        merapi_output = merapi_planet_result.stdout
+        merapi_parse_output = parse_asteroid_output(merapi_output)
 
 
 
@@ -659,7 +664,7 @@ def run_excel_macro_changeData():
         }
         # For Lilith 2
         lilith2_parse_output = {
-            "name": "Sol Negro Real",
+            "name": "Lilith 2",
             "positionDegree": "",
             "position_min": "",
             "position_sec": "",
@@ -667,7 +672,7 @@ def run_excel_macro_changeData():
         }
         # For Waldemath Priapus
         waltemath_priapus_parse_output = {
-            "name": "Sol Negro Real",
+            "name": "Waldemath Priapus",
             "positionDegree": "",
             "position_min": "",
             "position_sec": "",
@@ -680,17 +685,7 @@ def run_excel_macro_changeData():
             "position_min": "",
             "position_sec": "",
             "position_sign": ""
-        }
-
-        
-        
-
-
-
-
-
-
-        
+        } 
         result_data = {}
         planets = []
         result_vertex = {}
@@ -842,10 +837,12 @@ def run_excel_macro_changeData():
                 sheet.Range("S26").Value = quiron_parse_output["positionDegree"]
                 sheet.Range("T26").Value = quiron_parse_output["position_sign"]
                 sheet.Range("U26").Value = quiron_parse_output["position_min"]
+
+                asteroidsList = [quiron_parse_output,lilith_parse_output,result_vertex,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,gyptis_parse_output,diomedes_parse_output,loreley_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
                 
 
                 print("Data modified successfully.")
-                return jsonify({"message": "Data modified successfully.", "result": result_data, "result2": planets, "asteriods": [quiron_parse_output,lilith_parse_output,result_vertex,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output]}), 200
+                return jsonify({"message": "Data modified successfully.", "result": result_data, "result2": planets, "asteriods": asteroidsList}), 200
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
