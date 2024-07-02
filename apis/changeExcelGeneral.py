@@ -228,7 +228,7 @@ def run_excel_macro_changeData():
         # Diomedes Command
         diomedes_planet = f"swetest -ps -xs1437 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
         # Kreusa Command
-        kreusa_planet = f"swetest -ps -xs105 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        kreusa_planet = f"swetest -ps -xs488 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
 # Juewa	139	Juewa
         juewa_planet = f"swetest -ps -xs139 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
 # Eunike	185	Eunike
@@ -325,6 +325,7 @@ def run_excel_macro_changeData():
         chicago_planet_result = subprocess.run(chicago_planet, shell=True, check=True, capture_output=True, text=True)
         loreley_planet_result = subprocess.run(loreley_planet, shell=True, check=True, capture_output=True, text=True)
         diomedes_planet_result = subprocess.run(diomedes_planet, shell=True, check=True, capture_output=True, text=True)
+        kreusa_planet_result = subprocess.run(kreusa_planet, shell=True, check=True, capture_output=True, text=True)
         gyptis_planet_result = subprocess.run(gyptis_planet, shell=True, check=True, capture_output=True, text=True)
         juewa_planet_result = subprocess.run(juewa_planet, shell=True, check=True, capture_output=True, text=True)
         eunike_planet_result = subprocess.run(eunike_planet, shell=True, check=True, capture_output=True, text=True)
@@ -615,7 +616,8 @@ def run_excel_macro_changeData():
         loreley_output = loreley_planet_result.stdout
         loreley_parse_output = parse_asteroid_output(loreley_output)
 
-
+        kreusa_output = kreusa_planet_result.stdout
+        kreusa_parse_output = parse_asteroid_output(kreusa_output)
 
         juewa_output = juewa_planet_result.stdout
         juewa_parse_output = parse_asteroid_output(juewa_output)
@@ -842,7 +844,7 @@ def run_excel_macro_changeData():
                 sheet.Range("T26").Value = quiron_parse_output["position_sign"]
                 sheet.Range("U26").Value = quiron_parse_output["position_min"]
 
-                asteroidsList = [quiron_parse_output,lilith_parse_output,result_vertex,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,gyptis_parse_output,diomedes_parse_output,loreley_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
+                asteroidsList = [quiron_parse_output,lilith_parse_output,result_vertex,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
                 
 
                 print("Data modified successfully.")
