@@ -333,15 +333,105 @@ def run_excel_macro_changeData():
         ismene_planet_result = subprocess.run(ismene_planet, shell=True, check=True, capture_output=True, text=True)
         merapi_planet_result = subprocess.run(merapi_planet, shell=True, check=True, capture_output=True, text=True)
 
-        
-        
-
-
-
-
-
-
-
+        astro_objects = [
+    "Chiron",
+    "Lilith",
+    "Vertex",
+    "Ceres",
+    "Pallas",
+    "Juno",
+    "Vesta",
+    "Eris",
+    "Selena/White Moon",
+    "Quaoar",
+    "Sedna",
+    "Varuna",
+    "Nessus",
+    "Waldemath",
+    "Hygiea",
+    "Sylvia",
+    "Hektor",
+    "Europa",
+    "Davida",
+    "Interamnia",
+    "Camilla",
+    "Cybele",
+    "Black Sun",
+    "Anti-Vertex",
+    "True South Node",
+    "True Black Sun",
+    "Lilith 2",
+    "Waldemath Priapus",
+    "White Sun",
+    "Chariklo",
+    "Iris",
+    "Eunomia",
+    "Euphrosyne",
+    "Orcus",
+    "Pholus",
+    "Hermione",
+    "Ixion",
+    "Haumea",
+    "Makemake",
+    "Bamberga",
+    "Patientia",
+    "Thisbe",
+    "Herculina",
+    "Doris",
+    "Ursula",
+    "Eugenia",
+    "Amphitrite",
+    "Diotima",
+    "Fortuna",
+    "Egeria",
+    "Themis",
+    "Aurora",
+    "Alauda",
+    "Aletheia",
+    "Palma",
+    "Nemesis",
+    "Psyche",
+    "Hebe",
+    "Lachesis",
+    "Daphne",
+    "Bertha",
+    "Freia",
+    "Winchester",
+    "Hilda",
+    "Pretoria",
+    "Metis",
+    "Aegle",
+    "Kalliope",
+    "Germania",
+    "Prokne",
+    "Stereoskopia",
+    "Agamemnon",
+    "Alexandra",
+    "Siegena",
+    "Elpis",
+    "Real Lilith",
+    "Black Sun 2",
+    "Vulcan",
+    "Borasisi",
+    "Lempo",
+    "1998 SM165",
+    "Ceto",
+    "Teharonhiawako",
+    "2000 OJ67",
+    "Elektra",
+    "Typhon",
+    "Aspasia",
+    "Chicago",
+    "Loreley",
+    "Gyptis",
+    "Diomedes",
+    "Kreusa",
+    "Juewa",
+    "Eunike",
+    "Ino",
+    "Ismene",
+    "Merapi"
+]
 
 
         output = result.stdout
@@ -351,194 +441,195 @@ def run_excel_macro_changeData():
         lines2 = output2.splitlines()
 
         quiron_output = quiron_planet_result.stdout
-        quiron_parse_output= parse_asteroid_output(quiron_output)
+        quiron_parse_output= parse_asteroid_output(quiron_output,astro_objects[0])
         
         lilith_output = lilith_planet_result.stdout
-        lilith_parse_output = parse_asteroid_output(lilith_output)
+        lilith_parse_output = parse_asteroid_output(lilith_output,astro_objects[1])
 
         cerus_output = cerus_planet_result.stdout
-        cerus_parse_output = parse_asteroid_output(cerus_output)
+        cerus_parse_output = parse_asteroid_output(cerus_output,astro_objects[3])
 
         pallas_output = pallas_planet_result.stdout
-        pallas_parse_output = parse_asteroid_output(pallas_output)
+        pallas_parse_output = parse_asteroid_output(pallas_output,astro_objects[4])
 
         juno_output = juno_planet_result.stdout
-        juno_parse_output = parse_asteroid_output(juno_output)
+        juno_parse_output = parse_asteroid_output(juno_output,astro_objects[5])
 
         vesta_output = vesta_planet_result.stdout
-        vesta_parse_output = parse_asteroid_output(vesta_output)
+        vesta_parse_output = parse_asteroid_output(vesta_output,astro_objects[6])
 
         eris_output = eris_planet_result.stdout
-        eris_parse_output = parse_asteroid_output(eris_output)
+        eris_parse_output = parse_asteroid_output(eris_output,astro_objects[7])
 
         white_moon_output = white_moon_result.stdout
-        # white_moon_parse_output = parse_asteroid_output(white_moon_output)
+        white_moon_parse_output = parse_asteroid_output(white_moon_output,astro_objects[8])
 
         quaoar_output = quaoar_planet_result.stdout
-        quaoar_parse_output = parse_asteroid_output(quaoar_output)
+        quaoar_parse_output = parse_asteroid_output(quaoar_output,astro_objects[9])
 
         sedna_output = sedna_planet_result.stdout
-        sedna_parse_output = parse_asteroid_output(sedna_output)
+        sedna_parse_output = parse_asteroid_output(sedna_output,astro_objects[10])
 
         varuna_output = varuna_planet_result.stdout
-        varuna_parse_output = parse_asteroid_output(varuna_output)
+        varuna_parse_output = parse_asteroid_output(varuna_output,astro_objects[11])
 
         nessus_output = nessus_planet_result.stdout
-        nessus_parse_output = parse_asteroid_output(nessus_output)
+        nessus_parse_output = parse_asteroid_output(nessus_output,astro_objects[12])
 
         waltemath_output = waltemath_planet_result.stdout
-        waltemath_parse_output = parse_asteroid_output(waltemath_output)
+        waltemath_parse_output = parse_asteroid_output(waltemath_output,astro_objects[13])
 
         hygeia_output = hygeia_planet_result.stdout
-        hygeia_parse_output = parse_asteroid_output(hygeia_output)
+        hygeia_parse_output = parse_asteroid_output(hygeia_output,astro_objects[14])
 
         sylvia_output = sylvia_planet_result.stdout
-        sylvia_parse_output = parse_asteroid_output(sylvia_output)
+        sylvia_parse_output = parse_asteroid_output(sylvia_output,astro_objects[15])
 
         hektor_output = hektor_planet_result.stdout
-        hektor_parse_output = parse_asteroid_output(hektor_output)
+        hektor_parse_output = parse_asteroid_output(hektor_output,astro_objects[16])
 
         europa_output = europa_planet_result.stdout
-        europa_parse_output = parse_asteroid_output(europa_output)
+        europa_parse_output = parse_asteroid_output(europa_output,astro_objects[17])
 
         davida_output = davida_planet_result.stdout
-        davida_parse_output = parse_asteroid_output(davida_output)
+        davida_parse_output = parse_asteroid_output(davida_output,astro_objects[18])
 
         interamnia_output = interamnia_planet_result.stdout
-        interamnia_parse_output = parse_asteroid_output(interamnia_output)
+        interamnia_parse_output = parse_asteroid_output(interamnia_output,astro_objects[19])
 
         camilla_output = camilla_planet_result.stdout
-        camilla_parse_output = parse_asteroid_output(camilla_output)
+        camilla_parse_output = parse_asteroid_output(camilla_output,astro_objects[20])
 
         cybele_output = cybele_planet_result.stdout
-        cybele_parse_output = parse_asteroid_output(cybele_output)
+        cybele_parse_output = parse_asteroid_output(cybele_output,astro_objects[21])
 
         chariklo_output = chariklo_planet_result.stdout
-        chariklo_parse_output = parse_asteroid_output(chariklo_output)
+        chariklo_parse_output = parse_asteroid_output(chariklo_output,astro_objects[29])
 
         iris_output = iris_planet_result.stdout
-        iris_parse_output = parse_asteroid_output(iris_output)
+        iris_parse_output = parse_asteroid_output(iris_output,astro_objects[30])
 
         eunomia_planet_output = eunomia_planet_result.stdout
-        eunomia_parse_output = parse_asteroid_output(eunomia_planet_output)
+        eunomia_parse_output = parse_asteroid_output(eunomia_planet_output,astro_objects[31])
 
         # TODO: Implement the parse_asteroid_output function for the following planets Parsing is not Correct Because Before and After the Degree The value will be 1 or 2 and don't forger the points
         euphrosyne_output = euphrosyne_planet_result.stdout
-        # euphrosyne_parse_output = parse_asteroid_output(euphrosyne_output)
+        euphrosyne_parse_output = parse_asteroid_output(euphrosyne_output,astro_objects[32])
 
         orcus_output = orcus_planet_result.stdout
-        orcus_parse_output = parse_asteroid_output(orcus_output)
+        orcus_parse_output = parse_asteroid_output(orcus_output,astro_objects[33])
 
         pholus_output = pholus_planet_result.stdout
-        pholus_parse_output = parse_asteroid_output(pholus_output)
+        pholus_parse_output = parse_asteroid_output(pholus_output,astro_objects[34])
 
         hermione_output = hermione_planet_result.stdout
-        hermione_parse_output = parse_asteroid_output(hermione_output)
+        hermione_parse_output = parse_asteroid_output(hermione_output,astro_objects[35])
 
         ixion_output = ixion_planet_result.stdout
-        ixion_parse_output = parse_asteroid_output(ixion_output)
+        ixion_parse_output = parse_asteroid_output(ixion_output,astro_objects[36])
 
         haumea_output = haumea_planet_result.stdout
-        haumea_parse_output = parse_asteroid_output(haumea_output)
+        haumea_parse_output = parse_asteroid_output(haumea_output,astro_objects[37])
 
         makemake_output = makemake_planet_result.stdout
-        makemake_parse_output = parse_asteroid_output(makemake_output)
+        makemake_parse_output = parse_asteroid_output(makemake_output,astro_objects[38])
 
         bamberga_output = bamberga_planet_result.stdout
-        bamberga_parse_output = parse_asteroid_output(bamberga_output)
+        bamberga_parse_output = parse_asteroid_output(bamberga_output,astro_objects[39])
 
         patientia_output = patientia_planet_result.stdout
-        patientia_parse_output = parse_asteroid_output(patientia_output)
+        patientia_parse_output = parse_asteroid_output(patientia_output,astro_objects[40])
 
         thisbe_output = thisbe_planet_result.stdout
-        thisbe_parse_output = parse_asteroid_output(thisbe_output)
+        thisbe_parse_output = parse_asteroid_output(thisbe_output,astro_objects[41])
 
         herculina_output = herculina_planet_result.stdout
-        herculina_parse_output = parse_asteroid_output(herculina_output)
+        herculina_parse_output = parse_asteroid_output(herculina_output,astro_objects[42])
 
         doris_output = doris_planet_result.stdout
-        doris_parse_output = parse_asteroid_output(doris_output)
+        doris_parse_output = parse_asteroid_output(doris_output,astro_objects[43])  
 
         ursula_output = ursula_planet_result.stdout
-        ursula_parse_output = parse_asteroid_output(ursula_output)
+        ursula_parse_output = parse_asteroid_output(ursula_output,astro_objects[44])
 
         eugenia_output = eugenia_planet_result.stdout
-        eugenia_parse_output = parse_asteroid_output(eugenia_output)
+        eugenia_parse_output = parse_asteroid_output(eugenia_output,astro_objects[45])
 
         amphitrite_output = amphitrite_planet_result.stdout
-        amphitrite_parse_output = parse_asteroid_output(amphitrite_output)
+        amphitrite_parse_output = parse_asteroid_output(amphitrite_output,astro_objects[46])
 
         diotima_output = diotima_planet_result.stdout
-        diotima_parse_output = parse_asteroid_output(diotima_output)
+        diotima_parse_output = parse_asteroid_output(diotima_output,astro_objects[47])
 
         fortuna_output = fortuna_planet_result.stdout
-        fortuna_parse_output = parse_asteroid_output(fortuna_output)
+        fortuna_parse_output = parse_asteroid_output(fortuna_output,astro_objects[48])
 
         egeria_output = egeria_planet_result.stdout
-        egeria_parse_output = parse_asteroid_output(egeria_output)
+        egeria_parse_output = parse_asteroid_output(egeria_output,astro_objects[49])
 
         themis_output = themis_planet_result.stdout
-        themis_parse_output = parse_asteroid_output(themis_output)
+        themis_parse_output = parse_asteroid_output(themis_output,astro_objects[50])
 
         aurora_output = aurora_planet_result.stdout
-        aurora_parse_output = parse_asteroid_output(aurora_output)
+        aurora_parse_output = parse_asteroid_output(aurora_output,astro_objects[51])
 
         alauda_output = alauda_planet_result.stdout
-        alauda_parse_output = parse_asteroid_output(alauda_output)
+        alauda_parse_output = parse_asteroid_output(alauda_output,astro_objects[52])
 
         aletheia_output = aletheia_planet_result.stdout
-        aletheia_parse_output = parse_asteroid_output(aletheia_output)
+        aletheia_parse_output = parse_asteroid_output(aletheia_output,astro_objects[53])
 
         palma_output = palma_planet_result.stdout
-        palma_parse_output = parse_asteroid_output(palma_output)
+        palma_parse_output = parse_asteroid_output(palma_output,astro_objects[54])
 
         nemesis_output = nemesis_planet_result.stdout
-        nemesis_parse_output = parse_asteroid_output(nemesis_output)
+        nemesis_parse_output = parse_asteroid_output(nemesis_output,astro_objects[55])
 
         psyche_output = psyche_planet_result.stdout
-        psyche_parse_output = parse_asteroid_output(psyche_output)
+        psyche_parse_output = parse_asteroid_output(psyche_output,astro_objects[56])
 
         hebe_output = hebe_planet_result.stdout
-        hebe_parse_output = parse_asteroid_output(hebe_output)
+        hebe_parse_output = parse_asteroid_output(hebe_output,astro_objects[57])
 
         lachesis_output = lachesis_planet_result.stdout
-        lachesis_parse_output = parse_asteroid_output(lachesis_output)
+        lachesis_parse_output = parse_asteroid_output(lachesis_output,astro_objects[58])
 
         daphne_output = daphne_planet_result.stdout
-        daphne_parse_output = parse_asteroid_output(daphne_output)
+        daphne_parse_output = parse_asteroid_output(daphne_output,astro_objects[59])
 
         bertha_output = bertha_planet_result.stdout
-        bertha_parse_output = parse_asteroid_output(bertha_output)
+        bertha_parse_output = parse_asteroid_output(bertha_output,astro_objects[60])
 
         freia_output = freia_planet_result.stdout
-        freia_parse_output = parse_asteroid_output(freia_output)
+        freia_parse_output = parse_asteroid_output(freia_output,astro_objects[61])
 
         winchester_output = winchester_planet_result.stdout
-        winchester_parse_output = parse_asteroid_output(winchester_output)
+        winchester_parse_output = parse_asteroid_output(winchester_output,astro_objects[62])
+        
 
         hilda_output = hilda_planet_result.stdout
-        hilda_parse_output = parse_asteroid_output(hilda_output)
+        hilda_parse_output = parse_asteroid_output(hilda_output,astro_objects[63])
 
         pretoria_output = pretoria_planet_result.stdout
-        pretoria_parse_output = parse_asteroid_output(pretoria_output)
+        pretoria_parse_output = parse_asteroid_output(pretoria_output,astro_objects[64])
 
         metis_output = metis_planet_result.stdout
-        metis_parse_output = parse_asteroid_output(metis_output)
+        metis_parse_output = parse_asteroid_output(metis_output,astro_objects[65])
 
         aegle_output = aegle_planet_result.stdout
-        aegle_parse_output = parse_asteroid_output(aegle_output)
+        aegle_parse_output = parse_asteroid_output(aegle_output,astro_objects[66])
 
         kalliope_output = kalliope_planet_result.stdout
-        kalliope_parse_output = parse_asteroid_output(kalliope_output)
+        kalliope_parse_output = parse_asteroid_output(kalliope_output,astro_objects[67])
 
         germania_output = germania_planet_result.stdout
-        germania_parse_output = parse_asteroid_output(germania_output)
+        germania_parse_output = parse_asteroid_output(germania_output,astro_objects[68])
 
         prokne_output = prokne_planet_result.stdout
-        prokne_parse_output = parse_asteroid_output(prokne_output)
+        prokne_parse_output = parse_asteroid_output(prokne_output,astro_objects[69])
 
         stereoskopia_output = stereoskopia_planet_result.stdout
-        stereoskopia_parse_output = parse_asteroid_output(stereoskopia_output)
+        stereoskopia_parse_output = parse_asteroid_output(stereoskopia_output,astro_objects[70])
 
         #     agamemnon_planet_result = subprocess.run(agamemnon_planet, shell=True, check=True, capture_output=True, text=True)
         # alexandra_planet_result = subprocess.run(alexandra_planet, shell=True, check=True, capture_output=True, text=True)
@@ -566,73 +657,75 @@ def run_excel_macro_changeData():
         # merapi_planet_result = subprocess.run(merapi_planet, shell=True, check=True, capture_output=True, text=True)
 
         agamemnon_output = agamemnon_planet_result.stdout
-        agamemnon_parse_output = parse_asteroid_output(agamemnon_output)
+        agamemnon_parse_output = parse_asteroid_output(agamemnon_output,astro_objects[71])
 
         alexandra_output = alexandra_planet_result.stdout
-        alexandra_parse_output = parse_asteroid_output(alexandra_output)
+        alexandra_parse_output = parse_asteroid_output(alexandra_output,astro_objects[72])
 
         siegena_output = siegena_planet_result.stdout
-        siegena_parse_output = parse_asteroid_output(siegena_output)
+        siegena_parse_output = parse_asteroid_output(siegena_output,astro_objects[73])
 
         elpis_output = elpis_planet_result.stdout
-        elpis_parse_output = parse_asteroid_output(elpis_output)
+        elpis_parse_output = parse_asteroid_output(elpis_output,astro_objects[74])
 
         borasisi_output = borasisi_planet_result.stdout
-        borasisi_parse_output = parse_asteroid_output(borasisi_output)
+        borasisi_parse_output = parse_asteroid_output(borasisi_output,astro_objects[78])
 
         lempo_output = lempo_planet_result.stdout
-        lempo_parse_output = parse_asteroid_output(lempo_output)
+        lempo_parse_output = parse_asteroid_output(lempo_output,astro_objects[79])
 
         _1998_26308_output = _1998_26308_planet_result.stdout
-        _1998_26308_parse_output = parse_asteroid_output(_1998_26308_output)
+        _1998_26308_parse_output = parse_asteroid_output(_1998_26308_output,astro_objects[80])
 
         ceto_output = ceto_planet_result.stdout
-        ceto_parse_output = parse_asteroid_output(ceto_output)
+        ceto_parse_output = parse_asteroid_output(ceto_output,astro_objects[81])
 
         teharonhiawako_output = teharonhiawako_planet_result.stdout
-        # teharonhiawako_parse_output = parse_asteroid_output(teharonhiawako_output)
+        teharonhiawako_parse_output = parse_asteroid_output(teharonhiawako_output,astro_objects[82])
 
         _2000_oj67_134860_output = _2000_oj67_134860_planet_result.stdout
-        _2000_oj67_134860_parse_output = parse_asteroid_output(_2000_oj67_134860_output)
+        _2000_oj67_134860_parse_output = parse_asteroid_output(_2000_oj67_134860_output,astro_objects[83])
 
         elektra_output = elektra_planet_result.stdout
-        elektra_parse_output = parse_asteroid_output(elektra_output)
+        elektra_parse_output = parse_asteroid_output(elektra_output,astro_objects[84])
 
         typhon_output = typhon_planet_result.stdout
-        typhon_parse_output = parse_asteroid_output(typhon_output)
+        typhon_parse_output = parse_asteroid_output(typhon_output,astro_objects[85])
 
         aspasia_output = aspasia_planet_result.stdout
-        aspasia_parse_output = parse_asteroid_output(aspasia_output)
+        aspasia_parse_output = parse_asteroid_output(aspasia_output,astro_objects[86])
 
         chicago_output = chicago_planet_result.stdout
-        chicago_parse_output = parse_asteroid_output(chicago_output)
-
-        gyptis_output = gyptis_planet_result.stdout
-        gyptis_parse_output = parse_asteroid_output(gyptis_output)
-
-        diomedes_output = diomedes_planet_result.stdout
-        diomedes_parse_output = parse_asteroid_output(diomedes_output)
+        chicago_parse_output = parse_asteroid_output(chicago_output,astro_objects[87])
 
         loreley_output = loreley_planet_result.stdout
-        loreley_parse_output = parse_asteroid_output(loreley_output)
+        loreley_parse_output = parse_asteroid_output(loreley_output,astro_objects[88])
+
+        gyptis_output = gyptis_planet_result.stdout
+        gyptis_parse_output = parse_asteroid_output(gyptis_output,astro_objects[89])
+
+        diomedes_output = diomedes_planet_result.stdout
+        diomedes_parse_output = parse_asteroid_output(diomedes_output,astro_objects[90])
+
+ 
 
         kreusa_output = kreusa_planet_result.stdout
-        kreusa_parse_output = parse_asteroid_output(kreusa_output)
+        kreusa_parse_output = parse_asteroid_output(kreusa_output,astro_objects[91])
 
         juewa_output = juewa_planet_result.stdout
-        juewa_parse_output = parse_asteroid_output(juewa_output)
+        juewa_parse_output = parse_asteroid_output(juewa_output,astro_objects[92])
 
         eunike_output = eunike_planet_result.stdout
-        eunike_parse_output = parse_asteroid_output(eunike_output)
+        eunike_parse_output = parse_asteroid_output(eunike_output,astro_objects[93])
 
         ino_output = ino_planet_result.stdout
-        ino_parse_output = parse_asteroid_output(ino_output)
+        ino_parse_output = parse_asteroid_output(ino_output,astro_objects[94])
 
         ismene_output = ismene_planet_result.stdout
-        ismene_parse_output = parse_asteroid_output(ismene_output)
+        ismene_parse_output = parse_asteroid_output(ismene_output,astro_objects[95])
 
         merapi_output = merapi_planet_result.stdout
-        merapi_parse_output = parse_asteroid_output(merapi_output)
+        merapi_parse_output = parse_asteroid_output(merapi_output,astro_objects[96])
 
 
 
@@ -692,6 +785,29 @@ def run_excel_macro_changeData():
             "position_sec": "",
             "position_sign": ""
         } 
+         # Real Lilith
+        real_Lilith_parse_output = {
+            "name": "Real Lilith",
+            "positionDegree": "",
+            "position_min": "",
+            "position_sec": "",
+            "position_sign": ""
+        }
+           # Black Sun 2
+        black_sun_parse_output = {
+            "name": "Black Sun 2",
+            "positionDegree": "",
+            "position_min": "",
+            "position_sec": "",
+            "position_sign": ""
+        }   # Vulcan
+        vulcan_parse_output = {
+            "name": "Vulcan",
+            "positionDegree": "",
+            "position_min": "",
+            "position_sec": "",
+            "position_sign": ""
+        }
         result_data = {}
         planets = []
         result_vertex = {}
@@ -844,7 +960,7 @@ def run_excel_macro_changeData():
                 sheet.Range("T26").Value = quiron_parse_output["position_sign"]
                 sheet.Range("U26").Value = quiron_parse_output["position_min"]
 
-                asteroidsList = [quiron_parse_output,lilith_parse_output,result_vertex,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
+                asteroidsList = [quiron_parse_output,lilith_parse_output,result_vertex,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,real_Lilith_parse_output,black_sun_parse_output,vulcan_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
                 
 
                 print("Data modified successfully.")
@@ -864,35 +980,31 @@ def run_excel_macro_changeData():
     finally:
         pythoncom.CoUninitialize()  # Uninitialize COM library
 
-def parse_asteroid_output(asteroid_pholus_output):
+def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
     lines = asteroid_pholus_output.splitlines()  # Split by newline characters
     result = {}
     
     
     try:
         if len(lines) > 0:
-            pattern = r'\s{3,}'  # Pattern to split by 4 or more spaces
-            match = re.split(pattern, lines[6])[1]
-            name = re.split(pattern, lines[6])[0]
-            degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
-            degree_match_sign = re.findall(r'[a-zA-Z]+', match)   
-            degree_sign = degree_match_sign[0] if degree_match_sign else ""
-            degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', match)
-            degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
-            degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
-            degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
-            # Only Teharonhiawako Left 
-            # When the degree is not found with the first pattern, try the second pattern
-            pattern1 = r'\s{2,}'  # Pattern to split by 3 or more spaces
-            match1 = re.split(pattern1, lines[6])[1]
-            degree_match1 = re.match(r"(\d{1,2})\s\w{2}\s.*", match1)
+            # pattern = r'\s{3,}'  # Pattern to split by 4 or more spaces
+            # match = re.split(pattern, lines[6])[1]
+            # name = re.split(pattern, lines[6])[0]
+            pattern2 = re.escape(asteroid_object_name)
+            parts = re.split(pattern2, asteroid_pholus_output)
+            #   pattern = r'\s{2,}'  # Pattern to split by 4 or more spaces
+            pattern = r'\d[-+]?[0-9]*\.?[0-9]+\d'
+            match = re.split(pattern, parts[1])
+            
 
-            result[name] = {
-                      "name" : name,
-                    "positionDegree": int(degree_match.group(1)) if degree_match else degree_match1.group(1),
-                    "position_sign": degree_sign,
-                    "position_min": degree_match_min[0],
-                    "position_sec": degree_match_min[1] ,                    
+            print(parts)
+
+            result[asteroid_object_name] = {
+                      "name" : asteroid_object_name,
+                    "positionDegree": asteroid_object_name,
+                    "position_sign": parts[1],
+                    "position_min": match  ,
+                    "position_sec": asteroid_object_name,                    
                 
     
             }
@@ -901,4 +1013,4 @@ def parse_asteroid_output(asteroid_pholus_output):
     except IndexError as e:
         result["error"] = f"Error parsing output: {str(e)}"
 
-    return result[name]  # Always return a dictionary
+    return result[asteroid_object_name]  # Always return a dictionary
