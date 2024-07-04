@@ -896,6 +896,7 @@ def run_excel_macro_changeData():
                             "position_sign": degree_sign,
                             "position_min": minute,
                             "position_sec": second,
+                            "all": lines2
                         })
 
             for line in planet_positions2:
@@ -993,18 +994,46 @@ def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
             pattern2 = re.escape(asteroid_object_name)
             parts = re.split(pattern2, asteroid_pholus_output)
             #   pattern = r'\s{2,}'  # Pattern to split by 4 or more spaces
-            pattern = r'\d[-+]?[0-9]*\.?[0-9]+\d'
+            # pattern = r'\d[-+]?[0-9]*\.?[0-9]+\d'
+            # match = re.split(pattern, parts[1])
+            pattern = r'[a-zA-Z]'
             match = re.split(pattern, parts[1])
+            # Remove Extra spaces. 
+            removeExtraSpaceDegree = re.sub(r'\s+', '', match[0])
+            first_two_alphabets = []
+
             
+
+# Iterate through the characters in the string
+            for char in parts[1]:
+                if char.isalpha():  # Check if the character is alphabetic
+                    first_two_alphabets.append(char)
+                    if len(first_two_alphabets) == 2:  # Stop once we have two alphabetic characters
+                        break
+
+            # degree_match_sign = re.findall(r'[a-zA-Z]+', match)
+
+            first_two_alphabets = ''.join(first_two_alphabets)
+            splitbySign = re.split(first_two_alphabets, parts[1])
+            # Remove "\n"
+            removeNewLine = re.sub(r'\n', '', splitbySign[1])
+            # Remove Extra Qutotation
+            removeExtraQuotation = re.sub(r'"', '', removeNewLine)
+            pattern3 = r'\s{3,}'  # Pattern to split by 2 or more spaces
+            splitbyTwoSpaces = re.split(pattern3, removeExtraQuotation)
+
+
+
 
             print(parts)
 
             result[asteroid_object_name] = {
                       "name" : asteroid_object_name,
-                    "positionDegree": asteroid_object_name,
-                    "position_sign": parts[1],
-                    "position_min": match  ,
-                    "position_sec": asteroid_object_name,                    
+                    "positionDegree": removeExtraSpaceDegree,
+                    "position_sign": first_two_alphabets,
+                    "position_min":splitbyTwoSpaces,
+                    "position_sec": parts[1],  
+                    "command":     lines,              
                 
     
             }
