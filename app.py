@@ -12,6 +12,9 @@ app = Flask(__name__)
 app.register_blueprint(second_blueprint)  # Register the blueprint
 app.register_blueprint(change_excel_general)
 
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
 
 # For Getting the Planets Cordinates form the Swetest planet command
 @app.route('/planets', methods=['POST'])
