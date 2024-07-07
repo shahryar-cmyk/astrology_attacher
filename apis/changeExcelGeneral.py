@@ -45,51 +45,51 @@ def run_excel_macro_changeData():
 
         # Construct the command with zero-padded values
         # For House Data From Cell D5 to D10
-        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -p -house{lat_deg},{lon_deg},P -fPZ -roundsec"
+        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -p -house{lat_deg},{lon_deg},P -fPZS -roundsec"
         # For Planets Data From Cell D11 to D21 Which Includes True Node
-        command2 = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -fPZ -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -ep"
+        command2 = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -fPZS -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -ep"
         # For Quirón Command From Cell D22
-        quiron_planet = f"swetest -ps -xs2060 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        quiron_planet = f"swetest -ps -xs2060 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # For Lilith Command From Cell D23
-        lilith_planet = f"swetest -ps -xs1181 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        lilith_planet = f"swetest -ps -xs1181 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # For Cerus Command 
-        cerus_planet = f"swetest -ps -xs1 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        cerus_planet = f"swetest -ps -xs1 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # For Pallas Command
-        pallas_planet = f"swetest -ps -xs2 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        pallas_planet = f"swetest -ps -xs2 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # For Juno Command
-        juno_planet = f"swetest -ps -xs3 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        juno_planet = f"swetest -ps -xs3 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # For Vesta Command
-        vesta_planet = f"swetest -ps -xs4 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        vesta_planet = f"swetest -ps -xs4 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Eris Command
-        eris_planet = f"swetest -ps -xs136199 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        eris_planet = f"swetest -ps -xs136199 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # White Moon Command
-        white_moon = f"swetest -pZ -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        white_moon = f"swetest -pZ -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Quaoar Command
-        quaoar_planet = f"swetest -ps -xs50000 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        quaoar_planet = f"swetest -ps -xs50000 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Sedna Command
-        sedna_planet = f"swetest -ps -xs90377 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        sedna_planet = f"swetest -ps -xs90377 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Varuna Command
-        varuna_planet = f"swetest -ps -xs20000 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        varuna_planet = f"swetest -ps -xs20000 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Nessus Command
-        nessus_planet = f"swetest -ps -xs7066 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        nessus_planet = f"swetest -ps -xs7066 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Waltemath Command
-        waltemath_planet = f"swetest -pw -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        waltemath_planet = f"swetest -pw -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Hygeia Command
-        hygeia_planet = f"swetest -ps -xs10 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        hygeia_planet = f"swetest -ps -xs10 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Sylvia Command
-        sylvia_planet = f"swetest -ps -xs87 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        sylvia_planet = f"swetest -ps -xs87 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 #         Hektor	624	Hector
-        hektor_planet = f"swetest -ps -xs624 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        hektor_planet = f"swetest -ps -xs624 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Europa	52	Europa
-        europa_planet = f"swetest -ps -xs52 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        europa_planet = f"swetest -ps -xs52 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Davida	511	Davida
-        davida_planet = f"swetest -ps -xs511 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        davida_planet = f"swetest -ps -xs511 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Interamnia	704	Interamnia
-        interamnia_planet = f"swetest -ps -xs704 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        interamnia_planet = f"swetest -ps -xs704 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Camilla	107	Camilla
-        camilla_planet = f"swetest -ps -xs107 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        camilla_planet = f"swetest -ps -xs107 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Cybele	65	Cybele
-        cybele_planet = f"swetest -ps -xs65 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        cybele_planet = f"swetest -ps -xs65 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Sol Negro	h22	Black Sun
 
 # Antivertex		Anti-Vertex
@@ -100,149 +100,151 @@ def run_excel_macro_changeData():
 # Waldemath Priapus		Waldemath Priapus
 # Sol Blanco		White Sun
 # Chariklo	10199	Chariklo
-        chariklo_planet = f"swetest -ps -xs10199 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        chariklo_planet = f"swetest -ps -xs10199 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Iris	7	Iris
-        iris_planet = f"swetest -ps -xs7 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        iris_planet = f"swetest -ps -xs7 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Eunomia	15	Eunomia
-        eunomia_planet = f"swetest -ps -xs15 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        eunomia_planet = f"swetest -ps -xs15 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Euphrosyne	31	Euphrosyne
-        euphrosyne_planet = f"swetest -ps -xs31 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        euphrosyne_planet = f"swetest -ps -xs31 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Orcus	90482	Orcus
         # Orcus Command
-        orcus_planet = f"swetest -ps -xs90482 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        orcus_planet = f"swetest -ps -xs90482 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Pholus	5145	Pholus
         # Pholus Command
-        pholus_planet = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        pholus_planet = f"swetest -ps -xs5145 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Hermíone Command
-        hermione_planet = f"swetest -ps -xs121 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        hermione_planet = f"swetest -ps -xs121 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Ixion Command
-        ixion_planet = f"swetest -ps -xs28978 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        ixion_planet = f"swetest -ps -xs28978 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Haumea Command
-        haumea_planet = f"swetest -ps -xs136108 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        haumea_planet = f"swetest -ps -xs136108 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Makemake Command
-        makemake_planet = f"swetest -ps -xs136472 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        makemake_planet = f"swetest -ps -xs136472 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Bamberga Command
-        bamberga_planet = f"swetest -ps -xs324 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        bamberga_planet = f"swetest -ps -xs324 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Patientia Command
-        patientia_planet = f"swetest -ps -xs451 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        patientia_planet = f"swetest -ps -xs451 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Thisbe Command
-        thisbe_planet = f"swetest -ps -xs88 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        thisbe_planet = f"swetest -ps -xs88 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Herculina Command
-        herculina_planet = f"swetest -ps -xs532 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        herculina_planet = f"swetest -ps -xs532 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Doris Command
-        doris_planet = f"swetest -ps -xs48 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        doris_planet = f"swetest -ps -xs48 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Ursula Command
-        ursula_planet = f"swetest -ps -xs375 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        ursula_planet = f"swetest -ps -xs375 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Eugenia Command
-        eugenia_planet = f"swetest -ps -xs45 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        eugenia_planet = f"swetest -ps -xs45 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Amphitrite Command
-        amphitrite_planet = f"swetest -ps -xs29 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        amphitrite_planet = f"swetest -ps -xs29 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Diotima Command
-        diotima_planet = f"swetest -ps -xs423 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        diotima_planet = f"swetest -ps -xs423 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Fortuna Command
-        fortuna_planet = f"swetest -ps -xs19 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        fortuna_planet = f"swetest -ps -xs19 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Egeria Command
-        egeria_planet = f"swetest -ps -xs13 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        egeria_planet = f"swetest -ps -xs13 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Themis Command
-        themis_planet = f"swetest -ps -xs24 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        themis_planet = f"swetest -ps -xs24 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Aurora Command
-        aurora_planet = f"swetest -ps -xs94 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        aurora_planet = f"swetest -ps -xs94 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Alauda Command
-        alauda_planet = f"swetest -ps -xs702 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        alauda_planet = f"swetest -ps -xs702 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Aletheia Command
-        aletheia_planet = f"swetest -ps -xs259 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        aletheia_planet = f"swetest -ps -xs259 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Palma Command
-        palma_planet = f"swetest -ps -xs372 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        palma_planet = f"swetest -ps -xs372 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Nemesis Command
-        nemesis_planet = f"swetest -ps -xs128 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        nemesis_planet = f"swetest -ps -xs128 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Psyche Command
-        psyche_planet = f"swetest -ps -xs16 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        psyche_planet = f"swetest -ps -xs16 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Hebe Command
-        hebe_planet = f"swetest -ps -xs6 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        hebe_planet = f"swetest -ps -xs6 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Lachesis Command
-        lachesis_planet = f"swetest -ps -xs120 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        lachesis_planet = f"swetest -ps -xs120 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Daphne Command
-        daphne_planet = f"swetest -ps -xs41 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        daphne_planet = f"swetest -ps -xs41 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Bertha Command
-        bertha_planet = f"swetest -ps -xs154 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        bertha_planet = f"swetest -ps -xs154 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Freia Command
-        freia_planet = f"swetest -ps -xs76 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        freia_planet = f"swetest -ps -xs76 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Winchester Command
-        winchester_planet = f"swetest -ps -xs747 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        winchester_planet = f"swetest -ps -xs747 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Hilda Command
-        hilda_planet = f"swetest -ps -xs153 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        hilda_planet = f"swetest -ps -xs153 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Pretoria Command
-        pretoria_planet = f"swetest -ps -xs790 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        pretoria_planet = f"swetest -ps -xs790 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Metis Command
-        metis_planet = f"swetest -ps -xs9 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        metis_planet = f"swetest -ps -xs9 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Aegle Command
-        aegle_planet = f"swetest -ps -xs96 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        aegle_planet = f"swetest -ps -xs96 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Kalliope Command
-        kalliope_planet = f"swetest -ps -xs22 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        kalliope_planet = f"swetest -ps -xs22 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Germania Command
-        germania_planet = f"swetest -ps -xs241 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        germania_planet = f"swetest -ps -xs241 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Prokne Command
-        prokne_planet = f"swetest -ps -xs194 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        prokne_planet = f"swetest -ps -xs194 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Stereoskopia Command
-        stereoskopia_planet = f"swetest -ps -xs566 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        stereoskopia_planet = f"swetest -ps -xs566 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Agamemnon Command
-        agamemnon_planet = f"swetest -ps -xs911 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        agamemnon_planet = f"swetest -ps -xs911 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Alexandra Command
-        alexandra_planet = f"swetest -ps -xs54 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        alexandra_planet = f"swetest -ps -xs54 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Siegena Command
-        siegena_planet = f"swetest -ps -xs386 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        siegena_planet = f"swetest -ps -xs386 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Elpis Command
-        elpis_planet = f"swetest -ps -xs59 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        elpis_planet = f"swetest -ps -xs59 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Lilith Real Command
-        # lilith_real_planet = f"swetest -ps -xsh13 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        # lilith_real_planet = f"swetest -ps -xsh13 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Sol Negro 2 Command
             # TODO: Implementation of the Sol Negro 2 Planet
-        # sol_negro_2_planet = f"swetest -ps -xsh22 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        # sol_negro_2_planet = f"swetest -ps -xsh22 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Vulcan Command
             # TODO: Implementation of the Vulcan Planet
-        # vulcan_planet = f"swetest -ps -xsh55 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        # vulcan_planet = f"swetest -ps -xsh55 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Borasisi Command
-        borasisi_planet = f"swetest -ps -xs66652 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        borasisi_planet = f"swetest -ps -xs66652 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Lempo Command
-        lempo_planet = f"swetest -ps -xs47171 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        lempo_planet = f"swetest -ps -xs47171 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # 1998(26308) Command
-        _1998_26308_planet = f"swetest -ps -xs26308 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        _1998_26308_planet = f"swetest -ps -xs26308 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Ceto Command
-        ceto_planet = f"swetest -ps -xs65489 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        ceto_planet = f"swetest -ps -xs65489 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Teharonhiawako Command
-        teharonhiawako_planet = f"swetest -ps -xs88611 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        teharonhiawako_planet = f"swetest -ps -xs88611 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # 2000 OJ67 (134860) Command
-        _2000_oj67_134860_planet = f"swetest -ps -xs134860 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        _2000_oj67_134860_planet = f"swetest -ps -xs134860 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Elektra Command
-        elektra_planet = f"swetest -ps -xs130 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        elektra_planet = f"swetest -ps -xs130 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Typhon Command
-        typhon_planet = f"swetest -ps -xs42355 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        typhon_planet = f"swetest -ps -xs42355 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Aspasia Command
-        aspasia_planet = f"swetest -ps -xs409 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        aspasia_planet = f"swetest -ps -xs409 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Chicago Command
-        chicago_planet = f"swetest -ps -xs334 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        chicago_planet = f"swetest -ps -xs334 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Loreley Command
-        loreley_planet = f"swetest -ps -xs165 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        loreley_planet = f"swetest -ps -xs165 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Gyptis Command
-        gyptis_planet = f"swetest -ps -xs444 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        gyptis_planet = f"swetest -ps -xs444 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Diomedes Command
-        diomedes_planet = f"swetest -ps -xs1437 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        diomedes_planet = f"swetest -ps -xs1437 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Kreusa Command
-        kreusa_planet = f"swetest -ps -xs488 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        kreusa_planet = f"swetest -ps -xs488 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Juewa	139	Juewa
-        juewa_planet = f"swetest -ps -xs139 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        juewa_planet = f"swetest -ps -xs139 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Eunike	185	Eunike
-        eunike_planet = f"swetest -ps -xs185 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        eunike_planet = f"swetest -ps -xs185 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Ino	173	Ino
-        ino_planet = f"swetest -ps -xs173 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        ino_planet = f"swetest -ps -xs173 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Ismene	190	Ismene
-        ismene_planet = f"swetest -ps -xs190 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        ismene_planet = f"swetest -ps -xs190 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 # Merapi	536	Merapi
-        merapi_planet = f"swetest -ps -xs536 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZ -roundsec"
+        merapi_planet = f"swetest -ps -xs536 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 
 
         # Execute the command using subprocess
+        # Planet Names
         result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
+        # Houses Names
         result2 = subprocess.run(command2, shell=True, check=True, capture_output=True, text=True)
         quiron_planet_result = subprocess.run(quiron_planet, shell=True, check=True, capture_output=True, text=True)
         lilith_planet_result = subprocess.run(lilith_planet, shell=True, check=True, capture_output=True, text=True)
@@ -832,6 +834,7 @@ def run_excel_macro_changeData():
                         "position_sign": degree_sign,
                         "position_min": degree_match_min[0],
                         "position_sec": degree_match_min[1].replace('"', ''),  # Remove double quotes from seconds
+                        "RetroGrade": "R"
                     }
                 except IndexError as e:
                     result_data["error"] = f"Error parsing output: {str(e)}"
@@ -896,7 +899,7 @@ def run_excel_macro_changeData():
                             "position_sign": degree_sign,
                             "position_min": minute,
                             "position_sec": second,
-                            "all": lines2
+                            # "all": lines2
                         })
 
             for line in planet_positions2:
@@ -1021,19 +1024,29 @@ def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
             removeExtraQuotation = re.sub(r'"', '', removeNewLine)
             pattern3 = r'\s{3,}'  # Pattern to split by 2 or more spaces
             splitbyTwoSpaces = re.split(pattern3, removeExtraQuotation)
-
-
-
-
+            removedExtraSpaces = splitbyTwoSpaces[0].replace(" ", "")
+            # Split by ' 
+            splitbySingleQuote = re.split("'", removedExtraSpaces)
             print(parts)
+            # Split by °
+            splitbyDegree = re.split("Â°", splitbyTwoSpaces[1])
+            # Assuming splitbyDegree[0] is a string and you need to convert it to an integer
+            value = int(splitbyDegree[0])
+
+            # Check the condition and return "R" or an empty string
+            resultValue = "R" if value <= 0 else ""
+
+            
 
             result[asteroid_object_name] = {
                       "name" : asteroid_object_name,
                     "positionDegree": removeExtraSpaceDegree,
-                    "position_sign": first_two_alphabets,
-                    "position_min":splitbyTwoSpaces,
-                    "position_sec": parts[1],  
-                    "command":     lines,              
+                    "position_sign": zodiac_signs.get(first_two_alphabets.lower(), first_two_alphabets),
+                    "position_min":splitbySingleQuote[0],
+                    "position_sec":splitbySingleQuote[1],
+                    "retrograde": resultValue,
+                    "splited": splitbyDegree[0],
+                    # "commands": lines,              
                 
     
             }

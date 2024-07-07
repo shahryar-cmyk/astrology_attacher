@@ -16,6 +16,24 @@ app.register_blueprint(change_excel_general)
 def hello_world():
     return 'Hello, World!'
 
+@app.route('/subproce', methods=['GET'])
+def subproce():
+    try:
+        # Construct the command
+        command = 'dir'  # Using 'cd' to get the current directory
+
+        # Execute the command using subprocess
+        result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
+        output = result.stdout
+
+        # Parse the output
+        parsed_output = parse_swetest_output(output)
+        
+        return jsonify({"result": parsed_output})
+    except subprocess.CalledProcessError as e:
+        return jsonify({"error": str(e), "output": e.output}), 500
+
+
 # For Getting the Planets Cordinates form the Swetest planet command
 @app.route('/planets', methods=['POST'])
 def execute_command():
@@ -686,4 +704,4 @@ def run_excel_macro():
         pythoncom.CoUninitialize()  # Uninitialize COM library
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0',debug=True, port=5000)
