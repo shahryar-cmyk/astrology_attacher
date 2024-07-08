@@ -9,6 +9,7 @@ from datetime import datetime
 
 change_excel_general = Blueprint('change_excel_general', __name__)
 
+
 # Mapeo de las abreviaturas de los signos del zodíaco a sus nombres completos
 zodiac_signs = {
     'ar': 'Aries',
