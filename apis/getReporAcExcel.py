@@ -387,14 +387,24 @@ def get_report_ac_excel_route():
 
             try:
                 # Open the Excel workbook
-                wb = xl.Workbooks.Open("C:\\El Camino que Creas\\Generador de Informes\\Generador de Informes\\Generador de Informes_20240708_154017_929359.xlsm")
+                wb = xl.Workbooks.Open(file_name)
                 try:
                     # Access the specific sheet by name
                     sheet_name = 'CN y RS (o RL)'  # Replace with your sheet name
                     sheet = wb.Sheets(sheet_name)
 
                     # Modify data in the sheet
-                    sheet.Range("S26").Value = "Hello, World!"
+                    sheet.Range("S26").Value = "Hello, Shahryar!"
+                    # macro_to_run = None
+                    # for macro in listofMacros:
+                    #     if macro["macroName"] == macro_name:
+                    #         macro_to_run = macro["macroName"]
+                    #         break
+                    # if macro_to_run is None:
+                    #     return jsonify({"error": "Invalid report type"}), 400
+                            # Run the macro
+                    # macro_name = f"'{workbook_path}'!{macro_to_run}"
+                    xl.Application.Run(f"'{file_name}'!{macro_name}")
 
                     print("Data modified successfully.")
                     return jsonify({"message": "Data modified successfully."}), 200
