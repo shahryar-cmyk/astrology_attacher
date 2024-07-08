@@ -1024,10 +1024,11 @@ def run_excel_macro_changeData():
                 for index, asteroid in enumerate(asteroidsList):
                  row = start_row + index
                  sheet.Cells(row, start_column).Value = asteroid['name']
-                 sheet.Cells(row, start_column + 1).Value = asteroid['positionDegree']
-                 sheet.Cells(row, start_column + 2).Value = asteroid['position_min']
-                 sheet.Cells(row, start_column + 3).Value = asteroid['position_sec']
-                 sheet.Cells(row, start_column + 4).Value = asteroid['position_sign']
+                 sheet.Cells(row, start_column + 1).Value = asteroid['position_sign']
+               
+                 sheet.Cells(row, start_column + 2).Value =asteroid['positionDegree']
+                 sheet.Cells(row, start_column + 3).Value =  asteroid['position_min']
+                 sheet.Cells(row, start_column + 4).Value = asteroid['position_sec']
                  sheet.Cells(row, start_column + 5).Value = asteroid['retrograde']
                 print("Data modified successfully.")
                 return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":copied_file_path}), 200
