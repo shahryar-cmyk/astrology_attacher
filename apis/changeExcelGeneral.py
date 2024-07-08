@@ -738,7 +738,8 @@ def run_excel_macro_changeData():
             "positionDegree": "",
             "position_min": "",
             "position_sec": "",
-            "position_sign": ""
+            "position_sign": "",
+            "retrograde": ""
         }
         # For AntiVertex
         anti_vertex_parse_output = {
@@ -746,7 +747,8 @@ def run_excel_macro_changeData():
             "positionDegree": "",
             "position_min": "",
             "position_sec": "",
-            "position_sign": ""  
+            "position_sign": "" ,
+             "retrograde": ""
         }
         # For Nodo Sur Real
         nodo_sur_real_parse_output = {
@@ -754,7 +756,8 @@ def run_excel_macro_changeData():
             "positionDegree": "",
             "position_min": "",
             "position_sec": "",
-            "position_sign": ""  
+            "position_sign": "",
+             "retrograde": ""  
         }
         # For Sol Negro Real
         sol_negro_real_parse_output = {
@@ -762,7 +765,8 @@ def run_excel_macro_changeData():
             "positionDegree": "",
             "position_min": "",
             "position_sec": "",
-            "position_sign": ""
+            "position_sign": "",
+             "retrograde": ""
         }
         # For Lilith 2
         lilith2_parse_output = {
@@ -770,7 +774,8 @@ def run_excel_macro_changeData():
             "positionDegree": "",
             "position_min": "",
             "position_sec": "",
-            "position_sign": ""
+            "position_sign": "",
+             "retrograde": ""
         }
         # For Waldemath Priapus
         waltemath_priapus_parse_output = {
@@ -778,7 +783,8 @@ def run_excel_macro_changeData():
             "positionDegree": "",
             "position_min": "",
             "position_sec": "",
-            "position_sign": ""
+            "position_sign": "",
+             "retrograde": ""
         }
         # Sol Blanco 
         sol_blanco_parse_output = {
@@ -786,7 +792,8 @@ def run_excel_macro_changeData():
             "positionDegree": "",
             "position_min": "",
             "position_sec": "",
-            "position_sign": ""
+            "position_sign": "",
+             "retrograde": ""
         } 
          # Real Lilith
         real_Lilith_parse_output = {
@@ -794,7 +801,8 @@ def run_excel_macro_changeData():
             "positionDegree": "",
             "position_min": "",
             "position_sec": "",
-            "position_sign": ""
+            "position_sign": "",
+             "retrograde": ""
         }
            # Black Sun 2
         black_sun_parse_output = {
@@ -802,14 +810,16 @@ def run_excel_macro_changeData():
             "positionDegree": "",
             "position_min": "",
             "position_sec": "",
-            "position_sign": ""
+            "position_sign": "",
+             "retrograde": ""
         }   # Vulcan
         vulcan_parse_output = {
             "name": "Vulcan",
             "positionDegree": "",
             "position_min": "",
             "position_sec": "",
-            "position_sign": ""
+            "position_sign": "",
+            "retrograde": ""
         }
         result_data = {}
         planets = []
@@ -872,12 +882,23 @@ def run_excel_macro_changeData():
                     degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
                     degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
                     degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
+                    pattern7 = r'\s{2,}'
+                    splitbyTwoSpacesUnique = re.split(pattern7, degree_match_min_sec_again)
+                    splitByQuotation = re.split("'", splitbyTwoSpacesUnique[0])
+                    redrogradePosition = splitbyTwoSpacesUnique[1]
+                    splitByRedrogradePositionDegree = re.split("Â°", redrogradePosition)
+
+                    value = int(splitByRedrogradePositionDegree[0])
+
+                    # Check the condition and return "R" or an empty string
+                    resultValue = "R" if value <= 0 else ""
                     result_vertex = {
                         "name": re.split(pattern, lines[i])[0],
                         "positionDegree": int(degree_match.group(1)) if degree_match else None,
                         "position_sign": degree_sign,
                         "position_min": degree_match_min[0],
-                        "position_sec": degree_match_min[1].replace('"', ''),  # Remove double quotes from seconds
+                        "position_sec": splitByQuotation[1].replace('"',""),  # Remove double quotes from seconds
+                        "retrograde": resultValue
                     }
                     
                 except IndexError as e:
@@ -936,7 +957,7 @@ def run_excel_macro_changeData():
                 match = re.match(pattern, line, re.IGNORECASE)
                 if match:
                     planets.append({
-                        "planet_name": match.group(1),
+                        "name": match.group(1),
                         "positionDegree": match.group(2),
                         "position_sign": zodiac_signs.get(match.group(3), degree_sign_abbr),
                         "position_min": match.group(4),
@@ -994,11 +1015,20 @@ def run_excel_macro_changeData():
                 # sheet.Range("S26").Value = quiron_parse_output["positionDegree"]
                 # sheet.Range("T26").Value = quiron_parse_output["position_sign"]
                 # sheet.Range("U26").Value = quiron_parse_output["position_min"]
-                sheet.Range("U26").Value = "Hello Code"
+                # sheet.Range("U26").Value = "Hello Code"
 
                 asteroidsList = [result_data["Casa1"],result_data["Casa2"],result_data["Casa3"],result_data["Casa4"],result_data["Casa5"],result_data["Casa6"],planets[0],planets[1],planets[2],planets[3],planets[4],planets[5],planets[6],planets[7],planets[8],planets[9],planets[10],quiron_parse_output,lilith_parse_output,result_vertex,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,real_Lilith_parse_output,black_sun_parse_output,vulcan_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
                 
-
+                start_row = 5  # Row 29
+                start_column = 11  # Column S
+                for index, asteroid in enumerate(asteroidsList):
+                 row = start_row + index
+                 sheet.Cells(row, start_column).Value = asteroid['name']
+                 sheet.Cells(row, start_column + 1).Value = asteroid['positionDegree']
+                 sheet.Cells(row, start_column + 2).Value = asteroid['position_min']
+                 sheet.Cells(row, start_column + 3).Value = asteroid['position_sec']
+                 sheet.Cells(row, start_column + 4).Value = asteroid['position_sign']
+                 sheet.Cells(row, start_column + 5).Value = asteroid['retrograde']
                 print("Data modified successfully.")
                 return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":copied_file_path}), 200
             finally:
@@ -1071,7 +1101,7 @@ def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
             
 
             result[asteroid_object_name] = {
-                      "name" : asteroid_object_name,
+                    "name" : asteroid_object_name,
                     "positionDegree": removeExtraSpaceDegree,
                     "position_sign": zodiac_signs.get(first_two_alphabets.lower(), first_two_alphabets),
                     "position_min":splitbySingleQuote[0],
