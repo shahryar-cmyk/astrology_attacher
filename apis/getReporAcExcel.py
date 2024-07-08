@@ -404,7 +404,7 @@ def get_report_ac_excel_route():
                     #     return jsonify({"error": "Invalid report type"}), 400
                             # Run the macro
                     # macro_name = f"'{workbook_path}'!{macro_to_run}"
-                    xl.Application.Run(f"'{file_name}'!{macro_name}")
+                    xl.Application.Run(macro_name)
 
                     print("Data modified successfully.")
                     return jsonify({"message": "Data modified successfully."}), 200
