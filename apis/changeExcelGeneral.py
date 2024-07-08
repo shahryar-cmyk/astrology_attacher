@@ -436,9 +436,10 @@ def run_excel_macro_changeData():
     "Merapi"
 ]
 
-
         output = result.stdout
+        houseData = []
         lines = output.splitlines()
+
 
         output2 = result2.stdout
         lines2 = output2.splitlines()
@@ -815,12 +816,14 @@ def run_excel_macro_changeData():
         planets = []
         result_vertex = {}
 
+
         
         # Parse the output for houses
         if len(lines) > 0:
             pattern = r'\s{3,}'  # Pattern to split by 3 or more spaces
             for i in range(8, 14):  # Loop through lines 8 to 13 (houses 1 to 6)
                 try:
+                    
                     match = re.split(pattern, lines[i])[1]
                     degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
                     degree_match_sign = re.findall(r'[a-zA-Z]+', match)
@@ -831,18 +834,27 @@ def run_excel_macro_changeData():
                     degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
                     degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
                     result_data[f"Casa{i - 7}"] = {
+                        "name": f"House{i - 7}",
                         "positionDegree": int(degree_match.group(1)) if degree_match else None,
                         "position_sign": degree_sign,
                         "position_min": degree_match_min[0],
                         "position_sec": degree_match_min[1].replace('"', ''),  # Remove double quotes from seconds
-                        "RetroGrade": "R"
+                        "retrograde": "R"
+                        
                     }
                 except IndexError as e:
                     result_data["error"] = f"Error parsing output: {str(e)}"
                     break
         else:
             result_data["error"] = "Error parsing line: No lines in the output"
-        # Parse the output for houses
+
+            houseData.append(result_data["Casa1"])
+            houseData.append(result_data["Casa2"])
+            houseData.append(result_data["Casa3"])
+            houseData.append(result_data["Casa4"])
+            houseData.append(result_data["Casa5"])
+            houseData.append(result_data["Casa6"])
+        # Parse the Vertex from houses command
         if len(lines) > 0:
             pattern = r'\s{3,}'  # Pattern to split by 3 or more spaces
             for i in range(23, 24):  # Loop through lines 8 to 13 (houses 1 to 6)
@@ -934,42 +946,44 @@ def run_excel_macro_changeData():
                 sheet_name = 'CN y RS (o RL)'  # Replace with your sheet name
                 sheet = wb.Sheets(sheet_name)
 
-                # Modify data in the sheet based on the result_data
-                for casa, details in result_data.items():
-                    if casa.startswith("Casa"):
-                        degree_cell = f"E{int(casa[-1]) + 4}"  # Example cell for positionDegree
-                        sign_cell = f"D{int(casa[-1]) + 4}"  # Example cell for position_sign
-                        min_cell = f"F{int(casa[-1]) + 4}"  # Example cell for position_min
-                        sec_cell = f"G{int(casa[-1]) + 4}"  # Example cell for position_sec
+                # # Modify data in the sheet based on the result_data
+                # for casa, details in result_data.items():
+                #     if casa.startswith("Casa"):
+                #         degree_cell = f"E{int(casa[-1]) + 4}"  # Example cell for positionDegree
+                #         sign_cell = f"D{int(casa[-1]) + 4}"  # Example cell for position_sign
+                #         min_cell = f"F{int(casa[-1]) + 4}"  # Example cell for position_min
+                #         sec_cell = f"G{int(casa[-1]) + 4}"  # Example cell for position_sec
 
-                        sheet.Range(degree_cell).Value = details["positionDegree"]
-                        sheet.Range(sign_cell).Value = details["position_sign"]
-                        sheet.Range(min_cell).Value = details["position_min"]
-                        sheet.Range(sec_cell).Value = details["position_sec"]
+                #         sheet.Range(degree_cell).Value = details["positionDegree"]
+                #         sheet.Range(sign_cell).Value = details["position_sign"]
+                #         sheet.Range(min_cell).Value = details["position_min"]
+                #         sheet.Range(sec_cell).Value = details["position_sec"]
 
-                # Modify data in the sheet based on the planets
-                planet_row_start = 20  # Example starting row for planet data
-                for index, planet in enumerate(planets, start=1):
-                    if "error" not in planet:
+                # # Modify data in the sheet based on the planets
+                # planet_row_start = 20  # Example starting row for planet data
+                # for index, planet in enumerate(planets, start=1):
+                #     if "error" not in planet:
                         
-                        # sheet.Range(f"{index + 10}").Value = planet['planet_name']
-                        sheet.Range(f"E{index + 10}").Value = planet['positionDegree']
-                        sheet.Range(f"D{index + 10}").Value = planet['position_sign']
-                        sheet.Range(f"F{index + 10}").Value = planet['position_min']
-                        sheet.Range(f"G{index + 10}").Value = planet['position_sec']
-                    else:
-                        print(planet["error"])
+                #         # sheet.Range(f"{index + 10}").Value = planet['planet_name']
+                #         sheet.Range(f"E{index + 10}").Value = planet['positionDegree']
+                #         sheet.Range(f"D{index + 10}").Value = planet['position_sign']
+                #         sheet.Range(f"F{index + 10}").Value = planet['position_min']
+                #         sheet.Range(f"G{index + 10}").Value = planet['position_sec']
+                #     else:
+                #         print(planet["error"])
                 
-                sheet.Range("R26").Value = quiron_parse_output["name"]
-                sheet.Range("S26").Value = quiron_parse_output["positionDegree"]
-                sheet.Range("T26").Value = quiron_parse_output["position_sign"]
-                sheet.Range("U26").Value = quiron_parse_output["position_min"]
 
-                asteroidsList = [quiron_parse_output,lilith_parse_output,result_vertex,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,real_Lilith_parse_output,black_sun_parse_output,vulcan_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
+                # sheet.Range("R26").Value = quiron_parse_output["name"]
+                # sheet.Range("S26").Value = quiron_parse_output["positionDegree"]
+                # sheet.Range("T26").Value = quiron_parse_output["position_sign"]
+                # sheet.Range("U26").Value = quiron_parse_output["position_min"]
+                sheet.Range("U26").Value = "Hello Code"
+
+                asteroidsList = [result_data["Casa1"],result_data["Casa2"],result_data["Casa3"],result_data["Casa4"],result_data["Casa5"],result_data["Casa6"],quiron_parse_output,lilith_parse_output,result_vertex,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,real_Lilith_parse_output,black_sun_parse_output,vulcan_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
                 
 
                 print("Data modified successfully.")
-                return jsonify({"message": "Data modified successfully.", "result": result_data, "result2": planets, "asteriods": asteroidsList,"fileName":copied_file_path}), 200
+                return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":copied_file_path}), 200
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
@@ -986,6 +1000,79 @@ def run_excel_macro_changeData():
         pythoncom.CoUninitialize()  # Uninitialize COM library
 
 def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
+    lines = asteroid_pholus_output.splitlines()  # Split by newline characters
+    result = {}
+    
+    
+    try:
+        if len(lines) > 0:
+            # pattern = r'\s{3,}'  # Pattern to split by 4 or more spaces
+            # match = re.split(pattern, lines[6])[1]
+            # name = re.split(pattern, lines[6])[0]
+            pattern2 = re.escape(asteroid_object_name)
+            parts = re.split(pattern2, asteroid_pholus_output)
+            #   pattern = r'\s{2,}'  # Pattern to split by 4 or more spaces
+            # pattern = r'\d[-+]?[0-9]*\.?[0-9]+\d'
+            # match = re.split(pattern, parts[1])
+            pattern = r'[a-zA-Z]'
+            match = re.split(pattern, parts[1])
+            # Remove Extra spaces. 
+            removeExtraSpaceDegree = re.sub(r'\s+', '', match[0])
+            first_two_alphabets = []
+
+            
+
+# Iterate through the characters in the string
+            for char in parts[1]:
+                if char.isalpha():  # Check if the character is alphabetic
+                    first_two_alphabets.append(char)
+                    if len(first_two_alphabets) == 2:  # Stop once we have two alphabetic characters
+                        break
+
+            # degree_match_sign = re.findall(r'[a-zA-Z]+', match)
+
+            first_two_alphabets = ''.join(first_two_alphabets)
+            splitbySign = re.split(first_two_alphabets, parts[1])
+            # Remove "\n"
+            removeNewLine = re.sub(r'\n', '', splitbySign[1])
+            # Remove Extra Qutotation
+            removeExtraQuotation = re.sub(r'"', '', removeNewLine)
+            pattern3 = r'\s{3,}'  # Pattern to split by 2 or more spaces
+            splitbyTwoSpaces = re.split(pattern3, removeExtraQuotation)
+            removedExtraSpaces = splitbyTwoSpaces[0].replace(" ", "")
+            # Split by ' 
+            splitbySingleQuote = re.split("'", removedExtraSpaces)
+            print(parts)
+            # Split by °
+            splitbyDegree = re.split("Â°", splitbyTwoSpaces[1])
+            # Assuming splitbyDegree[0] is a string and you need to convert it to an integer
+            value = int(splitbyDegree[0])
+
+            # Check the condition and return "R" or an empty string
+            resultValue = "R" if value <= 0 else ""
+
+            
+
+            result[asteroid_object_name] = {
+                      "name" : asteroid_object_name,
+                    "positionDegree": removeExtraSpaceDegree,
+                    "position_sign": zodiac_signs.get(first_two_alphabets.lower(), first_two_alphabets),
+                    "position_min":splitbySingleQuote[0],
+                    "position_sec":splitbySingleQuote[1],
+                    "retrograde": resultValue
+                
+                    # "commands": lines,              
+                
+    
+            }
+        else:
+            result["error"] = "Error parsing output: No lines in the output"
+    except IndexError as e:
+        result["error"] = f"Error parsing output: {str(e)}"
+
+    return result[asteroid_object_name]  # Always return a dictionary
+
+def house_parse_data(asteroid_pholus_output,asteroid_object_name):
     lines = asteroid_pholus_output.splitlines()  # Split by newline characters
     result = {}
     
