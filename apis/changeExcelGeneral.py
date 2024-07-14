@@ -851,7 +851,7 @@ def run_excel_macro_changeData():
                     value = int(splitByRedrogradePositionDegree[0])
 
                     # Check the condition and return "R" or an empty string
-                    resultValue = "R" if value <= 0 else ""
+                    resultValue = resultValue = "R" if '-' in splitByRedrogradePositionDegree[0] else ""
                     
                     result_data[f"Casa{i - 7}"] = {
                         "name": f"House{i - 7}",
@@ -891,7 +891,7 @@ def run_excel_macro_changeData():
                     value = int(splitByRedrogradePositionDegree[0])
 
                     # Check the condition and return "R" or an empty string
-                    resultValue = "R" if value <= 0 else ""
+                    resultValue = "R" if '-' in splitByRedrogradePositionDegree[0] else ""
                     result_vertex = {
                         "name": re.split(pattern, lines[i])[0],
                         "positionDegree": int(degree_match.group(1)) if degree_match else None,
@@ -935,7 +935,7 @@ def run_excel_macro_changeData():
                     value = int(splitbyDegree[0])
 
                     # Check the condition and return "R" or an empty string
-                    resultValue = "R" if value <= 0 else ""
+                    resultValue = "R" if '-' in splitbyDegree[0] else ""
 
                     
                     if degree_match:
@@ -1097,7 +1097,7 @@ def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
             value = int(splitbyDegree[0])
 
             # Check the condition and return "R" or an empty string
-            resultValue = "R" if value <= 0 else ""
+            resultValue = "R" if '-' in splitbyDegree[0] else ""
 
             
 
