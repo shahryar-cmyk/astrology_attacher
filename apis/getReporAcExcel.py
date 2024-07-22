@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 import win32com.client
 import pythoncom
+import os
 
 get_report_ac_excel = Blueprint('getReportAcExcel', __name__)
 
@@ -9,6 +10,7 @@ listofMacros = [
         "macroId": 1,
         "macroName": "GI1CasaCN",
         "macroNameInWordPress": "Generador de Informes_20240708_154017_929359.xlsm",
+    
     },
     {
         "macroId": 2,
@@ -375,7 +377,8 @@ def get_report_ac_excel_route():
         data = request.get_json()
         file_name = data.get('fileName')
         macro_name = data.get('macroName')
-        
+        file_list_path = 'C:\El Camino que Creas\Generador de Informes\Log.txt'  # Define the path to your .txt file with the file names
+
         if not file_name or not macro_name:
             return jsonify({'error': 'fileName and macroName are required'}), 400
 
@@ -395,23 +398,37 @@ def get_report_ac_excel_route():
 
                     # Modify data in the sheet
                     sheet.Range("S26").Value = "Hello, Shahryar!"
-                    # macro_to_run = None
-                    # for macro in listofMacros:
-                    #     if macro["macroName"] == macro_name:
-                    #         macro_to_run = macro["macroName"]
-                    #         break
-                    # if macro_to_run is None:
-                    #     return jsonify({"error": "Invalid report type"}), 400
-                            # Run the macro
-                    # macro_name = f"'{workbook_path}'!{macro_to_run}"
+
+                    # Run the macro
                     xl.Application.Run(macro_name)
 
-                    print("Data modified successfully.")
-                    return jsonify({"message": "Data modified successfully."}), 200
+                    # Now get the data in the Log file
+                    with open(file_list_path, 'r') as file:
+                        file_names = [line.strip() for line in file.readlines()]
+
+                    if not file_names:
+                        print("No files to process.")
+                        return jsonify({"error": "No files to process"}), 400
+
+                    # Get the last file name
+                    last_file_name = file_names[-1]
+
+                    for file_name in file_names:
+                        if file_name != last_file_name:
+                            try:
+                                os.remove(file_name)
+                                print(f"Deleted {file_name}")
+                            except FileNotFoundError:
+                                print(f"File {file_name} not found.")
+                            except Exception as e:
+                                print(f"Error deleting file {file_name}: {e}")
+
+                    print("Data modified and files cleaned up successfully.")
+                    return jsonify({"message": "File Saved Successfully", "fileName": file_name}), 200
                 except Exception as e:
                     print("Error accessing the sheet:", e)
                     return jsonify({"error": str(e)}), 500
-                finally:                        
+                finally:
                     wb.Close(SaveChanges=True)  # Save changes after modifying data
             except Exception as e:
                 print("Error opening workbook:", e)

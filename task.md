@@ -6,4 +6,10 @@
 3. Get the Speed
 4. Calculate the Retrograde and Stationary phases according to it.
 <!-- If the longitude speed is less than 0, then the planet is Rx. If it is zero, then the planet is stationary. If the speed > 0, then the planet is direct. I trust you have read the options information to know to add the "s" parameter in order to get the speed from "swetest".  -->
-5. Check Where is it is -0 Then it is retrograde.
+5. Check Where is it is -0 Then it is retrograde. [Done]
+6. Stationary Phases to Complete for the Planets or which data we have.
+7. Save the Word file and access it in API. [Done]
+   <!-- Apply the file on all the Macros -->
+   <!-- Get All the Code of the Macro and Write That on the List for the references -->
+8. Apply the Code on each of the files.
+9. Check One by One.
