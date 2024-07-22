@@ -972,17 +972,17 @@ def run_excel_macro_changeData():
         # Open the workbook outside of the loop to avoid repeated opening and closing
         try:
             original_path = r'C:\El Camino que Creas\Generador de Informes\Generador de Informes\Generador de Informes.xlsm'
-            base, ext = os.path.splitext(original_path)
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")  # Format: YYYYMMDD_HHMMSS_milliseconds
-            copied_file_path = f"{base}_{timestamp}{ext}"
-            # wb = xl.Workbooks.Open(file_path)  # Path to your Excel file
-            shutil.copyfile(original_path, copied_file_path)
-            wb = xl.Workbooks.Open(copied_file_path)  # Path to your Excel file
+            # base, ext = os.path.splitext(original_path)
+            # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")  # Format: YYYYMMDD_HHMMSS_milliseconds
+            # copied_file_path = f"{base}_{timestamp}{ext}"
+            # # wb = xl.Workbooks.Open(file_path)  # Path to your Excel file
+            # shutil.copyfile(original_path, copied_file_path)
+            # wb = xl.Workbooks.Open(copied_file_path)  # Path to your Excel file
             
             try:
                 
                 sheet_name = 'CN y RS (o RL)'  # Replace with your sheet name
-                sheet = wb.Sheets(sheet_name)
+                # sheet = wb.Sheets(sheet_name)
 
                 # # Modify data in the sheet based on the result_data
                 # for casa, details in result_data.items():
@@ -1031,19 +1031,19 @@ def run_excel_macro_changeData():
                  sheet.Cells(row, start_column + 4).Value = asteroid['position_sec']
                  sheet.Cells(row, start_column + 5).Value = asteroid['retrograde']
                 print("Data modified successfully.")
-                return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":copied_file_path}), 200
+                return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,}), 200
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
             print("Error opening workbook:", e)
-            return jsonify({"error": str(e)}), 500
+            return jsonify({"error 1": str(e)}), 500
         finally:
             xl.Quit()
    
    
     except Exception as e:
         print("Error initializing Excel:", e)
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error 2": str(e)}), 500
     finally:
         pythoncom.CoUninitialize()  # Uninitialize COM library
 

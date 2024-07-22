@@ -10,6 +10,7 @@ listofMacros = [
         "macroId": 1,
         "macroName": "GI1CasaCN",
         "macroNameInWordPress": "Generador de Informes_20240708_154017_929359.xlsm",
+        "IsCompleted": False
     
     },
     {
