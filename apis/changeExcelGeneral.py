@@ -6,10 +6,15 @@ import pythoncom
 import os
 import shutil
 from datetime import datetime
+import logging
+import traceback
+
 
 change_excel_general = Blueprint('change_excel_general', __name__)
 
-
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 # Mapeo de las abreviaturas de los signos del zodíaco a sus nombres completos
 zodiac_signs = {
     'ar': 'Aries',
@@ -40,6 +45,8 @@ def run_excel_macro_changeData():
         ut_sec = int(request.json.get('ut_sec'))
         lat_deg = request.json.get('lat_deg')
         lon_deg = request.json.get('lon_deg')
+        # Moon Return, Solar Return or Natal return 
+        # report_type = request.json.get('report_type')
 
         xl = win32com.client.Dispatch("Excel.Application")
         xl.Visible = False  # Set to True if you want Excel to be visible
@@ -1043,6 +1050,7 @@ def run_excel_macro_changeData():
    
     except Exception as e:
         print("Error initializing Excel:", e)
+        logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
         return jsonify({"error": str(e)}), 500
     finally:
         pythoncom.CoUninitialize()  # Uninitialize COM library
