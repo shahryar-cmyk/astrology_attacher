@@ -53,7 +53,7 @@ def run_excel_macro_changeData():
 
         # Construct the command with zero-padded values
         # For House Data From Cell D5 to D10
-        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -p -house{lat_deg},{lon_deg},P -fPZS -roundsec"
+        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -p -house{lat_deg},{lon_deg},P -fPZ -roundsec"
         # For Planets Data From Cell D11 to D21 Which Includes True Node
         command2 = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -fPZS -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -ep"
         # For Quirón Command From Cell D22
@@ -443,10 +443,30 @@ def run_excel_macro_changeData():
     "Merapi"
 ]
 
+        houses_objects = [
+            "house  1",
+            "house  2",
+            "house  3",
+            "house  4",
+            "house  5",
+            "house  6",
+        ]
         output = result.stdout
-        lines = output.splitlines()
-        houses_parse_output = parse_houses_and_vertex(lines)
-        print(houses_parse_output)
+        # First House
+        houses_1_parse_output = parse_houses_and_vertex(output,1)
+        # # Second House 
+        houses_2_parse_output = parse_houses_and_vertex(output,2)
+        # # Third House
+        houses_3_parse_output = parse_houses_and_vertex(output,3)
+        # # Fourth House
+        houses_4_parse_output = parse_houses_and_vertex(output,4)
+        # # Fifth House
+        houses_5_parse_output = parse_houses_and_vertex(output,5)
+        # # Sixth House
+        houses_6_parse_output = parse_houses_and_vertex(output,6)
+
+        # print(houses_parse_output)
+        print(f"Data of the Houses: {houses_1_parse_output}")
         
 
 
@@ -1028,7 +1048,7 @@ def run_excel_macro_changeData():
                 # sheet.Range("U26").Value = quiron_parse_output["position_min"]
                 # sheet.Range("U26").Value = "Hello Code"
 
-                asteroidsList = [planets[0],planets[1],planets[2],planets[3],planets[4],planets[5],planets[6],planets[7],planets[8],planets[9],planets[10],quiron_parse_output,lilith_parse_output,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,real_Lilith_parse_output,black_sun_parse_output,vulcan_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
+                asteroidsList = [houses_1_parse_output,houses_2_parse_output,houses_3_parse_output,houses_4_parse_output,houses_5_parse_output,houses_6_parse_output,planets[0],planets[1],planets[2],planets[3],planets[4],planets[5],planets[6],planets[7],planets[8],planets[9],planets[10],quiron_parse_output,lilith_parse_output,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,real_Lilith_parse_output,black_sun_parse_output,vulcan_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
                 
                 start_row = 5  # Row 29
                 start_column = 11  # Column S
@@ -1132,46 +1152,39 @@ def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
 
     return result[asteroid_object_name]  # Always return a dictionary
 
-def parse_houses_and_vertex(lines):
-    result_data = {}
-    pattern = r'\s{3,}'  # Pattern to split by 3 or more spaces
+def parse_houses_and_vertex(asteroid_pholus_output, house_number):
+    # Split by newline characters
+    lines = asteroid_pholus_output.splitlines()  
+    print(f"Lines: {lines}")
+    
+    # Initialize result dictionary
+    result = {}
 
-    def parse_line(line, name):
-        try:
-            match = re.split(pattern, line)[1]
-            degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
-            degree_match_sign = re.findall(r'[a-zA-Z]+', match)
-            degree_sign_abbr = degree_match_sign[0] if degree_match_sign else ""
-            degree_sign = zodiac_signs.get(degree_sign_abbr.lower(), degree_sign_abbr)
-            degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', match)
-            degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
-            degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
-            degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
-            pattern7 = r'\s{2,}'
-            splitbyTwoSpacesUnique = re.split(pattern7, degree_match_min_sec_again)
-            splitByQuotation = re.split("'", splitbyTwoSpacesUnique[0])
-            redrogradePosition = splitbyTwoSpacesUnique[1]
-            splitByRedrogradePositionDegree = re.split("Â°", redrogradePosition)
-            resultValue = "R" if '-' in splitByRedrogradePositionDegree[0] else ""
-
-            return {
-                "name": name,
-                "positionDegree": int(degree_match.group(1)) if degree_match else None,
-                "position_sign": degree_sign,
-                "position_min": degree_match_min[0],
-                "position_sec": splitByQuotation[1].replace('"', ""),  # Remove double quotes from seconds
-                "retrograde": resultValue
+    # Loop through each line to find the house of interest
+    for line in lines:
+        if f"house  {house_number}" in line:
+            # Remove "house <house_number>" from the line
+            output_string = re.sub(rf"house\s+{house_number}\s+", "", line)
+            print(f"Output String after regex: {output_string}")
+            
+            # Split by spaces
+            splitbySpace = re.split(r'\s+', output_string)
+            positionDegree = splitbySpace[0]
+            positionSign = splitbySpace[1]
+            positionMinSec = splitbySpace[2]
+            
+            # Separate by single quote and remove double quotes
+            splitbySingleQuote = re.split("'", positionMinSec)
+            splitbySingleQuote[1] = splitbySingleQuote[1].replace('"', "")
+            
+            result = {
+                "name": f"Casa {house_number}",
+                "positionDegree": positionDegree,
+                "position_sign": zodiac_signs.get(positionSign.lower(), positionSign),
+                "position_min": splitbySingleQuote[0],
+                "position_sec": splitbySingleQuote[1],
+                "retrograde": ""
             }
-        except IndexError as e:
-            return {"error": f"Error parsing output: {str(e)}"}
+            break  # Exit the loop after finding the required house
 
-    if len(lines) > 0:
-        for i in range(8, 14):  # Loop through lines 8 to 13 (houses 1 to 6)
-            result_data[f"Casa{i - 7}"] = parse_line(lines[i], f"House{i - 7}")
-        
-        # vertex_line_index = 23  # Assuming the vertex line is at index 23
-        # result_data["Vertex"] = parse_line(lines[vertex_line_index], "Vertex")
-    else:
-        result_data["error"] = "Error parsing line: No lines in the output"
-
-    return result_data
+    return result
