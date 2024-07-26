@@ -1166,23 +1166,32 @@ def parse_houses_and_vertex(asteroid_pholus_output, house_number):
             # Remove "house <house_number>" from the line
             output_string = re.sub(rf"house\s+{house_number}\s+", "", line)
             print(f"Output String after regex: {output_string}")
+            # Split by 2 
+            pattern = r'[a-zA-Z]'
+            # Split by 2 alphabets
+            splitByAlphaBets = re.split(pattern, output_string)
+            print(f"AlphaBets String after regex: {splitByAlphaBets}")
+
+            
+
+
             
             # Split by spaces
             splitbySpace = re.split(r'\s+', output_string)
-            positionDegree = splitbySpace[0]
+            # positionDegree = splitbySpace[0]
             positionSign = splitbySpace[1]
-            positionMinSec = splitbySpace[2]
+            # positionMinSec = splitbySpace[2]
             
             # Separate by single quote and remove double quotes
-            splitbySingleQuote = re.split("'", positionMinSec)
+            splitbySingleQuote = re.split("'", splitByAlphaBets[2])
             splitbySingleQuote[1] = splitbySingleQuote[1].replace('"', "")
             
             result = {
                 "name": f"Casa {house_number}",
-                "positionDegree": positionDegree,
+                "positionDegree": splitByAlphaBets[0].replace(" ", ""),
                 "position_sign": zodiac_signs.get(positionSign.lower(), positionSign),
-                "position_min": splitbySingleQuote[0],
-                "position_sec": splitbySingleQuote[1],
+                "position_min": splitbySingleQuote[0].replace(" ", ""),
+                "position_sec": splitbySingleQuote[1].replace(" ", ""),
                 "retrograde": ""
             }
             break  # Exit the loop after finding the required house
