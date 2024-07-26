@@ -71,25 +71,64 @@ def calculate_solar_return():
         closest_dates = []
         for days in range(40):
             for hour in range(24):
-                for minute in range(60):
-                    for second in range(60):
-                        jd = start_jd + days + (hour / 24.0) + (minute / 1440.0) + (second / 86400.0)
-                        transiting_sun_position, _ = swe.calc(jd, swe.SUN)
-                        date = start_date + timedelta(days=days, hours=hour, minutes=minute, seconds=second)
-                        positions = {
-                            "date": date.strftime('%Y-%m-%d %H:%M:%S'),
-                            "sun_position": transiting_sun_position[0]
-                        }
-                        diff = abs(transiting_sun_position[0] - natal_sun_position)
-                        if len(closest_dates) < 2:
-                            closest_dates.append((diff, positions))
-                            closest_dates.sort(key=lambda x: x[0])
-                        elif diff < closest_dates[-1][0]:
-                            closest_dates[-1] = (diff, positions)
-                            closest_dates.sort(key=lambda x: x[0])
+                jd = start_jd + days + (hour / 24.0)
+                transiting_sun_position, _ = swe.calc(jd, swe.SUN)
+                date = start_date + timedelta(days=days, hours=hour)
+                positions = {
+                    "date": date.strftime('%Y-%m-%d %H:%M:%S'),
+                    "sun_position": transiting_sun_position[0]
+                }
+                diff = abs(transiting_sun_position[0] - natal_sun_position)
+                if len(closest_dates) < 2:
+                    closest_dates.append((diff, positions))
+                    closest_dates.sort(key=lambda x: x[0])
+                elif diff < closest_dates[-1][0]:
+                    closest_dates[-1] = (diff, positions)
+                    closest_dates.sort(key=lambda x: x[0])
+                print(f"This is the difference: {diff}")
+
+                # Closest date found before minutes and second 
+        print(f"This is the befor date: {closest_dates}")
+        # Further refine the closest dates by minute and second
+        final_closest_dates = []
+        for closest_date in closest_dates:
+            base_date = datetime.strptime(closest_date[1]["date"], '%Y-%m-%d %H:%M:%S')
+            base_jd = julian_day(base_date.year, base_date.month, base_date.day,
+                                 base_date.hour, base_date.minute, base_date.second)
+            print(closest_dates)
+            print(f"This is the difference date: {base_date}")
+            print(f"This is the Closest date: {closest_dates[0][1]}")
+            # print(closest_dates)
+            # Extract differences and date dictionaries
+            # Extract differences and date dictionaries
+            # differences = [item[0] for item in base_date]
+            # date_dicts = [item[1] for item in base_date]
+
+            # # Extract individual fields from date dictionaries
+            # dates = [d['date'] for d in date_dicts]
+            # sun_positions = [d['sun_position'] for d in date_dicts]
+            # print(f"This is the dates positions: {dates}")
+
+            for minute in range(60):
+                for second in range(60):
+                    jd = base_jd + (minute / 1440.0) + (second / 86400.0)
+                    transiting_sun_position, _ = swe.calc(jd, swe.SUN)
+                    date = base_date + timedelta(minutes=minute, seconds=second)
+                    positions = {
+                        "date": date.strftime('%Y-%m-%d %H:%M:%S'),
+                        "sun_position": transiting_sun_position[0]
+                    }
+                    # print(f"This is the positions: {base_date}")
+                    diff = abs(transiting_sun_position[0] - natal_sun_position)
+                    if len(final_closest_dates) < 2:
+                        final_closest_dates.append((diff, positions))
+                        final_closest_dates.sort(key=lambda x: x[0])
+                    elif diff < final_closest_dates[-1][0]:
+                        final_closest_dates[-1] = (diff, positions)
+                        final_closest_dates.sort(key=lambda x: x[0])
 
         # Get the most closest date
-        most_closest_date = closest_dates[0][1] if closest_dates else None
+        most_closest_date = final_closest_dates[0][1] if final_closest_dates else None
 
         if most_closest_date:
             most_closest_datetime = datetime.strptime(most_closest_date["date"], '%Y-%m-%d %H:%M:%S')
@@ -105,7 +144,7 @@ def calculate_solar_return():
             most_closest_date_details = None
 
         response = {
-            "closest_dates": [date[1] for date in closest_dates],
+            "closest_dates": [date[1] for date in final_closest_dates],
             "most_closest_date": most_closest_date_details,
             "total": natal_sun_position
         }
