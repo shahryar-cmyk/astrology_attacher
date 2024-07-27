@@ -5,17 +5,17 @@ import subprocess
 import re
 
 # Initialize the Flask Blueprint
-moon_return_calculation = Blueprint('moon_return_calculation', __name__)
+solar_return_calculation = Blueprint('solar_return_calculation', __name__)
 
 # File path for output
-output_file_path = 'moon_return_calculation_output.txt'
+output_file_path = 'solar_return_calculation_output.txt'
 
 def write_to_file(content):
     with open(output_file_path, 'a') as file:
         file.write(content + '\n')
 
-@moon_return_calculation.route('/calculate_moon_return', methods=['POST'])
-def calculate_moon_return():
+@solar_return_calculation.route('/calculate_solar_return', methods=['POST'])
+def calculate_solar_return():
     try:
         # Get the data from the request
         birth_date_year = int(request.json.get('birth_date_year'))
@@ -49,7 +49,7 @@ def calculate_moon_return():
             return jsonify({"error": "Invalid position sign provided."}), 400
 
         # Convert position to total degrees
-        natal_moon_position = zodiac_signs[position_sign] + position_degree + (position_min / 60) + (position_sec / 3600)
+        natal_sun_position = zodiac_signs[position_sign] + position_degree + (position_min / 60) + (position_sec / 3600)
 
         swe.set_ephe_path('C:\\sweph\\ephe')
 
@@ -71,18 +71,18 @@ def calculate_moon_return():
         start_jd = julian_day(start_date.year, start_date.month, start_date.day,
                               start_date.hour, start_date.minute, start_date.second)
 
-        # Find the two closest moon return dates within the 40-day window
+        # Find the two closest solar return dates within the 40-day window
         closest_dates = []
         for days in range(40):
             for hour in range(24):
                 jd = start_jd + days + (hour / 24.0)
-                transiting_moon_position, _ = swe.calc(jd, swe.MOON)
+                transiting_sun_position, _ = swe.calc(jd, swe.SUN)
                 date = start_date + timedelta(days=days, hours=hour)
                 positions = {
                     "date": date.strftime('%Y-%m-%d %H:%M:%S'),
-                    "moon_position": transiting_moon_position[0]
+                    "sun_position": transiting_sun_position[0]
                 }
-                diff = abs(transiting_moon_position[0] - natal_moon_position)
+                diff = abs(transiting_sun_position[0] - natal_sun_position)
                 if len(closest_dates) < 2:
                     closest_dates.append((diff, positions))
                     closest_dates.sort(key=lambda x: x[0])
@@ -106,7 +106,7 @@ def calculate_moon_return():
         for line in result_output_min_newLine[6:60]:
             # Seperate the line by space 5 or more
             # Split by spaces
-            splitbySpace = re.split(r'Moon', line)
+            splitbySpace = re.split(r'Sun', line)
             
             # Seperate the degree and minutes and seconds 
             # Get the degree
@@ -142,7 +142,7 @@ def calculate_moon_return():
         for line in result_output_sec_newLine[6:60]:
             # Seperate the line by space 5 or more
             # Split by spaces
-            splitbySpace = re.split(r'Moon', line)
+            splitbySpace = re.split(r'Sun', line)
             
             # Seperate the degree and minutes and seconds 
             # Get the degree
@@ -193,7 +193,7 @@ def calculate_moon_return():
                 "minute": most_closest_date_min,
                 "second": most_closest_date_sec.second
             },
-            # "total": natal_moon_position
+            # "total": natal_sun_position
         }
 
         return jsonify(response), 200
