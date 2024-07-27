@@ -121,21 +121,21 @@ def calculate_solar_return():
         for line in result_output_min_newLine[6:60]:
             write_to_file(f"Processing line: {line}")
             splitbySpace = re.split(r'Sun', line)
+
             
             # Ensure the line split correctly
             if len(splitbySpace) < 2:
                 write_to_file(f"Error: Expected at least 2 parts after splitting line by 'Sun' but got {len(splitbySpace)}")
                 continue
+            removeSpacing = splitbySpace[1].strip().replace(" ", "")
             
-            degreeSplit = re.split(r'\s\s+', splitbySpace[1])
+            degreeSplit = re.split(r'\s\s+', removeSpacing)
+            write_to_file(f"Remove Spacing: {removeSpacing}")
             
-            # Ensure the degree split correctly
-            if len(degreeSplit) < 2:
-                write_to_file(f"Error: Expected at least 2 parts after splitting by spaces but got {len(degreeSplit)}")
-                continue
-            
+
             pattern = r'[a-zA-Z]'
-            splitByAlphaBets = re.split(pattern, degreeSplit[1])
+            splitByAlphaBets = re.split(pattern, degreeSplit[0])
+            write_to_file(f"Split by Alphabets: {splitByAlphaBets}")
             
             # Ensure the alphabet split correctly
             if len(splitByAlphaBets) < 3:
@@ -144,9 +144,10 @@ def calculate_solar_return():
             
             degreeMatch = splitByAlphaBets[0]
             minSecMatch = re.split(r"'", splitByAlphaBets[2])
+            write_to_file(f"Min Sec Match: {minSecMatch}")
             
             if len(minSecMatch) < 2:
-                write_to_file(f"Error: Expected at least 2 parts after splitting by single quote but got {len(minSecMatch)}")
+                write_to_file(f"Error: Expected at least 2 parts after splitting by single quote but got min {len(minSecMatch)}")
                 continue
             
             most_closest_date_min_dict[splitbySpace[0]] = minSecMatch[1]
@@ -184,15 +185,16 @@ def calculate_solar_return():
             if len(splitbySpace) < 2:
                 write_to_file(f"Error: Expected at least 2 parts after splitting line by 'Sun' but got {len(splitbySpace)}")
                 continue
+            removeSpacing = splitbySpace[1].strip().replace(" ", "")
             
-            degreeSplit = re.split(r'\s\s+', splitbySpace[1])
+            degreeSplit = re.split(r'\s\s+', removeSpacing)
             
-            if len(degreeSplit) < 2:
-                write_to_file(f"Error: Expected at least 2 parts after splitting by spaces but got {len(degreeSplit)}")
-                continue
+
             
             pattern = r'[a-zA-Z]'
-            splitByAlphaBets = re.split(pattern, degreeSplit[1])
+            splitByAlphaBets = re.split(pattern, degreeSplit[0])
+         
+
             
             if len(splitByAlphaBets) < 3:
                 write_to_file(f"Error: Expected at least 3 parts after splitting by alphabets but got {len(splitByAlphaBets)}")
@@ -202,7 +204,7 @@ def calculate_solar_return():
             minSecMatch = re.split(r"'", splitByAlphaBets[2])
             
             if len(minSecMatch) < 2:
-                write_to_file(f"Error: Expected at least 2 parts after splitting by single quote but got {len(minSecMatch)}")
+                write_to_file(f"Error: Expected at least 2 parts after splitting by single quote but got sec {minSecMatch}")
                 continue
             
             most_closest_date_sec_dict[splitbySpace[0]] = minSecMatch[1]
