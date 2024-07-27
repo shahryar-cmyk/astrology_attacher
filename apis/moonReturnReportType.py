@@ -164,7 +164,7 @@ def calculate_solar_return():
         removedUTfromString = re.split(r'UT', most_closest_date_sec_find)
                     # remove the space from the string at last 
         removedUTfromString = removedUTfromString[0].rstrip()
-        most_closest_date_sec = datetime.strptime(f"{removedUTfromString}", "%d.%m.%Y %H:%M:%S").second
+        most_closest_date_sec = datetime.strptime(f"{removedUTfromString}", "%d.%m.%Y %H:%M:%S")
 
         
 
@@ -184,14 +184,16 @@ def calculate_solar_return():
         # write_to_file(f"result output for seconds: {result_output_sec.stdout}")
 
         response = {
-            "closest_dates": closest_dates,
+            # "closest_dates": closest_dates,
             "most_closest_date": {
-                "date": closest_dates[0][1]["date"],
+                "year": most_closest_date_sec.year,
+                "month": most_closest_date_sec.month,
+                "day": most_closest_date_sec.day,
                 "hour": date_time_closest_date.hour,
                 "minute": most_closest_date_min,
-                "second": most_closest_date_sec
+                "second": most_closest_date_sec.second
             },
-            "total": natal_sun_position
+            # "total": natal_sun_position
         }
 
         return jsonify(response), 200
