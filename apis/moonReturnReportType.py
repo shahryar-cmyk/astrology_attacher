@@ -138,6 +138,7 @@ def calculate_solar_return():
         result_output_sec_newLine = result_output_sec.stdout.split('\n')
         # Get the sixth line of the output
         most_closest_date_sec = ''
+        most_closest_date_sec_dict = {}
         for line in result_output_sec_newLine[6:60]:
             # Seperate the line by space 5 or more
             # Split by spaces
@@ -153,16 +154,19 @@ def calculate_solar_return():
             # Seperate by '
             minSecMatch = re.split(r"'", splitByAlphaBets[2])
                 # If the difference is less than 1 then write to the file
-            if abs(float(minSecMatch[1]) - position_sec) < 1:
+            # Make a dictionary of the values to find the closest
+            most_closest_date_sec_dict[splitbySpace[0]] = minSecMatch[1]
 
-                    # write_to_file(f"Date: {splitbySpace[0]}  Degree: {degreeMatch} Minutes: {minSecMatch[0] } Seconds: {minSecMatch[1]}")
-                    # Remove UT from the date
-                    removedUTfromString = re.split(r'UT', splitbySpace[0])
+        # write_to_file(f"{most_closest_date_sec_dict}")
+        # Find the closest value of seconds
+        most_closest_date_sec_find = find_closest_key(most_closest_date_sec_dict, position_sec)
+        write_to_file(f"{most_closest_date_sec_find}")
+        removedUTfromString = re.split(r'UT', most_closest_date_sec_find)
                     # remove the space from the string at last 
-                    removedUTfromString = removedUTfromString[0].rstrip()
-                    most_closest_date_sec = datetime.strptime(f"{removedUTfromString}", "%d.%m.%Y %H:%M:%S").minute
+        removedUTfromString = removedUTfromString[0].rstrip()
+        most_closest_date_sec = datetime.strptime(f"{removedUTfromString}", "%d.%m.%Y %H:%M:%S").second
 
-            write_to_file(f"{result_output_min.stdout}")
+        
 
                     
             
@@ -184,7 +188,8 @@ def calculate_solar_return():
             "most_closest_date": {
                 "date": closest_dates[0][1]["date"],
                 "hour": date_time_closest_date.hour,
-                "minute": most_closest_date_min
+                "minute": most_closest_date_min,
+                "second": most_closest_date_sec
             },
             "total": natal_sun_position
         }
@@ -195,3 +200,27 @@ def calculate_solar_return():
         # Write the error to the file
         write_to_file(f"Error occurred: {str(e)}")
         return jsonify({"error": str(e)}), 500
+def find_closest_key(input_dict, target):
+    """
+    Find the key with the closest value to the target in the input dictionary.
+
+    :param input_dict: Dictionary of key-value pairs
+    :param target: Target value
+    :return: Key with the closest value to the target in the dictionary
+    """
+    # Handle empty dictionary case
+    if not input_dict:
+        return None
+    
+    # Initialize the closest key and the smallest difference
+    closest_key = None
+    smallest_diff = float('inf')
+    
+    # Iterate through the dictionary to find the closest value
+    for key, value in input_dict.items():
+        diff = abs(float(value) - target)
+        if diff < smallest_diff:
+            smallest_diff = diff
+            closest_key = key
+    
+    return closest_key
