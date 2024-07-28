@@ -1259,7 +1259,7 @@ def parse_houses_and_vertex(asteroid_pholus_output, house_number):
                 "position_min": splitbySingleQuote[0].replace(" ", ""),
                 "position_sec": splitbySingleQuote[1].replace(" ", ""),
                 "retrograde": "",
-                "commands": lines
+                # "commands": lines
             }
     return result
 
