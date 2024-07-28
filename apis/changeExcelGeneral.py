@@ -451,6 +451,18 @@ def run_excel_macro_changeData():
             "house  5",
             "house  6",
         ]
+        planets_object = [
+            'Sun',
+            'Moon',
+            'Mercury',
+            'Venus',
+            'Mars',
+            'Jupiter',
+            'Saturn',
+            'Uranus',
+            'Neptune',
+            'Pluto'
+        ]
         output = result.stdout
         # First House
         houses_1_parse_output = parse_houses_and_vertex(output,1)
@@ -472,6 +484,33 @@ def run_excel_macro_changeData():
 
         output2 = result2.stdout
         lines2 = output2.splitlines()
+
+
+
+        # # Output of the Planets 
+        planet_sun_parse_output = parse_planets(output2,planets_object[0])
+        print(f"Data of the Sun: {planet_sun_parse_output}")
+        planet_moon_parse_output = parse_planets(output2,planets_object[1])
+        print(f"Data of the Moon: {planet_moon_parse_output}")
+        planet_mercury_parse_output = parse_planets(output2,planets_object[2])
+        print(f"Data of the Mercury: {planet_mercury_parse_output}")
+        planet_venus_parse_output = parse_planets(output2,planets_object[3])
+        print(f"Data of the Venus: {planet_venus_parse_output}")
+        planet_mars_parse_output = parse_planets(output2,planets_object[4])
+        print(f"Data of the Mars: {planet_mars_parse_output}")
+        planet_jupiter_parse_output = parse_planets(output2,planets_object[5])
+        print(f"Data of the Jupiter: {planet_jupiter_parse_output}")
+        planet_saturn_parse_output = parse_planets(output2,planets_object[6])
+        print(f"Data of the Saturn: {planet_saturn_parse_output}")
+        planet_uranus_parse_output = parse_planets(output2,planets_object[7])
+        print(f"Data of the Uranus: {planet_uranus_parse_output}")
+        planet_neptune_parse_output = parse_planets(output2,planets_object[8])
+        print(f"Data of the Neptune: {planet_neptune_parse_output}")
+        planet_pluto_parse_output = parse_planets(output2,planets_object[9])
+        print(f"Data of the Pluto: {planet_pluto_parse_output}")
+        
+
+
 
         quiron_output = quiron_planet_result.stdout
         quiron_parse_output= parse_asteroid_output(quiron_output,astro_objects[0])
@@ -939,66 +978,66 @@ def run_excel_macro_changeData():
         #     result_data["error"] = "Error parsing line: No lines in the output"
         
         # Parse the output for planets
-        if len(lines2) > 0:
-            planet_positions = lines2[6:16]
-            planet_positions2 = lines2[17:18]
+        # if len(lines2) > 0:
+        #     planet_positions = lines2[6:16]
+        #     planet_positions2 = lines2[17:18]
 
-            for line in planet_positions:
-                match = re.match(r"(\w+)\s+(.+)", line)
-                if match:
-                    planet_name = match.group(1)
-                    position = match.group(2).strip()
-                    degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", position)
-                    degree_match_sign = re.findall(r'[a-zA-Z]+', position)
-                    degree_sign_abbr = degree_match_sign[0] if degree_match_sign else ""
-                    degree_sign = zodiac_signs.get(degree_sign_abbr.lower(), degree_sign_abbr)
-                    degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', position)
-                    degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
-                    degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
-                    # degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
-                    pattern34 = r'\s{3,}'
-                    splitbyTwoSpaces = re.split(pattern34, degree_match_min_sec_again)
-                    degree_match_min_sec_again_spaces_removed_patern34 = splitbyTwoSpaces[0]
-                    degree_match_min = degree_match_min_sec_again_spaces_removed_patern34.split("'")
-                                # Split by °
-                    splitbyDegree = re.split("Â°", splitbyTwoSpaces[1])
-                    # Assuming splitbyDegree[0] is a string and you need to convert it to an integer
-                    value = int(splitbyDegree[0])
+        #     for line in planet_positions:
+        #         match = re.match(r"(\w+)\s+(.+)", line)
+        #         if match:
+        #             planet_name = match.group(1)
+        #             position = match.group(2).strip()
+        #             degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", position)
+        #             degree_match_sign = re.findall(r'[a-zA-Z]+', position)
+        #             degree_sign_abbr = degree_match_sign[0] if degree_match_sign else ""
+        #             degree_sign = zodiac_signs.get(degree_sign_abbr.lower(), degree_sign_abbr)
+        #             degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', position)
+        #             degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
+        #             degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
+        #             # degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
+        #             pattern34 = r'\s{3,}'
+        #             splitbyTwoSpaces = re.split(pattern34, degree_match_min_sec_again)
+        #             degree_match_min_sec_again_spaces_removed_patern34 = splitbyTwoSpaces[0]
+        #             degree_match_min = degree_match_min_sec_again_spaces_removed_patern34.split("'")
+        #                         # Split by °
+        #             splitbyDegree = re.split("Â°", splitbyTwoSpaces[1])
+        #             # Assuming splitbyDegree[0] is a string and you need to convert it to an integer
+        #             value = int(splitbyDegree[0])
 
-                    # Check the condition and return "R" or an empty string
-                    resultValue = "R" if '-' in splitbyDegree[0] else ""
+        #             # Check the condition and return "R" or an empty string
+        #             resultValue = "R" if '-' in splitbyDegree[0] else ""
 
                     
-                    if degree_match:
-                        degree = degree_match.group(1)
-                        minute = degree_match_min[0].replace(" ", "")
-                        second = degree_match_min[1].replace(" ", "")
+        #             if degree_match:
+        #                 degree = degree_match.group(1)
+        #                 minute = degree_match_min[0].replace(" ", "")
+        #                 second = degree_match_min[1].replace(" ", "")
                         
-                        planets.append({
-                            "name": planet_name,
-                            "positionDegree": degree,
-                            "position_sign": degree_sign,
-                            "position_min": minute,
-                            "position_sec": second,
-                            "retrograde": resultValue
-                        })
+        #                 planets.append({
+        #                     "name": planet_name,
+        #                     "positionDegree": degree,
+        #                     "position_sign": degree_sign,
+        #                     "position_min": minute,
+        #                     "position_sec": second,
+        #                     "retrograde": resultValue
+        #                 })
 
-            for line in planet_positions2:
-                pattern = r"(True Node)\s+(\d+)\s+(\w+)\s+(\d+)\'([\d.]+)"
-                match = re.match(pattern, line, re.IGNORECASE)
-                if match:
-                    planets.append({
-                        "name": match.group(1),
-                        "positionDegree": match.group(2),
-                        "position_sign": zodiac_signs.get(match.group(3), degree_sign_abbr),
-                        "position_min": match.group(4),
-                        "position_sec": match.group(5),
-                        "retrograde": ""
-                    })
-                else:
-                    planets.append({"error": f"Error parsing line: {line}"})
-        else:
-            planets.append({"error": "Error parsing output for planets: No lines in the output"})
+        #     for line in planet_positions2:
+        #         pattern = r"(True Node)\s+(\d+)\s+(\w+)\s+(\d+)\'([\d.]+)"
+        #         match = re.match(pattern, line, re.IGNORECASE)
+        #         if match:
+        #             planets.append({
+        #                 "name": match.group(1),
+        #                 "positionDegree": match.group(2),
+        #                 "position_sign": zodiac_signs.get(match.group(3), degree_sign_abbr),
+        #                 "position_min": match.group(4),
+        #                 "position_sec": match.group(5),
+        #                 "retrograde": ""
+        #             })
+        #         else:
+        #             planets.append({"error": f"Error parsing line: {line}"})
+        # else:
+        #     planets.append({"error": "Error parsing output for planets: No lines in the output"})
 
         # Open the workbook outside of the loop to avoid repeated opening and closing
         try:
@@ -1048,7 +1087,7 @@ def run_excel_macro_changeData():
                 # sheet.Range("U26").Value = quiron_parse_output["position_min"]
                 # sheet.Range("U26").Value = "Hello Code"
 
-                asteroidsList = [houses_1_parse_output,houses_2_parse_output,houses_3_parse_output,houses_4_parse_output,houses_5_parse_output,houses_6_parse_output,planets[0],planets[1],planets[2],planets[3],planets[4],planets[5],planets[6],planets[7],planets[8],planets[9],planets[10],quiron_parse_output,lilith_parse_output,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,real_Lilith_parse_output,black_sun_parse_output,vulcan_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
+                asteroidsList = [houses_1_parse_output,houses_2_parse_output,houses_3_parse_output,houses_4_parse_output,houses_5_parse_output,houses_6_parse_output,planet_sun_parse_output,planet_moon_parse_output,planet_mercury_parse_output,planet_venus_parse_output,planet_mars_parse_output,planet_jupiter_parse_output,planet_saturn_parse_output,planet_uranus_parse_output,planet_neptune_parse_output,planet_pluto_parse_output,quiron_parse_output,lilith_parse_output,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,real_Lilith_parse_output,black_sun_parse_output,vulcan_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
                 
                 start_row = 5  # Row 29
                 start_column = 11  # Column S
@@ -1166,6 +1205,8 @@ def parse_houses_and_vertex(asteroid_pholus_output, house_number):
             # Remove "house <house_number>" from the line
             output_string = re.sub(rf"house\s+{house_number}\s+", "", line)
             print(f"Output String after regex: {output_string}")
+            # Remove the Spaces
+            output_space_removed = output_string.replace
             # Split by 2 
             pattern = r'[a-zA-Z]'
             # Split by 2 alphabets
@@ -1195,5 +1236,72 @@ def parse_houses_and_vertex(asteroid_pholus_output, house_number):
                 "retrograde": ""
             }
             break  # Exit the loop after finding the required house
+
+    return result
+
+def parse_planets(planets_output, planet_name):
+    # Split by newline characters
+    lines = planets_output.splitlines()
+    # Loop through each line to find the planet of interest
+    # Initialize result dictionary
+    result = {}
+    for line in lines:
+        if planet_name in line:
+            # Remove the planet name from the line
+            output_string = re.sub(rf"{planet_name}\s+", "", line)
+            # Split by 2 spaces
+            splitbySpace = re.split(r'\s{3,}', output_string)
+
+
+            # Split by Â°
+            splitbyDegree = re.split("Â°", splitbySpace[1])
+            # speed
+            speed = splitbyDegree[0]
+            outputData = splitbySpace[0]
+             # Remove the Spaces 
+            outputData = outputData.replace(" ", "")
+            # Split by alphabets
+            pattern = r'[a-zA-Z]'
+            splitByAlphaBets = re.split(pattern, outputData)
+            # Degree
+            degree = splitByAlphaBets[0]
+            # minsec
+            minsec = splitByAlphaBets[2]
+            # Split by single quote
+            splitbySingleQuote = re.split("'", minsec)
+        
+
+            
+            # Find the 2 alphabets in outputData
+            first_two_alphabets = []
+            # Iterate through the characters in the string
+            for char in outputData:
+                if char.isalpha():  # Check if the character is alphabetic
+                    first_two_alphabets.append(char)
+                    if len(first_two_alphabets) == 2:  # Stop once we have two alphabetic characters
+                        break
+
+            resultValue = resultValue = "R" if '-' in speed else ""
+            positionSign = first_two_alphabets[0]+first_two_alphabets[1]
+             
+
+
+            result = {
+                        "name": planet_name,
+                        "positionDegree": degree,
+                        "position_sign": zodiac_signs.get(positionSign.lower(), positionSign),
+                        "position_min": splitbySingleQuote[0],
+                        "position_sec": splitbySingleQuote[1],
+                        "retrograde": resultValue      
+                        }
+            
+            
+
+
+
+           
+        
+    # print(f"Lines: {lines}")
+
 
     return result
