@@ -14,3 +14,10 @@
 8. Apply the Code on each of the files.
 9. Check One by One.
 10. <!-- swetest -b11.07.1996 -ut14:34:1 -p -house74.55,32.4333333,P -fPZS -roundsec -->
+    <!-- Logic for correct Data -->
+    <!-- Get the data of  -->
+11. Get the Min and Seconds.
+12. Round of the Seconds.
+13. Lose the Ones that are not equal to 5 and greater.
+14. Choose the smallest value.
+15. You will get a result.

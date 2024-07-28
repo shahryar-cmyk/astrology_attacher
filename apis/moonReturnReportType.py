@@ -3,6 +3,7 @@ import swisseph as swe
 from datetime import datetime, timedelta
 import subprocess
 import re
+import math
 
 # Initialize the Flask Blueprint
 moon_return_calculation = Blueprint('moon_return_calculation', __name__)
@@ -97,14 +98,24 @@ def calculate_moon_return():
                     closest_dates[-1] = (diff, positions)
                     closest_dates.sort(key=lambda x: x[0])
         write_to_file(f"Closest dates: {closest_dates}")
+        # Find the Lowest date from the closest dates
+        date_time_closest_date_1 = datetime.strptime(closest_dates[0][1]["date"], '%Y-%m-%d %H:%M:%S')
+        date_time_closest_date_2 = datetime.strptime(closest_dates[1][1]["date"], '%Y-%m-%d %H:%M:%S')
+        # Extract the smallest date
+        # Extract the smallest date
+        smallest_date = min(date_time_closest_date_1, date_time_closest_date_2)
+        write_to_file(f"Smallest date: {smallest_date}")
+        
+        
+        
 
         # Further refine the closest dates by minute and second
         date_time_closest_date = datetime.strptime(closest_dates[1][1]["date"], '%Y-%m-%d %H:%M:%S')
         write_to_file(f"Closest date: {date_time_closest_date}")
 
         # Run the command for minutes from swetest
-        command_for_min = (f"swetest -b{date_time_closest_date.day}.{date_time_closest_date.month}.2024 "
-                           f"-p1 -fTPZ -n60 -s1m -ut{date_time_closest_date.hour}:{date_time_closest_date.minute}:{date_time_closest_date.second} -ep")
+        command_for_min = (f"swetest -b{smallest_date.day}.{smallest_date.month}.2024 "
+                           f"-p1 -fTPZ -n60 -s1m -ut{smallest_date.hour}:1:1 -ep")
         result_output_min = subprocess.run(command_for_min, shell=True, check=True, capture_output=True, text=True)
 
         # Log the command and output
@@ -150,8 +161,16 @@ def calculate_moon_return():
             if len(minSecMatch) < 2:
                 write_to_file(f"Error: Expected at least 2 parts after splitting by single quote but got min {len(minSecMatch)}")
                 continue
+            minSecOfPosition = round(float(minSecMatch[1]), 5)
+            roundOffOfMinSec = f"{minSecMatch[0]}.{round(minSecOfPosition)}"
+            roundOffAgain = round(float(roundOffOfMinSec), 5)
+            floatToRoundOffAgain = math.ceil(roundOffAgain)
+            most_closest_date_min_dict[splitbySpace[0]] = f"{floatToRoundOffAgain}"
+
+        write_to_file(f"Dictory find: {most_closest_date_min_dict}")
+        # Round off the minutes
+       
             
-            most_closest_date_min_dict[splitbySpace[0]] = minSecMatch[0]
 
         most_closest_date_min_find = find_closest_key(most_closest_date_min_dict, position_min)
         write_to_file(f"Dictory Iterate: {most_closest_date_min_dict}")
@@ -163,8 +182,8 @@ def calculate_moon_return():
         write_to_file(f"Most closest date min: {most_closest_date_min}")
 
         # Run the command for seconds from swetest
-        command_for_sec = (f"swetest -b{date_time_closest_date.day}.{date_time_closest_date.month}.2024 "
-                           f"-p1 -fTPZ -n60 -s1s -ut{date_time_closest_date.hour}:{most_closest_date_min.minute}:1 -ep")
+        command_for_sec = (f"swetest -b{smallest_date.day}.{smallest_date.month}.2024 "
+                           f"-p1 -fTPZ -n60 -s1s -ut{smallest_date.hour}:{most_closest_date_min.minute}:{smallest_date.second} -ep")
         result_output_sec = subprocess.run(command_for_sec, shell=True, check=True, capture_output=True, text=True)
 
         # Log the command and output
@@ -222,7 +241,8 @@ def calculate_moon_return():
         write_to_file(f"Most closest date sec: {most_closest_date_sec}")
 
         return jsonify({
-            "closest_date": most_closest_date_sec.strftime('%Y-%m-%d %H:%M:%S')
+            "closest_date": most_closest_date_sec.strftime('%Y-%m-%d %H:%M:%S'),
+            "closest_date_1": most_closest_date_min.strftime('%Y-%m-%d %H:%M:%S')
         })
 
     except Exception as e:
@@ -231,5 +251,10 @@ def calculate_moon_return():
 
 # Helper function to find the closest key in the dictionary
 def find_closest_key(d, target):
+    exact_matches = [k for k in d.keys() if float(d[k]) == target]
+    if exact_matches:
+        return exact_matches[0]
+    
     closest_key = min(d.keys(), key=lambda k: abs(float(d[k]) - target))
     return closest_key
+
