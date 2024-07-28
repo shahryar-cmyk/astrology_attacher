@@ -202,13 +202,8 @@ def run_excel_macro_changeData():
         # Elpis Command
         elpis_planet = f"swetest -ps -xs59 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Lilith Real Command
-        # lilith_real_planet = f"swetest -ps -xsh13 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
-        # Sol Negro 2 Command
-            # TODO: Implementation of the Sol Negro 2 Planet
-        # sol_negro_2_planet = f"swetest -ps -xsh22 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
-        # Vulcan Command
-            # TODO: Implementation of the Vulcan Planet
-        # vulcan_planet = f"swetest -ps -xsh55 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
+        # osc. Apogee Command in pa
+        lilith_real_planet = f"swetest -pa -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Borasisi Command
         borasisi_planet = f"swetest -ps -xs66652 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # Lempo Command
@@ -321,6 +316,7 @@ def run_excel_macro_changeData():
         alexandra_planet_result = subprocess.run(alexandra_planet, shell=True, check=True, capture_output=True, text=True)
         siegena_planet_result = subprocess.run(siegena_planet, shell=True, check=True, capture_output=True, text=True)
         elpis_planet_result = subprocess.run(elpis_planet, shell=True, check=True, capture_output=True, text=True)
+        lilith_real_planet_result = subprocess.run(lilith_real_planet, shell=True, check=True, capture_output=True, text=True)
         borasisi_planet_result = subprocess.run(borasisi_planet, shell=True, check=True, capture_output=True, text=True)
         lempo_planet_result = subprocess.run(lempo_planet, shell=True, check=True, capture_output=True, text=True)
         _1998_26308_planet_result = subprocess.run(_1998_26308_planet, shell=True, check=True, capture_output=True, text=True)
@@ -450,6 +446,7 @@ def run_excel_macro_changeData():
             "house  4",
             "house  5",
             "house  6",
+            "Vertex"
         ]
         planets_object = [
             'Sun',
@@ -461,7 +458,9 @@ def run_excel_macro_changeData():
             'Saturn',
             'Uranus',
             'Neptune',
-            'Pluto'
+            'Pluto',
+            'true Node'
+
         ]
         output = result.stdout
         # First House
@@ -476,6 +475,8 @@ def run_excel_macro_changeData():
         houses_5_parse_output = parse_houses_and_vertex(output,5)
         # # Sixth House
         houses_6_parse_output = parse_houses_and_vertex(output,6)
+        # # Vertex
+        houses_vertex_parse_output = parse_houses_and_vertex(output,houses_objects[6])
 
         # print(houses_parse_output)
         print(f"Data of the Houses: {houses_1_parse_output}")
@@ -508,6 +509,17 @@ def run_excel_macro_changeData():
         print(f"Data of the Neptune: {planet_neptune_parse_output}")
         planet_pluto_parse_output = parse_planets(output2,planets_object[9])
         print(f"Data of the Pluto: {planet_pluto_parse_output}")
+        planet_true_node_parse_output = parse_planets(output2,planets_object[10])
+        print(f"Data of the True Node: {planet_true_node_parse_output}")
+        # Hypothetical Planet 
+        lilith_real_planet_result_output = lilith_real_planet_result.stdout
+        lilith_real_parse_output = parse_asteroid_output(lilith_real_planet_result_output,'osc. Apogee')
+        # Sol Negro 2
+        sol_blanco_planet_parse_output = parse_asteroid_output(lilith_real_planet_result_output,'intp. Perigee')
+
+        # Vulcan
+        vulcan_planet_parse_output = parse_asteroid_output(lilith_real_planet_result_output,'Vulcan ')
+
         
 
 
@@ -864,32 +876,24 @@ def run_excel_macro_changeData():
             "position_sign": "",
              "retrograde": ""
         } 
-         # Real Lilith
-        real_Lilith_parse_output = {
-            "name": "Real Lilith",
-            "positionDegree": "",
-            "position_min": "",
-            "position_sec": "",
-            "position_sign": "",
-             "retrograde": ""
-        }
+
            # Black Sun 2
-        black_sun_parse_output = {
-            "name": "Black Sun 2",
-            "positionDegree": "",
-            "position_min": "",
-            "position_sec": "",
-            "position_sign": "",
-             "retrograde": ""
-        }   # Vulcan
-        vulcan_parse_output = {
-            "name": "Vulcan",
-            "positionDegree": "",
-            "position_min": "",
-            "position_sec": "",
-            "position_sign": "",
-            "retrograde": ""
-        }
+        # black_sun_parse_output = {
+        #     "name": "Black Sun 2",
+        #     "positionDegree": "",
+        #     "position_min": "",
+        #     "position_sec": "",
+        #     "position_sign": "",
+        #      "retrograde": ""
+        # }   # Vulcan
+        # vulcan_parse_output = {
+        #     "name": "Vulcan",
+        #     "positionDegree": "",
+        #     "position_min": "",
+        #     "position_sec": "",
+        #     "position_sign": "",
+        #     "retrograde": ""
+        # }
         result_data = {}
         planets = []
         result_vertex = {}
@@ -1087,7 +1091,7 @@ def run_excel_macro_changeData():
                 # sheet.Range("U26").Value = quiron_parse_output["position_min"]
                 # sheet.Range("U26").Value = "Hello Code"
 
-                asteroidsList = [houses_1_parse_output,houses_2_parse_output,houses_3_parse_output,houses_4_parse_output,houses_5_parse_output,houses_6_parse_output,planet_sun_parse_output,planet_moon_parse_output,planet_mercury_parse_output,planet_venus_parse_output,planet_mars_parse_output,planet_jupiter_parse_output,planet_saturn_parse_output,planet_uranus_parse_output,planet_neptune_parse_output,planet_pluto_parse_output,quiron_parse_output,lilith_parse_output,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,real_Lilith_parse_output,black_sun_parse_output,vulcan_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
+                asteroidsList = [houses_1_parse_output,houses_2_parse_output,houses_3_parse_output,houses_4_parse_output,houses_5_parse_output,houses_6_parse_output,planet_sun_parse_output,planet_moon_parse_output,planet_mercury_parse_output,planet_venus_parse_output,planet_mars_parse_output,planet_jupiter_parse_output,planet_saturn_parse_output,planet_uranus_parse_output,planet_neptune_parse_output,planet_pluto_parse_output,planet_true_node_parse_output,quiron_parse_output,lilith_parse_output,houses_vertex_parse_output,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,lilith_real_parse_output,sol_blanco_planet_parse_output,vulcan_planet_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
                 
                 start_row = 5  # Row 29
                 start_column = 11  # Column S
@@ -1206,17 +1210,12 @@ def parse_houses_and_vertex(asteroid_pholus_output, house_number):
             output_string = re.sub(rf"house\s+{house_number}\s+", "", line)
             print(f"Output String after regex: {output_string}")
             # Remove the Spaces
-            output_space_removed = output_string.replace
+            # output_space_removed = output_string.replace
             # Split by 2 
             pattern = r'[a-zA-Z]'
             # Split by 2 alphabets
             splitByAlphaBets = re.split(pattern, output_string)
-            print(f"AlphaBets String after regex: {splitByAlphaBets}")
-
-            
-
-
-            
+            print(f"AlphaBets String after regex: {splitByAlphaBets}")    
             # Split by spaces
             splitbySpace = re.split(r'\s+', output_string)
             # positionDegree = splitbySpace[0]
@@ -1233,10 +1232,35 @@ def parse_houses_and_vertex(asteroid_pholus_output, house_number):
                 "position_sign": zodiac_signs.get(positionSign.lower(), positionSign),
                 "position_min": splitbySingleQuote[0].replace(" ", ""),
                 "position_sec": splitbySingleQuote[1].replace(" ", ""),
-                "retrograde": ""
+                "retrograde": "",
             }
             break  # Exit the loop after finding the required house
+        elif "Vertex" in line:
+            output_string = re.sub(rf"Vertex\s+", "", line)
+            pattern = r'[a-zA-Z]'
+            # Split by 2 alphabets
+            splitByAlphaBets = re.split(pattern, output_string)
+            print(f"AlphaBets String after regex: {splitByAlphaBets}")    
+            # Split by spaces
+            splitbySpace = re.split(r'\s+', output_string)
+            # positionDegree = splitbySpace[0]
+            positionSign = splitbySpace[1]
+            # positionMinSec = splitbySpace[2]
+            
+            # Separate by single quote and remove double quotes
+            splitbySingleQuote = re.split("'", splitByAlphaBets[2])
+            splitbySingleQuote[1] = splitbySingleQuote[1].replace('"', "")
 
+            print(f"Output String after regex: {line}")
+            result ={
+                "name": f"Vertex",
+                "positionDegree": splitByAlphaBets[0].replace(" ", ""),
+                "position_sign": zodiac_signs.get(positionSign.lower(), positionSign),
+                "position_min": splitbySingleQuote[0].replace(" ", ""),
+                "position_sec": splitbySingleQuote[1].replace(" ", ""),
+                "retrograde": "",
+                "commands": lines
+            }
     return result
 
 def parse_planets(planets_output, planet_name):
@@ -1305,3 +1329,4 @@ def parse_planets(planets_output, planet_name):
 
 
     return result
+
