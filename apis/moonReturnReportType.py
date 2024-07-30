@@ -242,7 +242,7 @@ def calculate_moon_return():
 
         return jsonify({
             "closest_date": most_closest_date_sec.strftime('%Y-%m-%d %H:%M:%S'),
-            "closest_date_1": most_closest_date_min.strftime('%Y-%m-%d %H:%M:%S')
+            # "closest_date_1": most_closest_date_min.strftime('%Y-%m-%d %H:%M:%S')
         })
 
     except Exception as e:

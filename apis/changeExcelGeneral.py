@@ -46,7 +46,18 @@ def run_excel_macro_changeData():
         lat_deg = request.json.get('lat_deg')
         lon_deg = request.json.get('lon_deg')
         # Moon Return, Solar Return or Natal return 
-        # report_type = request.json.get('report_type')
+        report_type_data = request.json.get('reportType')
+        #     "personName": "Shahryar",
+    # "personLocation": "Gujranwala,Pakistan",
+    # "personBirthDateLocal": "7/12/1996 1:00",
+    # "moonReturnDate": "2024-07-03 04:41:25",
+    # "sunReturnDate": "2024-07-11 14:32:52"
+        person_name = request.json.get('personName')
+        person_location = request.json.get('personLocation')
+        person_birth_date_local = request.json.get('personBirthDateLocal')
+        moon_return_date = request.json.get('moonReturnDate')
+        sun_return_date = request.json.get('sunReturnDate')
+        gender_type = request.json.get('gender')
 
         xl = win32com.client.Dispatch("Excel.Application")
         xl.Visible = False  # Set to True if you want Excel to be visible
@@ -1097,13 +1108,32 @@ def run_excel_macro_changeData():
                 start_column = 11  # Column S
                 for index, asteroid in enumerate(asteroidsList):
                  row = start_row + index
-                 sheet.Cells(row, start_column).Value = asteroid['name']
+                #  sheet.Cells(row, start_column).Value = asteroid['name']
                  sheet.Cells(row, start_column + 1).Value = asteroid['position_sign']
                
                  sheet.Cells(row, start_column + 2).Value =asteroid['positionDegree']
                  sheet.Cells(row, start_column + 3).Value =  asteroid['position_min']
                  sheet.Cells(row, start_column + 4).Value = asteroid['position_sec']
                  sheet.Cells(row, start_column + 5).Value = asteroid['retrograde']
+                #  In 19 Col Row 5
+                # Put the name of the User
+                sheet.Cells(5,19).Value = person_name
+                # In Row 8 Local Birth date with seconds.
+                sheet.Cells(8,19).Value = person_birth_date_local
+                 
+                # In Row 11 Put the User Location. 
+                sheet.Cells(11,19).Value = person_location
+                # In Row 14 Put Natal Chart | Sun Return | Moon Return
+                sheet.Cells(14,19).Value = report_type_data 
+                # Sun Return Date
+                    # Sun Return Date In Row 17
+                sheet.Cells(17,19).Value = sun_return_date
+                    # Moon Return Date In Row 20
+                sheet.Cells(20,19).Value = moon_return_date
+                    # Gender In 21 kah 5 
+                sheet.Cells(21,5).Value = gender_type
+
+
                 print("Data modified successfully.")
                 return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":copied_file_path}), 200
             finally:
