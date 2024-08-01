@@ -21,3 +21,8 @@
 13. Lose the Ones that are not equal to 5 and greater.
 14. Choose the smallest value.
 15. You will get a result.
+<!-- BackLog -->
+16. Use GeneralInforme for generating reports
+17. When Genreating natal report replace Natal chart data and also the Sun Return Data and user birth date and date should be local.
+18. When Generating Sun Return Replace Natal chart and also the Sun Return data with Start and finish date of Sun and Birth date and date should be in local.
+19. When Generating Moon Return Replace Natal chart and also the Moon Return data with Start and finish date of Moon and Birth date and date should be in local.
