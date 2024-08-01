@@ -30,6 +30,7 @@ def calculate_solar_return():
         position_min = float(request.json.get('position_min'))
         position_sec = float(request.json.get('position_sec'))
         position_sign = request.json.get('position_sign').lower()
+        current_year = int(request.json.get('current_year'))
 
         write_to_file(f"Received input data: {request.json}")
 
@@ -69,7 +70,7 @@ def calculate_solar_return():
         write_to_file(f"Natal Julian day: {natal_jd}")
 
         # Get the current year
-        current_year = datetime.now().year
+        # current_year = datetime.now().year
 
         # Start date for the search (15 days before birth date in current year)
         start_date = datetime(current_year, birth_date.month, birth_date.day,
