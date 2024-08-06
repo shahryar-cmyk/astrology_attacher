@@ -7,20 +7,20 @@ import json
 from second_api import second_blueprint
 from apis.changeExcelGeneral import change_excel_general
 from apis.getReporAcExcel import get_report_ac_excel
-# from apis.sunReturnReportType import solar_return_calculation
-# from apis.moonReturnReportType import moon_return_calculation
-# from apis.chatSolarReturn import chat_solar_return_calculation
-# from apis.chatMoonReturn import chat_moon_return_calculation
+from apis.sunReturnReportType import solar_return_calculation
+from apis.moonReturnReportType import moon_return_calculation
+from apis.chatSolarReturn import chat_solar_return_calculation
+from apis.chatMoonReturn import chat_moon_return_calculation
 
 
 app = Flask(__name__)
 app.register_blueprint(second_blueprint)  # Register the blueprint
 app.register_blueprint(change_excel_general)
 app.register_blueprint(get_report_ac_excel)
-# app.register_blueprint(solar_return_calculation)
-# app.register_blueprint(moon_return_calculation)
-# app.register_blueprint(chat_solar_return_calculation)
-# app.register_blueprint(chat_moon_return_calculation)
+app.register_blueprint(solar_return_calculation)
+app.register_blueprint(moon_return_calculation)
+app.register_blueprint(chat_solar_return_calculation)
+app.register_blueprint(chat_moon_return_calculation)
 
 
 @app.route('/')
