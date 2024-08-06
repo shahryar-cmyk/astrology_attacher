@@ -26,3 +26,5 @@
 17. When Genreating natal report replace Natal chart data and also the Sun Return Data and user birth date and date should be local.
 18. When Generating Sun Return Replace Natal chart and also the Sun Return data with Start and finish date of Sun and Birth date and date should be in local.
 19. When Generating Moon Return Replace Natal chart and also the Moon Return data with Start and finish date of Moon and Birth date and date should be in local.
+<!-- BackLog -->
+20. Install the package
