@@ -47,11 +47,6 @@ def run_excel_macro_changeData():
         lon_deg = request.json.get('lon_deg')
         # Moon Return, Solar Return or Natal return 
         report_type_data = request.json.get('reportType')
-        #     "personName": "Shahryar",
-    # "personLocation": "Gujranwala,Pakistan",
-    # "personBirthDateLocal": "7/12/1996 1:00",
-    # "moonReturnDate": "2024-07-03 04:41:25",
-    # "sunReturnDate": "2024-07-11 14:32:52"
         person_name = request.json.get('personName')
         person_location = request.json.get('personLocation')
         person_birth_date_local = request.json.get('personBirthDateLocal')
@@ -67,7 +62,7 @@ def run_excel_macro_changeData():
         command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -p -house{lat_deg},{lon_deg},P -fPZ -roundsec"
         # For Planets Data From Cell D11 to D21 Which Includes True Node
         command2 = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -fPZS -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -ep"
-        # For Quirón Command From Cell D22
+        # For Quirón Command From Cell D22sky
         quiron_planet = f"swetest -ps -xs2060 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # For Lilith Command From Cell D23
         lilith_planet = f"swetest -ps -xs1181 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
@@ -607,7 +602,6 @@ def run_excel_macro_changeData():
         eunomia_planet_output = eunomia_planet_result.stdout
         eunomia_parse_output = parse_asteroid_output(eunomia_planet_output,astro_objects[31])
 
-        # TODO: Implement the parse_asteroid_output function for the following planets Parsing is not Correct Because Before and After the Degree The value will be 1 or 2 and don't forger the points
         euphrosyne_output = euphrosyne_planet_result.stdout
         euphrosyne_parse_output = parse_asteroid_output(euphrosyne_output,astro_objects[32])
 
@@ -725,31 +719,6 @@ def run_excel_macro_changeData():
 
         stereoskopia_output = stereoskopia_planet_result.stdout
         stereoskopia_parse_output = parse_asteroid_output(stereoskopia_output,astro_objects[70])
-
-        #     agamemnon_planet_result = subprocess.run(agamemnon_planet, shell=True, check=True, capture_output=True, text=True)
-        # alexandra_planet_result = subprocess.run(alexandra_planet, shell=True, check=True, capture_output=True, text=True)
-        # siegena_planet_result = subprocess.run(siegena_planet, shell=True, check=True, capture_output=True, text=True)
-        # elpis_planet_result = subprocess.run(elpis_planet, shell=True, check=True, capture_output=True, text=True)
-        # borasisi_planet_result = subprocess.run(borasisi_planet, shell=True, check=True, capture_output=True, text=True)
-        # lempo_planet_result = subprocess.run(lempo_planet, shell=True, check=True, capture_output=True, text=True)
-        # _1998_26308_planet_result = subprocess.run(_1998_26308_planet, shell=True, check=True, capture_output=True, text=True)
-        # ceto_planet_result = subprocess.run(ceto_planet, shell=True, check=True, capture_output=True, text=True)
-        # teharonhiawako_planet_result = subprocess.run(teharonhiawako_planet, shell=True, check=True, capture_output=True, text=True)
-        # _2000_oj67_134860_planet_result = subprocess.run(_2000_oj67_134860_planet, shell=True, check=True, capture_output=True, text=True)
-        # elektra_planet_result = subprocess.run(elektra_planet, shell=True, check=True, capture_output=True, text=True)
-        # typhon_planet_result = subprocess.run(typhon_planet, shell=True, check=True, capture_output=True, text=True)
-        # aspasia_planet_result = subprocess.run(aspasia_planet, shell=True, check=True, capture_output=True, text=True)
-        # typhon_planet_result = subprocess.run(typhon_planet, shell=True, check=True, capture_output=True, text=True)
-        # aspasia_planet_result = subprocess.run(aspasia_planet, shell=True, check=True, capture_output=True, text=True)
-        # chicago_planet_result = subprocess.run(chicago_planet, shell=True, check=True, capture_output=True, text=True)
-        # gyptis_planet_result = subprocess.run(gyptis_planet, shell=True, check=True, capture_output=True, text=True)
-        # diomedes_planet_result = subprocess.run(diomedes_planet, shell=True, check=True, capture_output=True, text=True)
-        # gyptis_planet_result = subprocess.run(gyptis_planet, shell=True, check=True, capture_output=True, text=True)
-        # juewa_planet_result = subprocess.run(juewa_planet, shell=True, check=True, capture_output=True, text=True)
-        # eunike_planet_result = subprocess.run(eunike_planet, shell=True, check=True, capture_output=True, text=True)
-        # ino_planet_result = subprocess.run(ino_planet, shell=True, check=True, capture_output=True, text=True)
-        # ismene_planet_result = subprocess.run(ismene_planet, shell=True, check=True, capture_output=True, text=True)
-        # merapi_planet_result = subprocess.run(merapi_planet, shell=True, check=True, capture_output=True, text=True)
 
         agamemnon_output = agamemnon_planet_result.stdout
         agamemnon_parse_output = parse_asteroid_output(agamemnon_output,astro_objects[71])
@@ -888,171 +857,9 @@ def run_excel_macro_changeData():
              "retrograde": ""
         } 
 
-           # Black Sun 2
-        # black_sun_parse_output = {
-        #     "name": "Black Sun 2",
-        #     "positionDegree": "",
-        #     "position_min": "",
-        #     "position_sec": "",
-        #     "position_sign": "",
-        #      "retrograde": ""
-        # }   # Vulcan
-        # vulcan_parse_output = {
-        #     "name": "Vulcan",
-        #     "positionDegree": "",
-        #     "position_min": "",
-        #     "position_sec": "",
-        #     "position_sign": "",
-        #     "retrograde": ""
-        # }
-        result_data = {}
         planets = []
-        result_vertex = {}
 
 
-        # Function of the Parse the output of houses. 
-        
-        # # Parse the output for houses
-        # if len(lines) > 0:
-        #     pattern = r'\s{3,}'  # Pattern to split by 3 or more spaces
-        #     for i in range(8, 14):  # Loop through lines 8 to 13 (houses 1 to 6)
-        #         try:
-                    
-        #             match = re.split(pattern, lines[i])[1]
-        #             degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
-        #             degree_match_sign = re.findall(r'[a-zA-Z]+', match)
-        #             degree_sign_abbr = degree_match_sign[0] if degree_match_sign else ""
-        #             degree_sign = zodiac_signs.get(degree_sign_abbr.lower(), degree_sign_abbr)
-        #             degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', match)
-        #             degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
-        #             degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
-        #             degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
-        #             pattern7 = r'\s{2,}'
-        #             splitbyTwoSpacesUnique = re.split(pattern7, degree_match_min_sec_again)
-        #             splitByQuotation = re.split("'", splitbyTwoSpacesUnique[0])
-        #             redrogradePosition = splitbyTwoSpacesUnique[1]
-        #             splitByRedrogradePositionDegree = re.split("Â°", redrogradePosition)
-
-        #             value = int(splitByRedrogradePositionDegree[0])
-
-        #             # Check the condition and return "R" or an empty string
-        #             resultValue = resultValue = "R" if '-' in splitByRedrogradePositionDegree[0] else ""
-                    
-        #             result_data[f"Casa{i - 7}"] = {
-        #                 "name": f"House{i - 7}",
-        #                 "positionDegree": int(degree_match.group(1)) if degree_match else None,
-        #                 "position_sign": degree_sign,
-        #                 "position_min": degree_match_min[0],
-        #                 "position_sec": splitByQuotation[1].replace('"',""),  # Remove double quotes from seconds
-        #                 "retrograde": resultValue
-                        
-        #             }
-        #         except IndexError as e:
-        #             result_data["error"] = f"Error parsing output: {str(e)}"
-        #             break
-        # else:
-        #     result_data["error"] = "Error parsing line: No lines in the output"
-
-        # # Parse the Vertex from houses command
-        # if len(lines) > 0:
-        #     pattern = r'\s{3,}'  # Pattern to split by 3 or more spaces
-        #     for i in range(23, 24):  # Loop through lines 8 to 13 (houses 1 to 6)
-        #         try:
-        #             match = re.split(pattern, lines[i])[1]
-        #             degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", match)
-        #             degree_match_sign = re.findall(r'[a-zA-Z]+', match)
-        #             degree_sign_abbr = degree_match_sign[0] if degree_match_sign else ""
-        #             degree_sign = zodiac_signs.get(degree_sign_abbr.lower(), degree_sign_abbr)
-        #             degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', match)
-        #             degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
-        #             degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
-        #             degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
-        #             pattern7 = r'\s{2,}'
-        #             splitbyTwoSpacesUnique = re.split(pattern7, degree_match_min_sec_again)
-        #             splitByQuotation = re.split("'", splitbyTwoSpacesUnique[0])
-        #             redrogradePosition = splitbyTwoSpacesUnique[1]
-        #             splitByRedrogradePositionDegree = re.split("Â°", redrogradePosition)
-
-        #             value = int(splitByRedrogradePositionDegree[0])
-
-        #             # Check the condition and return "R" or an empty string
-        #             resultValue = "R" if '-' in splitByRedrogradePositionDegree[0] else ""
-        #             result_vertex = {
-        #                 "name": re.split(pattern, lines[i])[0],
-        #                 "positionDegree": int(degree_match.group(1)) if degree_match else None,
-        #                 "position_sign": degree_sign,
-        #                 "position_min": degree_match_min[0],
-        #                 "position_sec": splitByQuotation[1].replace('"',""),  # Remove double quotes from seconds
-        #                 "retrograde": resultValue
-        #             }
-                    
-        #         except IndexError as e:
-        #             result_data["error"] = f"Error parsing output: {str(e)}"
-        #             break
-        # else:
-        #     result_data["error"] = "Error parsing line: No lines in the output"
-        
-        # Parse the output for planets
-        # if len(lines2) > 0:
-        #     planet_positions = lines2[6:16]
-        #     planet_positions2 = lines2[17:18]
-
-        #     for line in planet_positions:
-        #         match = re.match(r"(\w+)\s+(.+)", line)
-        #         if match:
-        #             planet_name = match.group(1)
-        #             position = match.group(2).strip()
-        #             degree_match = re.match(r"(\d{1,2})\s\w{2}\s.*", position)
-        #             degree_match_sign = re.findall(r'[a-zA-Z]+', position)
-        #             degree_sign_abbr = degree_match_sign[0] if degree_match_sign else ""
-        #             degree_sign = zodiac_signs.get(degree_sign_abbr.lower(), degree_sign_abbr)
-        #             degree_match_min_sec = re.sub(r'^.*?[a-zA-Z]', '', position)
-        #             degree_match_min_sec_again = re.sub(r'^.*?[a-zA-Z]', '', degree_match_min_sec)
-        #             degree_match_min_sec_again_spaces_removed = degree_match_min_sec_again.replace(" ", "")
-        #             # degree_match_min = degree_match_min_sec_again_spaces_removed.split("'")
-        #             pattern34 = r'\s{3,}'
-        #             splitbyTwoSpaces = re.split(pattern34, degree_match_min_sec_again)
-        #             degree_match_min_sec_again_spaces_removed_patern34 = splitbyTwoSpaces[0]
-        #             degree_match_min = degree_match_min_sec_again_spaces_removed_patern34.split("'")
-        #                         # Split by °
-        #             splitbyDegree = re.split("Â°", splitbyTwoSpaces[1])
-        #             # Assuming splitbyDegree[0] is a string and you need to convert it to an integer
-        #             value = int(splitbyDegree[0])
-
-        #             # Check the condition and return "R" or an empty string
-        #             resultValue = "R" if '-' in splitbyDegree[0] else ""
-
-                    
-        #             if degree_match:
-        #                 degree = degree_match.group(1)
-        #                 minute = degree_match_min[0].replace(" ", "")
-        #                 second = degree_match_min[1].replace(" ", "")
-                        
-        #                 planets.append({
-        #                     "name": planet_name,
-        #                     "positionDegree": degree,
-        #                     "position_sign": degree_sign,
-        #                     "position_min": minute,
-        #                     "position_sec": second,
-        #                     "retrograde": resultValue
-        #                 })
-
-        #     for line in planet_positions2:
-        #         pattern = r"(True Node)\s+(\d+)\s+(\w+)\s+(\d+)\'([\d.]+)"
-        #         match = re.match(pattern, line, re.IGNORECASE)
-        #         if match:
-        #             planets.append({
-        #                 "name": match.group(1),
-        #                 "positionDegree": match.group(2),
-        #                 "position_sign": zodiac_signs.get(match.group(3), degree_sign_abbr),
-        #                 "position_min": match.group(4),
-        #                 "position_sec": match.group(5),
-        #                 "retrograde": ""
-        #             })
-        #         else:
-        #             planets.append({"error": f"Error parsing line: {line}"})
-        # else:
-        #     planets.append({"error": "Error parsing output for planets: No lines in the output"})
 
         # Open the workbook outside of the loop to avoid repeated opening and closing
         try:
@@ -1069,40 +876,9 @@ def run_excel_macro_changeData():
                 sheet_name = 'CN y RS (o RL)'  # Replace with your sheet name
                 sheet = wb.Sheets(sheet_name)
 
-                # # Modify data in the sheet based on the result_data
-                # for casa, details in result_data.items():
-                #     if casa.startswith("Casa"):
-                #         degree_cell = f"E{int(casa[-1]) + 4}"  # Example cell for positionDegree
-                #         sign_cell = f"D{int(casa[-1]) + 4}"  # Example cell for position_sign
-                #         min_cell = f"F{int(casa[-1]) + 4}"  # Example cell for position_min
-                #         sec_cell = f"G{int(casa[-1]) + 4}"  # Example cell for position_sec
-
-                #         sheet.Range(degree_cell).Value = details["positionDegree"]
-                #         sheet.Range(sign_cell).Value = details["position_sign"]
-                #         sheet.Range(min_cell).Value = details["position_min"]
-                #         sheet.Range(sec_cell).Value = details["position_sec"]
-
-                # # Modify data in the sheet based on the planets
-                # planet_row_start = 20  # Example starting row for planet data
-                # for index, planet in enumerate(planets, start=1):
-                #     if "error" not in planet:
-                        
-                #         # sheet.Range(f"{index + 10}").Value = planet['planet_name']
-                #         sheet.Range(f"E{index + 10}").Value = planet['positionDegree']
-                #         sheet.Range(f"D{index + 10}").Value = planet['position_sign']
-                #         sheet.Range(f"F{index + 10}").Value = planet['position_min']
-                #         sheet.Range(f"G{index + 10}").Value = planet['position_sec']
-                #     else:
-                #         print(planet["error"])
-                
-
-                # sheet.Range("R26").Value = quiron_parse_output["name"]
-                # sheet.Range("S26").Value = quiron_parse_output["positionDegree"]
-                # sheet.Range("T26").Value = quiron_parse_output["position_sign"]
-                # sheet.Range("U26").Value = quiron_parse_output["position_min"]
-                # sheet.Range("U26").Value = "Hello Code"
-
+                # List of Data for Natal Positions
                 asteroidsList = [houses_1_parse_output,houses_2_parse_output,houses_3_parse_output,houses_4_parse_output,houses_5_parse_output,houses_6_parse_output,planet_sun_parse_output,planet_moon_parse_output,planet_mercury_parse_output,planet_venus_parse_output,planet_mars_parse_output,planet_jupiter_parse_output,planet_saturn_parse_output,planet_uranus_parse_output,planet_neptune_parse_output,planet_pluto_parse_output,planet_true_node_parse_output,quiron_parse_output,lilith_parse_output,houses_vertex_parse_output,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,lilith_real_parse_output,sol_blanco_planet_parse_output,vulcan_planet_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
+                
                 
                 start_row = 5  # Row 29
                 start_column = 11  # Column S
@@ -1159,14 +935,8 @@ def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
     
     try:
         if len(lines) > 0:
-            # pattern = r'\s{3,}'  # Pattern to split by 4 or more spaces
-            # match = re.split(pattern, lines[6])[1]
-            # name = re.split(pattern, lines[6])[0]
             pattern2 = re.escape(asteroid_object_name)
             parts = re.split(pattern2, asteroid_pholus_output)
-            #   pattern = r'\s{2,}'  # Pattern to split by 4 or more spaces
-            # pattern = r'\d[-+]?[0-9]*\.?[0-9]+\d'
-            # match = re.split(pattern, parts[1])
             pattern = r'[a-zA-Z]'
             match = re.split(pattern, parts[1])
             # Remove Extra spaces. 

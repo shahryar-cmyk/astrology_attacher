@@ -162,3 +162,5 @@ cython_debug/
 # Sever Security Files
 *.pem
 
+moon_return_calculation_output.txt
+solar_return_calculation_output.txt

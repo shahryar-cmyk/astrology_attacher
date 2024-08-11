@@ -28,3 +28,10 @@
 19. When Generating Moon Return Replace Natal chart and also the Moon Return data with Start and finish date of Moon and Birth date and date should be in local.
 <!-- BackLog -->
 20. Install the package
+21. Free the space for build tools If not come up with the solution or wheel
+<!-- BackLog -->
+22. Connect API with Wordpress Frontend
+23. Replace the file and code from the server.
+24. Integerate the Payment of PayPal.
+<!-- Fixing Previous Milestone -->
+25. When Running the change_excel_general route then get the data of the Sun Return and moon return
