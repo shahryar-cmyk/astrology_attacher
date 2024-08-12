@@ -8,6 +8,7 @@ import shutil
 from datetime import datetime
 import logging
 import traceback
+import swisseph as swe
 
 
 change_excel_general = Blueprint('change_excel_general', __name__)
@@ -909,6 +910,8 @@ def run_excel_macro_changeData():
                     # Gender In 21 kah 5 
                 sheet.Cells(21,5).Value = gender_type
 
+                get_solar_return_data(lat_deg,lon_deg,report_type_data,birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec)
+
 
                 print("Data modified successfully.")
                 return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":copied_file_path}), 200
@@ -1130,3 +1133,29 @@ def parse_planets(planets_output, planet_name):
 
     return result
 
+def get_solar_return_data(lat_deg,lon_deg,report_type_data,birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec):
+    data = request.get_json()
+
+    jd_birth = swe.julday(birth_date_year, birth_date_month, birth_date_day, ut_hour + ut_min / 60 + ut_sec / 3600)
+
+    # Get the Sun position at birth
+    sun_pos, ret = swe.calc_ut(jd_birth, swe.SUN)
+    birth_sun_longitude = sun_pos[0]
+
+    current_year = 2024
+
+    # Estimate Julian Day for the solar return (close to the birthday)
+    jd_estimate = swe.julday(current_year, birth_date_month, birth_date_day)
+
+    # Find the exact time the Sun returns to the same longitude using swe_solcross_ut
+    serr = ''
+    jd_solar_return = swe.solcross_ut(birth_sun_longitude, jd_estimate, 0)
+
+    if jd_solar_return < jd_estimate:
+        return jsonify({'error': serr}), 400
+
+    # Convert Julian Day to calendar date and time
+    solar_return_date = swe.revjul(jd_solar_return)
+    solar_return_date_str = f"{solar_return_date[0]}/{solar_return_date[1]:02d}/{solar_return_date[2]:02d} {int(solar_return_date[3])}:{int((solar_return_date[3] % 1) * 60):02d}:{int(((solar_return_date[3] % 1) * 60 % 1) * 60):02d}"
+    
+    print("Getting Solar Return Data %s" % solar_return_date_str) 
