@@ -866,7 +866,7 @@ def run_excel_macro_changeData():
         try:
             original_path = r'C:\El Camino que Creas\Generador de Informes\Generador de Informes\Generador de Informes.xlsm'
             base, ext = os.path.splitext(original_path)
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f_sun_retuen")  # Format: YYYYMMDD_HHMMSS_milliseconds
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f_sun_return")  # Format: YYYYMMDD_HHMMSS_milliseconds
             copied_file_path = f"{base}_{timestamp}{ext}"
             # wb = xl.Workbooks.Open(file_path)  # Path to your Excel file
             shutil.copyfile(original_path, copied_file_path)
