@@ -12,6 +12,7 @@ from apis.moonReturnReportType import moon_return_calculation
 from apis.chatSolarReturn import chat_solar_return_calculation
 from apis.chatMoonReturn import chat_moon_return_calculation
 from apis.getDataExcel import getDataExcel
+from apis.calculate_sun_return import calculate_sun_return
 
 
 app = Flask(__name__)
@@ -23,6 +24,7 @@ app.register_blueprint(moon_return_calculation)
 app.register_blueprint(chat_solar_return_calculation)
 app.register_blueprint(chat_moon_return_calculation)
 app.register_blueprint(getDataExcel)
+app.register_blueprint(calculate_sun_return)
 
 
 @app.route('/')
