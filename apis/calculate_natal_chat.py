@@ -11,7 +11,7 @@ import traceback
 import swisseph as swe
 
 
-change_excel_general = Blueprint('change_excel_general', __name__)
+calculate_natal_chat = Blueprint('calculate_natal_chat', __name__)
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -33,7 +33,7 @@ zodiac_signs = {
     # Agrega otras abreviaturas si es necesario
 }
 
-@change_excel_general.route('/change_excel_general', methods=['POST'])
+@calculate_natal_chat.route('/calculate_natal_chat', methods=['POST'])
 def run_excel_macro_changeData():
     pythoncom.CoInitialize()  # Initialize COM library
     try:
@@ -881,6 +881,12 @@ def run_excel_macro_changeData():
                 asteroidsList = [houses_1_parse_output,houses_2_parse_output,houses_3_parse_output,houses_4_parse_output,houses_5_parse_output,houses_6_parse_output,planet_sun_parse_output,planet_moon_parse_output,planet_mercury_parse_output,planet_venus_parse_output,planet_mars_parse_output,planet_jupiter_parse_output,planet_saturn_parse_output,planet_uranus_parse_output,planet_neptune_parse_output,planet_pluto_parse_output,planet_true_node_parse_output,quiron_parse_output,lilith_parse_output,houses_vertex_parse_output,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,lilith_real_parse_output,sol_blanco_planet_parse_output,vulcan_planet_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
                 
                 
+                
+
+                solar_return_date = get_solar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec)
+                # Solar Return Position Date
+                get_solar_return_position = get_solar_return_position_func(lat_deg,lon_deg,report_type_data,solar_return_date) 
+                print("Getting Solar Return Position Data Shahryar %s" % get_solar_return_position)
                 start_row = 5  # Row 29
                 start_column = 11  # Column S
                 for index, asteroid in enumerate(asteroidsList):
@@ -910,9 +916,17 @@ def run_excel_macro_changeData():
                     # Gender In 21 kah 5 
                 sheet.Cells(21,5).Value = gender_type
 
-                solar_return_date = get_solar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec)
-                # Solar Return Position Date
-                get_solar_return_position = get_solar_return_position_func(lat_deg,lon_deg,report_type_data,solar_return_date) 
+                sun_col = 3
+                for index, sun_return_asteroids in enumerate(get_solar_return_position):
+                 row = start_row + index
+                #  sheet.Cells(row, sun_col).Value = sun_return_asteroids['name']
+                 sheet.Cells(row, sun_col + 1).Value = sun_return_asteroids['position_sign']
+               
+                 sheet.Cells(row, sun_col + 2).Value =sun_return_asteroids['positionDegree']
+                 sheet.Cells(row, sun_col + 3).Value =  sun_return_asteroids['position_min']
+                 sheet.Cells(row, sun_col + 4).Value = sun_return_asteroids['position_sec']
+                 sheet.Cells(row, sun_col + 5).Value = sun_return_asteroids['retrograde']
+
 
 
 
@@ -2001,7 +2015,7 @@ def get_solar_return_position_func(lat_deg,lon_deg,report_type_data,date):
         planets = []
                 # List of Data for Natal Positions
         asteroidsList = [houses_1_parse_output,houses_2_parse_output,houses_3_parse_output,houses_4_parse_output,houses_5_parse_output,houses_6_parse_output,planet_sun_parse_output,planet_moon_parse_output,planet_mercury_parse_output,planet_venus_parse_output,planet_mars_parse_output,planet_jupiter_parse_output,planet_saturn_parse_output,planet_uranus_parse_output,planet_neptune_parse_output,planet_pluto_parse_output,planet_true_node_parse_output,quiron_parse_output,lilith_parse_output,houses_vertex_parse_output,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,lilith_real_parse_output,sol_blanco_planet_parse_output,vulcan_planet_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
-        print("Getting Solar Return Position Data Shahryar %s" % asteroidsList)
+    
         return asteroidsList
    
    
