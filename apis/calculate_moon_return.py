@@ -865,13 +865,13 @@ def run_excel_macro_moon_change_data():
         # Open the workbook outside of the loop to avoid repeated opening and closing
         try:
             original_path = r'C:\El Camino que Creas\Generador de Informes\Generador de Informes\Generador de Informes.xlsm'
-            base, ext = os.path.splitext(original_path)
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%fmoon_return")  # Format: YYYYMMDD_HHMMSS_milliseconds
-            copied_file_path = f"{base}_{timestamp}{ext}"
-            # wb = xl.Workbooks.Open(file_path)  # Path to your Excel file
-            shutil.copyfile(original_path, copied_file_path)
-            wb = xl.Workbooks.Open(copied_file_path)  # Path to your Excel file
-            
+            # base, ext = os.path.splitext(original_path)
+            # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f_natal_chart")  # Format: YYYYMMDD_HHMMSS_milliseconds
+            # copied_file_path = f"{base}_{timestamp}{ext}"
+            # # wb = xl.Workbooks.Open(file_path)  # Path to your Excel file
+            # shutil.copyfile(original_path, copied_file_path)
+            wb = xl.Workbooks.Open(original_path)  # Path to your Excel file
+                       
             try:
                 
                 sheet_name = 'CN y RS (o RL)'  # Replace with your sheet name
@@ -932,7 +932,7 @@ def run_excel_macro_moon_change_data():
 
 
                 print("Data modified successfully.")
-                return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":copied_file_path}), 200
+                return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":original_path}), 200
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
