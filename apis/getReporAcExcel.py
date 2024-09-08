@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 import win32com.client
 import pythoncom
 import os
+import subprocess
 
 get_report_ac_excel = Blueprint('getReportAcExcel', __name__)
 
@@ -382,7 +383,8 @@ def get_report_ac_excel_route():
 
         if not file_name or not macro_name:
             return jsonify({'error': 'fileName and macroName are required'}), 400
-
+        # Check if Another Process is Running on the System
+        subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
         pythoncom.CoInitialize()  # Initialize COM library
         try:
             # Initialize Excel application
