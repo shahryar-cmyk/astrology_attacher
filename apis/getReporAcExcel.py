@@ -387,7 +387,7 @@ def get_report_ac_excel_route():
         try:
             # Initialize Excel application
             xl = win32com.client.Dispatch("Excel.Application")
-            xl.Visible = True  # Set to True if you want Excel to be visible
+            xl.Visible = False  # Set to True if you want Excel to be visible
 
             try:
                 # Open the Excel workbook
