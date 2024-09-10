@@ -14,6 +14,7 @@ from apis.chatMoonReturn import chat_moon_return_calculation
 from apis.getDataExcel import getDataExcel
 from apis.calculate_sun_return import calculate_sun_return
 from apis.calculate_moon_return import calculate_moon_return
+from apis.api_call_for_macro import debug_report_api_call
 
 
 app = Flask(__name__)
@@ -27,6 +28,8 @@ app.register_blueprint(chat_moon_return_calculation)
 app.register_blueprint(getDataExcel)
 app.register_blueprint(calculate_sun_return)
 app.register_blueprint(calculate_moon_return)
+app.register_blueprint(debug_report_api_call)
+
 
 
 @app.route('/')

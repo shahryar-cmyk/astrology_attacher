@@ -914,7 +914,7 @@ def run_excel_macro_changeData():
                     # Moon Return Date In Row 20
                 sheet.Cells(20,19).Value = moon_return_date
                     # Gender In 21 kah 5 
-                sheet.Cells(21,5).Value = gender_type
+
 
                 sun_col = 11
                 for index, sun_return_asteroids in enumerate(get_solar_return_position):
@@ -927,11 +927,13 @@ def run_excel_macro_changeData():
                  sheet.Cells(row, sun_col + 4).Value = sun_return_asteroids['position_sec']
                  sheet.Cells(row, sun_col + 5).Value = sun_return_asteroids['retrograde']
 
+                sheet.Cells(5,21).Value = gender_type
+
 
 
 
                 print("Data modified successfully.")
-                return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":original_path}), 200
+                return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":original_path,"other_list":get_solar_return_position}), 200
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
