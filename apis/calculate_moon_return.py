@@ -5,7 +5,7 @@ import win32com.client
 import pythoncom
 import os
 import shutil
-from datetime import datetime
+from datetime import datetime,timedelta
 # import logging
 import traceback
 import swisseph as swe
@@ -933,7 +933,7 @@ def run_excel_macro_moon_change_data():
 
 
                 print("Data modified successfully.")
-                return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":original_path}), 200
+                return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":original_path,"LunarDateData":get_lunar_return_position}), 200
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
@@ -1156,14 +1156,19 @@ def get_lunar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hou
 
     jd_birth = swe.julday(birth_date_year, birth_date_month, birth_date_day, ut_hour + ut_min / 60 + ut_sec / 3600)
 
-    # Get the Sun position at birth
+    # Get the Moon position at birth
     moon_pos, ret = swe.calc_ut(jd_birth, swe.MOON)
     birth_sun_longitude = moon_pos[0]
 
     current_year = 2024
+    # Date of data 
+    birth_date_then =  datetime(current_year, birth_date_month, birth_date_day, ut_hour, ut_min, ut_sec)
+    # + 28 days
+    birth_date_now = birth_date_then + timedelta(days=27,hours=12,minutes=43,seconds=12)
 
-    # Estimate Julian Day for the solar return (close to the birthday)
-    jd_estimate = swe.julday(current_year, birth_date_month, birth_date_day)
+
+    # Estimate Julian Day for the Moon return (close to the birthday)
+    jd_estimate = swe.julday(birth_date_now.year, birth_date_now.month, birth_date_now.day, birth_date_now.hour +  birth_date_now.minute/ 60 + birth_date_now.second / 3600)
 
     # Find the exact time the Sun returns to the same longitude using swe_solcross_ut
     serr = ''
@@ -1176,7 +1181,7 @@ def get_lunar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hou
     lunar_return_date = swe.revjul(jd_solar_return)
     lunar_return_date_str = f"{lunar_return_date[0]}/{lunar_return_date[1]:02d}/{lunar_return_date[2]:02d} {int(lunar_return_date[3])}:{int((lunar_return_date[3] % 1) * 60):02d}:{int(((lunar_return_date[3] % 1) * 60 % 1) * 60):02d}"
 
-    print("Getting Solar Return Data %s" % lunar_return_date_str)
+    print("Getting Lunar Return Date %s" % lunar_return_date_str)
     return lunar_return_date_str
 
     # Get the Solar Return Chart With Respect of get_lunar_return_data
