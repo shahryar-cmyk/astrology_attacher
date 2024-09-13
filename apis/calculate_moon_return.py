@@ -1152,37 +1152,91 @@ def parse_planets(planets_output, planet_name):
 
     return result
 
-def get_lunar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec):
-
+def get_lunar_return_data(birth_date_year, birth_date_month, birth_date_day, ut_hour, ut_min, ut_sec):
+    user_selected_year = 2024
+    user_selected_month = 3
+    user_selected_day = 12
+    
+    # Moon Return Date 
+    find_lunar_return_date = datetime(user_selected_year, user_selected_month, user_selected_day, ut_hour, ut_min, ut_sec)
+    
+    # Get the Julian Day for the birth date and time
+    birth_date_current_year = datetime.now().year
+    
+    # Date of data 
+    birth_date_then = datetime(birth_date_current_year, birth_date_month, birth_date_day, ut_hour, ut_min, ut_sec)
+    
+    # Time delta
+    time_delta_moon = timedelta(days=27, hours=12, minutes=43, seconds=12)
+    
+    # Estimate Julian Day for the Moon return (close to the birthday)
     jd_birth = swe.julday(birth_date_year, birth_date_month, birth_date_day, ut_hour + ut_min / 60 + ut_sec / 3600)
-
+    
     # Get the Moon position at birth
     moon_pos, ret = swe.calc_ut(jd_birth, swe.MOON)
-    birth_sun_longitude = moon_pos[0]
-
-    current_year = 2024
-    # Date of data 
-    birth_date_then =  datetime(current_year, birth_date_month, birth_date_day, ut_hour, ut_min, ut_sec)
-    # + 28 days
-    birth_date_now = birth_date_then + timedelta(days=27,hours=12,minutes=43,seconds=12)
-
-
+    birth_moon_longitude = moon_pos[0]
+    
     # Estimate Julian Day for the Moon return (close to the birthday)
-    jd_estimate = swe.julday(birth_date_now.year, birth_date_now.month, birth_date_now.day, birth_date_now.hour +  birth_date_now.minute/ 60 + birth_date_now.second / 3600)
-
-    # Find the exact time the Sun returns to the same longitude using swe_solcross_ut
+    jd_estimate = swe.julday(birth_date_then.year, birth_date_then.month, birth_date_then.day, birth_date_then.hour + birth_date_then.minute / 60 + birth_date_then.second / 3600)
+    
+    # Find the exact time the Moon returns to the same longitude
     serr = ''
-    jd_solar_return = swe.mooncross_ut(birth_sun_longitude, jd_estimate, 0)
-
-    if jd_solar_return < jd_estimate:
+    jd_moon_return = swe.mooncross_ut(birth_moon_longitude, jd_estimate, 0)
+    
+    if jd_moon_return < jd_estimate:
         return jsonify({'error': serr}), 400
-
+    
     # Convert Julian Day to calendar date and time
-    lunar_return_date = swe.revjul(jd_solar_return)
-    lunar_return_date_str = f"{lunar_return_date[0]}/{lunar_return_date[1]:02d}/{lunar_return_date[2]:02d} {int(lunar_return_date[3])}:{int((lunar_return_date[3] % 1) * 60):02d}:{int(((lunar_return_date[3] % 1) * 60 % 1) * 60):02d}"
+    lunar_return_date = swe.revjul(jd_moon_return)
+    lunar_return_date_datetime = datetime(lunar_return_date[0], lunar_return_date[1], lunar_return_date[2],
+                                          int(lunar_return_date[3]), int((lunar_return_date[3] % 1) * 60),
+                                          int(((lunar_return_date[3] % 1) * 60 % 1) * 60))
+    
+    print(f"Getting Lunar Return Date {lunar_return_date_datetime}")
+    
+    # Now find the difference between lunar_return_date_datetime and find_lunar_return_date
+    difference = find_lunar_return_date - lunar_return_date_datetime
+    
+    # Check how many times of time_delta_moon is in difference
+    times_difference_times = difference / time_delta_moon
+    print(f"Times Difference {times_difference_times}")
+    print(f"Difference {difference}")
+    
+    # If difference is greater than time_delta_moon, then add time_delta_moon
+    if difference > time_delta_moon:
+        # Find the next moon cross
+        jd_moon_return = swe.mooncross_ut(birth_moon_longitude, jd_moon_return + 30 * (times_difference_times - 1), 0)
+        
+        # Convert Julian Day to calendar date and time
+        lunar_return_date = swe.revjul(jd_moon_return)
+        lunar_return_date_datetime = datetime(lunar_return_date[0], lunar_return_date[1], lunar_return_date[2],
+                                              int(lunar_return_date[3]), int((lunar_return_date[3] % 1) * 60),
+                                              int(((lunar_return_date[3] % 1) * 60 % 1) * 60))
+        print(f"Getting Next Lunar Return Date {lunar_return_date_datetime}")
+        print(f"Start Date Moon Cross User {lunar_return_date_datetime}")
+        # Add the timedelta to the datetime object
+        end_date_moon_cross_user = lunar_return_date_datetime + time_delta_moon
+        print(f"End Date Moon Cross User {end_date_moon_cross_user}")
+    if difference < time_delta_moon:
+        # difference value 
+        # Remove the sign of the difference
+        const_value = 30 * (abs(times_difference_times) + 1)
+        print(f"Const Value {const_value}")
+        jd_moon_return = swe.mooncross_ut(birth_moon_longitude, jd_moon_return - const_value, 0)
+        
+        # Convert Julian Day to calendar date and time
+        lunar_return_date = swe.revjul(jd_moon_return)
+        lunar_return_date_datetime = datetime(lunar_return_date[0], lunar_return_date[1], lunar_return_date[2],
+                                              int(lunar_return_date[3]), int((lunar_return_date[3] % 1) * 60),
+                                              int(((lunar_return_date[3] % 1) * 60 % 1) * 60))
+        print(f"Start Date Moon Cross User {lunar_return_date_datetime}")
+        # Add the timedelta to the datetime object
+        end_date_moon_cross_user = lunar_return_date_datetime + time_delta_moon
+        print(f"End Date Moon Cross User {end_date_moon_cross_user}")
+    
 
-    print("Getting Lunar Return Date %s" % lunar_return_date_str)
-    return lunar_return_date_str
+    
+    return lunar_return_date_datetime.strftime("%Y/%m/%d %H:%M:%S")
 
     # Get the Solar Return Chart With Respect of get_lunar_return_data
 def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
