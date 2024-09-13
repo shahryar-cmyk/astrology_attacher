@@ -5,7 +5,7 @@ import win32com.client
 import pythoncom
 import os
 import shutil
-from datetime import datetime
+from datetime import datetime,timedelta
 import logging
 import traceback
 import swisseph as swe
@@ -51,7 +51,6 @@ def run_excel_macro_changeData():
         person_name = request.json.get('personName')
         person_location = request.json.get('personLocation')
         person_birth_date_local = request.json.get('personBirthDateLocal')
-        moon_return_date = request.json.get('moonReturnDate')
         sun_return_date = request.json.get('sunReturnDate')
         gender_type = request.json.get('gender')
 
@@ -883,9 +882,10 @@ def run_excel_macro_changeData():
                 
                 
 
-                solar_return_date = get_solar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec)
+                solar_return_date = get_solar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec,2024,9,13)
+                print("Getting Solar Return Date Shahryar %s" % solar_return_date.get('solar_return_date_start'))
                 # Solar Return Position Date
-                get_solar_return_position = get_solar_return_position_func(lat_deg,lon_deg,report_type_data,solar_return_date) 
+                get_solar_return_position = get_solar_return_position_func(lat_deg,lon_deg,report_type_data,solar_return_date.get('solar_return_date_start')) 
                 print("Getting Solar Return Position Data Shahryar %s" % get_solar_return_position)
                 start_row = 5  # Row 29
                 start_column = 3  # Column S
@@ -910,9 +910,9 @@ def run_excel_macro_changeData():
                 sheet.Cells(14,19).Value = report_type_data 
                 # Sun Return Date
                     # Sun Return Date In Row 17
-                sheet.Cells(17,19).Value = sun_return_date
+                sheet.Cells(17,19).Value = solar_return_date.get('solar_return_date_start')
                     # Moon Return Date In Row 20
-                sheet.Cells(20,19).Value = moon_return_date
+                sheet.Cells(20,19).Value = solar_return_date.get('solar_return_date_end')
                     # Gender In 21 kah 5 
 
 
@@ -1152,32 +1152,83 @@ def parse_planets(planets_output, planet_name):
 
     return result
 
-def get_solar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec):
-
+def get_solar_return_data(birth_date_year, birth_date_month, birth_date_day, ut_hour, ut_min, ut_sec, user_selected_year, user_selected_month, user_selected_day):
+    # Solar Return Date 
+    find_solar_return_date = datetime(user_selected_year, user_selected_month, user_selected_day, ut_hour, ut_min, ut_sec)
+    
+    # Get the Julian Day for the birth date and time
     jd_birth = swe.julday(birth_date_year, birth_date_month, birth_date_day, ut_hour + ut_min / 60 + ut_sec / 3600)
-
+    
     # Get the Sun position at birth
     sun_pos, ret = swe.calc_ut(jd_birth, swe.SUN)
     birth_sun_longitude = sun_pos[0]
-
-    current_year = 2024
-
+    
     # Estimate Julian Day for the solar return (close to the birthday)
-    jd_estimate = swe.julday(current_year, birth_date_month, birth_date_day)
-
-    # Find the exact time the Sun returns to the same longitude using swe_solcross_ut
+    jd_estimate = swe.julday(user_selected_year, user_selected_month, user_selected_day)
+    
+    # Time delta for Solar Return (similar to time_delta_moon but adapted for solar return context)
+    time_delta_sun = timedelta(days=365)  # Typical interval for solar returns is approximately a year
+    
+    # Find the exact time the Sun returns to the same longitude using solcross_ut
     serr = ''
     jd_solar_return = swe.solcross_ut(birth_sun_longitude, jd_estimate, 0)
-
+    
     if jd_solar_return < jd_estimate:
-        return jsonify({'error': serr}), 400
-
+        return {'error': serr}, 400
+    
     # Convert Julian Day to calendar date and time
     solar_return_date = swe.revjul(jd_solar_return)
-    solar_return_date_str = f"{solar_return_date[0]}/{solar_return_date[1]:02d}/{solar_return_date[2]:02d} {int(solar_return_date[3])}:{int((solar_return_date[3] % 1) * 60):02d}:{int(((solar_return_date[3] % 1) * 60 % 1) * 60):02d}"
-
-    print("Getting Solar Return Data %s" % solar_return_date_str)
-    return solar_return_date_str
+    solar_return_date_datetime = datetime(solar_return_date[0], solar_return_date[1], solar_return_date[2],
+                                          int(solar_return_date[3]), int((solar_return_date[3] % 1) * 60),
+                                          int(((solar_return_date[3] % 1) * 60 % 1) * 60))
+    
+    print(f"Getting Solar Return Date {solar_return_date_datetime}")
+    
+    # Now find the difference between solar_return_date_datetime and find_solar_return_date
+    difference = find_solar_return_date - solar_return_date_datetime
+    
+    # Check how many times of time_delta_sun is in difference
+    times_difference_times = difference / time_delta_sun
+    print(f"Times Difference {times_difference_times}")
+    print(f"Difference {difference}")
+    
+    # Adjust solar return date if needed
+    if difference > time_delta_sun:
+        # Find the next solar return
+        jd_solar_return = swe.solcross_ut(birth_sun_longitude, jd_solar_return + 365 * (times_difference_times - 1), 0)
+        
+        # Convert Julian Day to calendar date and time
+        solar_return_date = swe.revjul(jd_solar_return)
+        solar_return_date_datetime = datetime(solar_return_date[0], solar_return_date[1], solar_return_date[2],
+                                              int(solar_return_date[3]), int((solar_return_date[3] % 1) * 60),
+                                              int(((solar_return_date[3] % 1) * 60 % 1) * 60))
+        print(f"Getting Next Solar Return Date {solar_return_date_datetime}")
+    if difference < time_delta_sun:
+        # difference value 
+        # Remove the sign of the difference
+        const_value = 365 * (abs(times_difference_times) + 1)
+        print(f"Const Value {const_value}")
+        jd_solar_return = swe.solcross_ut(birth_sun_longitude, jd_solar_return - const_value, 0)
+        
+        # Convert Julian Day to calendar date and time
+        solar_return_date = swe.revjul(jd_solar_return)
+        solar_return_date_datetime = datetime(solar_return_date[0], solar_return_date[1], solar_return_date[2],
+                                              int(solar_return_date[3]), int((solar_return_date[3] % 1) * 60),
+                                              int(((solar_return_date[3] % 1) * 60 % 1) * 60))
+        print(f"Start Date Moon Cross User {solar_return_date_datetime}")
+        # Add the timedelta to the datetime object
+        end_date_moon_cross_user = solar_return_date_datetime + time_delta_sun
+        print(f"End Date Moon Cross User {end_date_moon_cross_user}")
+    
+    # Add the timedelta to the datetime object
+    end_date_sun_cross_user = solar_return_date_datetime + time_delta_sun
+    print(f"Start Date Sun Cross User {solar_return_date_datetime}")
+    print(f"End Date Sun Cross User {end_date_sun_cross_user}")
+    
+    return {
+        "solar_return_date_start": solar_return_date_datetime.strftime("%Y/%m/%d %H:%M:%S"),
+        "solar_return_date_end": end_date_sun_cross_user.strftime("%Y/%m/%d %H:%M:%S")
+    }
 
     # Get the Solar Return Chart With Respect of get_solar_return_data
 def get_solar_return_position_func(lat_deg,lon_deg,report_type_data,date):
