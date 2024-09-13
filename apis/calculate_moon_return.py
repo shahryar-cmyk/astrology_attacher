@@ -52,7 +52,6 @@ def run_excel_macro_moon_change_data():
         person_location = request.json.get('personLocation')
         person_birth_date_local = request.json.get('personBirthDateLocal')
         moon_return_date = request.json.get('moonReturnDate')
-        sun_return_date = request.json.get('sunReturnDate')
         gender_type = request.json.get('gender')
 
         xl = win32com.client.Dispatch("Excel.Application")
@@ -883,10 +882,10 @@ def run_excel_macro_moon_change_data():
                 
                 
 
-                lunar_return_date = get_lunar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec)
+                lunar_return_date = get_lunar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec,2024,3,12)
                 # Solar Return Position Date
-                print("Getting Lunar Return Date Shahryar %s" % lunar_return_date)
-                get_lunar_return_position = get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,lunar_return_date) 
+                print("Getting Lunar Return Date Shahryar %s" % lunar_return_date.get('lunar_return_date_start'))
+                get_lunar_return_position = get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,lunar_return_date.get('lunar_return_date_start')) 
                 print("Getting Lunar Return Position Data Shahryar %s" % get_lunar_return_position)
                 start_row = 5  # Row 29
                 start_column = 3  # Column S
@@ -911,9 +910,9 @@ def run_excel_macro_moon_change_data():
                 sheet.Cells(14,19).Value = report_type_data 
                 # Sun Return Date
                     # Sun Return Date In Row 17
-                sheet.Cells(17,19).Value = sun_return_date
+                sheet.Cells(17,19).Value = lunar_return_date.get('lunar_return_date_start')
                     # Moon Return Date In Row 20
-                sheet.Cells(20,19).Value = moon_return_date
+                sheet.Cells(20,19).Value = lunar_return_date.get('lunar_return_date_end')
                     # Gender In 21 kah 5 
 
                 sun_col = 11
@@ -1152,10 +1151,10 @@ def parse_planets(planets_output, planet_name):
 
     return result
 
-def get_lunar_return_data(birth_date_year, birth_date_month, birth_date_day, ut_hour, ut_min, ut_sec):
-    user_selected_year = 2024
-    user_selected_month = 3
-    user_selected_day = 12
+def get_lunar_return_data(birth_date_year, birth_date_month, birth_date_day, ut_hour, ut_min, ut_sec,user_selected_year,user_selected_month,user_selected_day):
+    # user_selected_year = 2024
+    # user_selected_month = 3
+    # user_selected_day = 12
     
     # Moon Return Date 
     find_lunar_return_date = datetime(user_selected_year, user_selected_month, user_selected_day, ut_hour, ut_min, ut_sec)
@@ -1236,7 +1235,10 @@ def get_lunar_return_data(birth_date_year, birth_date_month, birth_date_day, ut_
     
 
     
-    return lunar_return_date_datetime.strftime("%Y/%m/%d %H:%M:%S")
+    return {
+        "lunar_return_date_start": lunar_return_date_datetime.strftime("%Y/%m/%d %H:%M:%S"),
+        "lunar_return_date_end": end_date_moon_cross_user.strftime("%Y/%m/%d %H:%M:%S")
+    }
 
     # Get the Solar Return Chart With Respect of get_lunar_return_data
 def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
