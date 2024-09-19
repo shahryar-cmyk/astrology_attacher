@@ -16,6 +16,7 @@ from apis.calculate_sun_return import calculate_sun_return
 from apis.calculate_moon_return import calculate_moon_return
 from apis.api_call_for_macro import debug_report_api_call
 from apis.regex_api_man import regex_to_change_data
+from apis.get_file_from_server import get_report_file
 
 
 app = Flask(__name__)
@@ -31,6 +32,7 @@ app.register_blueprint(calculate_sun_return)
 app.register_blueprint(calculate_moon_return)
 app.register_blueprint(debug_report_api_call)
 app.register_blueprint(regex_to_change_data)
+app.register_blueprint(get_report_file)
 
 
 
