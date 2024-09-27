@@ -35,6 +35,10 @@ zodiac_signs = {
 
 @calculate_moon_return.route('/calculate_moon_return', methods=['POST'])
 def run_excel_macro_moon_change_data():
+    try:
+        subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
+    except Exception as e:
+            print("Error killing Excel process:", e)
     pythoncom.CoInitialize()  # Initialize COM library
     try:
         # Get the parameters from the request data and ensure they are integers
@@ -881,8 +885,8 @@ def run_excel_macro_moon_change_data():
                 
                 
                 
-
-                lunar_return_date = get_lunar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec,2024,3,12)
+                date_moon_report = datetime.strptime(moon_return_date, "%Y-%m-%d")
+                lunar_return_date = get_lunar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec,date_moon_report.year,date_moon_report.month,date_moon_report.day)
                 # Solar Return Position Date
                 print("Getting Lunar Return Date Shahryar %s" % lunar_return_date.get('lunar_return_date_start'))
                 get_lunar_return_position = get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,lunar_return_date.get('lunar_return_date_start')) 

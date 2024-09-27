@@ -36,7 +36,11 @@ zodiac_signs = {
 @calculate_natal_chat.route('/calculate_natal_chat', methods=['POST'])
 def run_excel_macro_changeData():
         # Use subprocess to kill all running instances of Excel
-    subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
+    try:
+        subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
+    except Exception as e:
+            print("Error killing Excel process:", e)
+    # subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
     pythoncom.CoInitialize()  # Initialize COM library
     try:
         # Get the parameters from the request data and ensure they are integers

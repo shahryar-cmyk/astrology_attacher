@@ -35,6 +35,10 @@ zodiac_signs = {
 
 @calculate_sun_return.route('/calculate_sun_return', methods=['POST'])
 def run_excel_macro_changeData():
+    try:
+        subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
+    except Exception as e:
+            print("Error killing Excel process:", e)
     pythoncom.CoInitialize()  # Initialize COM library
     try:
         # Get the parameters from the request data and ensure they are integers
@@ -881,8 +885,8 @@ def run_excel_macro_changeData():
                 
                 
                 
-
-                solar_return_date = get_solar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec,2024,9,13)
+                date_sun_report = datetime.strptime(sun_return_date, "%Y-%m-%d")
+                solar_return_date = get_solar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec,date_sun_report.year,date_sun_report.month,date_sun_report.day)
                 print("Getting Solar Return Date Shahryar %s" % solar_return_date.get('solar_return_date_start'))
                 # Solar Return Position Date
                 get_solar_return_position = get_solar_return_position_func(lat_deg,lon_deg,report_type_data,solar_return_date.get('solar_return_date_start')) 
