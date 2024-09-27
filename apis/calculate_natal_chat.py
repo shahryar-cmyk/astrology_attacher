@@ -38,6 +38,7 @@ def run_excel_macro_changeData():
         # Use subprocess to kill all running instances of Excel
     try:
         subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
+        close_excel_without_save()
     except Exception as e:
             print("Error killing Excel process:", e)
     # subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
@@ -2091,4 +2092,20 @@ def get_solar_return_position_func(lat_deg,lon_deg,report_type_data,date):
         pythoncom.CoUninitialize()  # Uninitialize COM library
 
 
-  
+def close_excel_without_save():
+    # Create an instance of the Excel application
+    excel = win32com.client.Dispatch("Excel.Application")
+    
+    # Optional: Set this to True if you want to make Excel visible while running the script
+    excel.Visible = False
+    
+    # Prevent the "Do you want to save changes?" prompt
+    excel.DisplayAlerts = False
+    
+    # Loop through all the open workbooks
+    for wb in excel.Workbooks:
+        # Mark each workbook as saved, so Excel won't ask to save
+        wb.Saved = True
+    
+    # Quit the Excel application without saving any changes
+    excel.Quit()
