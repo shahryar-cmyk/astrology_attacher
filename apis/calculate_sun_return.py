@@ -9,6 +9,7 @@ from datetime import datetime,timedelta
 import logging
 import traceback
 import swisseph as swe
+import gc
 
 
 calculate_sun_return = Blueprint('calculate_sun_return', __name__)
@@ -2086,19 +2087,25 @@ def get_solar_return_position_func(lat_deg,lon_deg,report_type_data,date):
 
 
 def close_excel_without_save():
-    # Create an instance of the Excel application
-    excel = win32com.client.Dispatch("Excel.Application")
-    
-    # Optional: Set this to True if you want to make Excel visible while running the script
-    excel.Visible = False
-    
-    # Prevent the "Do you want to save changes?" prompt
-    excel.DisplayAlerts = False
-    
-    # Loop through all the open workbooks
-    for wb in excel.Workbooks:
-        # Mark each workbook as saved, so Excel won't ask to save
-        wb.Saved = True
-    
-    # Quit the Excel application without saving any changes
-    excel.Quit()
+    # Ensure COM threading model is initialized
+    pythoncom.CoInitialize()
+
+    try:
+        # Create an instance of the Excel application
+        excel = win32com.client.Dispatch("Excel.Application")
+        
+        # Prevent the "Do you want to save changes?" prompt
+        excel.DisplayAlerts = False
+        
+        # Loop through all the open workbooks and mark them as saved
+        for wb in excel.Workbooks:
+            wb.Saved = True  # Mark as saved to avoid save prompts
+
+        # Quit the Excel application
+        excel.Quit()
+
+    finally:
+        # Explicitly release COM objects and clean up
+        excel = None
+        gc.collect()  # Run garbage collection to release COM objects
+
