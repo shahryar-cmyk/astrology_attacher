@@ -40,6 +40,7 @@ zodiac_signs = {
 def run_excel_macro_changeData():
         # Use subprocess to kill all running instances of Excel
     try:
+        time.sleep(5)
         os.system("taskkill /F /IM excel.exe /T")
         subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
         close_excel_without_save()
