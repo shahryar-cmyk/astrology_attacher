@@ -2100,13 +2100,16 @@ def close_excel_without_save():
     try:
         # Create an instance of the Excel application
         excel = win32com.client.Dispatch("Excel.Application")
+
         
         # Prevent the "Do you want to save changes?" prompt
         excel.DisplayAlerts = False
+
         
         # Loop through all the open workbooks and mark them as saved
         for wb in excel.Workbooks:
             wb.Saved = True  # Mark as saved to avoid save prompts
+            wb.Close(SaveChanges=False)
 
         # Quit the Excel application
         excel.Quit()
