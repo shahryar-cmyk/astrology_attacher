@@ -38,16 +38,9 @@ zodiac_signs = {
 
 @calculate_natal_chat.route('/calculate_natal_chat', methods=['POST'])
 def run_excel_macro_changeData():
-        # Use subprocess to kill all running instances of Excel
-    try:
-        time.sleep(5)
-        os.system("taskkill /F /IM excel.exe /T")
-        subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
-        close_excel_without_save()
-    except Exception as e:
-            print("Error killing Excel process:", e)
+    
     # subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
-    pythoncom.CoInitialize()  # Initialize COM library
+    
     try:
         # Get the parameters from the request data and ensure they are integers
         birth_date_year = int(request.json.get('birth_date_year'))
@@ -879,12 +872,14 @@ def run_excel_macro_changeData():
 
         # Open the workbook outside of the loop to avoid repeated opening and closing
         try:
+            
             original_path = r'C:\El Camino que Creas\Generador de Informes\Generador de Informes\Generador de Informes.xlsm'
             # base, ext = os.path.splitext(original_path)
             # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f_natal_chart")  # Format: YYYYMMDD_HHMMSS_milliseconds
             # copied_file_path = f"{base}_{timestamp}{ext}"
             # # wb = xl.Workbooks.Open(file_path)  # Path to your Excel file
             # shutil.copyfile(original_path, copied_file_path)
+            pythoncom.CoInitialize()  # Initialize COM library
             wb = xl.Workbooks.Open(original_path)  # Path to your Excel file
             
             try:
@@ -954,17 +949,17 @@ def run_excel_macro_changeData():
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
             print("Error opening workbook:", e)
-            return jsonify({"error": str(e)}), 500
+            return jsonify({"error result of First": str(e)}), 500
         finally:
             xl.Quit()
+            pythoncom.CoUninitialize() # Uninitialize COM library
    
    
     except Exception as e:
         print("Error initializing Excel:", e)
         logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
-        return jsonify({"error": str(e)}), 500
-    finally:
-        pythoncom.CoUninitialize()  # Uninitialize COM library
+        return jsonify({"error result of Second": str(e)}), 500
+         # Uninitialize COM library
 
 def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
     lines = asteroid_pholus_output.splitlines()  # Split by newline characters
@@ -2092,34 +2087,8 @@ def get_solar_return_position_func(lat_deg,lon_deg,report_type_data,date):
     except Exception as e:
         print("Error initializing Excel:", e)
         logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error Result of Third": str(e)}), 500
     finally:
         pythoncom.CoUninitialize()  # Uninitialize COM library
 
-
-def close_excel_without_save():
-    # Ensure COM threading model is initialized
-    pythoncom.CoInitialize()
-
-    try:
-        # Create an instance of the Excel application
-        excel = win32com.client.Dispatch("Excel.Application")
-
-        
-        # Prevent the "Do you want to save changes?" prompt
-        excel.DisplayAlerts = False
-
-        
-        # Loop through all the open workbooks and mark them as saved
-        for wb in excel.Workbooks:
-            wb.Saved = True  # Mark as saved to avoid save prompts
-            wb.Close(SaveChanges=False)
-
-        # Quit the Excel application
-        excel.Quit()
-
-    finally:
-        # Explicitly release COM objects and clean up
-        excel = None
-        gc.collect()  # Run garbage collection to release COM objects
 
