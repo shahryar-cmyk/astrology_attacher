@@ -954,7 +954,7 @@ def run_excel_macro_changeData():
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
             print("Error opening workbook:", e)
-            return jsonify({"error of Second API": str(e)}), 500
+            return jsonify({"error": str(e)}), 500
         finally:
             xl.Quit()
    
