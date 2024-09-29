@@ -10,6 +10,8 @@ import logging
 import traceback
 import swisseph as swe
 import gc
+import time
+
 
 
 calculate_natal_chat = Blueprint('calculate_natal_chat', __name__)
@@ -38,6 +40,7 @@ zodiac_signs = {
 def run_excel_macro_changeData():
         # Use subprocess to kill all running instances of Excel
     try:
+        os.system("taskkill /F /IM excel.exe /T")
         subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
         close_excel_without_save()
     except Exception as e:
