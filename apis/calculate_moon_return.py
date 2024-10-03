@@ -65,7 +65,7 @@ def run_excel_macro_moon_change_data():
 
         # Construct the command with zero-padded values
         # For House Data From Cell D5 to D10
-        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -p -house{lat_deg},{lon_deg},P -fPZ -roundsec"
+        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -p -house{lon_deg},{lat_deg},P -fPZ -roundsec"
         # For Planets Data From Cell D11 to D21 Which Includes True Node
         command2 = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -fPZS -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -ep"
         # For Quirón Command From Cell D22sky
@@ -1283,7 +1283,7 @@ def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
 
         # Construct the command with zero-padded values
         # For House Data From Cell D5 to D10
-        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -p -house{lat_deg},{lon_deg},P -fPZ -roundsec"
+        command = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -p -house{lon_deg},{lat_deg},P -fPZ -roundsec"
         # For Planets Data From Cell D11 to D21 Which Includes True Node
         command2 = f"swetest -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -fPZS -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -ep"
         # For Quirón Command From Cell D22sky
