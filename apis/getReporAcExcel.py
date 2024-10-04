@@ -56,17 +56,17 @@ def get_report_ac_excel_route():
                 # Get the last file name
                 last_file_name = file_names[-1]
 
-                for file_name in file_names:
-                    if file_name != last_file_name:
-                        try:
-                            os.remove(file_name)
-                            print(f"Deleted {file_name}")
-                        except FileNotFoundError:
-                            print(f"File {file_name} not found.")
-                        except Exception as e:
-                            print(f"Error deleting file {file_name}: {e}")
+                # for file_name in file_names:
+                #     if file_name != last_file_name:
+                #         try:
+                #             os.remove(file_name)
+                #             print(f"Deleted {file_name}")
+                #         except FileNotFoundError:
+                #             print(f"File {file_name} not found.")
+                #         except Exception as e:
+                #             print(f"Error deleting file {file_name}: {e}")
 
-                return jsonify({"message": "File Saved Successfully", "fileName": file_name}), 200
+                return jsonify({"message": "File Saved Successfully", "fileName": last_file_name}), 200
             except Exception as e:
                 print("Error accessing the sheet:", e)
                 return jsonify({"error": str(e)}), 500
