@@ -71,7 +71,7 @@ def run_excel_macro_moon_change_data():
         # For Quirón Command From Cell D22sky
         quiron_planet = f"swetest -ps -xs2060 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # For Lilith Command From Cell D23
-        lilith_planet = f"swetest -ps -xs1181 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
+        # lilith_planet = f"swetest -ps -xs1181 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
 
         # For Cerus Command 
         cerus_planet = f"swetest -ps -xs1 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
@@ -264,7 +264,7 @@ def run_excel_macro_moon_change_data():
         # Houses Names
         result2 = subprocess.run(command2, shell=True, check=True, capture_output=True, text=True)
         quiron_planet_result = subprocess.run(quiron_planet, shell=True, check=True, capture_output=True, text=True)
-        lilith_planet_result = subprocess.run(lilith_planet, shell=True, check=True, capture_output=True, text=True)
+        # lilith_planet_result = subprocess.run(lilith_planet, shell=True, check=True, capture_output=True, text=True)
         cerus_planet_result = subprocess.run(cerus_planet, shell=True, check=True, capture_output=True, text=True)
         pallas_planet_result = subprocess.run(pallas_planet, shell=True, check=True, capture_output=True, text=True)
         juno_planet_result = subprocess.run(juno_planet, shell=True, check=True, capture_output=True, text=True)
@@ -533,6 +533,7 @@ def run_excel_macro_moon_change_data():
 
         # Vulcan
         vulcan_planet_parse_output = parse_asteroid_output(lilith_real_planet_result_output,'Vulcan ')
+        lilith_parse_output = parse_asteroid_output(lilith_real_planet_result_output,'mean Apogee')
 
         
 
@@ -541,8 +542,8 @@ def run_excel_macro_moon_change_data():
         quiron_output = quiron_planet_result.stdout
         quiron_parse_output= parse_asteroid_output(quiron_output,astro_objects[0])
         
-        lilith_output = lilith_planet_result.stdout
-        lilith_parse_output = parse_asteroid_output(lilith_output,astro_objects[1])
+        # lilith_output = lilith_planet_result.stdout
+        # lilith_parse_output = parse_asteroid_output(lilith_output,astro_objects[1])
 
         cerus_output = cerus_planet_result.stdout
         cerus_parse_output = parse_asteroid_output(cerus_output,astro_objects[3])
@@ -1291,7 +1292,7 @@ def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
         # For Quirón Command From Cell D22sky
         quiron_planet = f"swetest -ps -xs2060 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # For Lilith Command From Cell D23
-        lilith_planet = f"swetest -ps -xs1181 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
+        # lilith_planet = f"swetest -ps -xs1181 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # For Cerus Command 
         cerus_planet = f"swetest -ps -xs1 -b{birth_date_day:02d}.{birth_date_month:02d}.{birth_date_year} -ut{ut_hour:02d}:{ut_min:02d}:{ut_sec:02d} -fPZS -roundsec"
         # For Pallas Command
@@ -1482,7 +1483,7 @@ def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
         # Houses Names
         result2 = subprocess.run(command2, shell=True, check=True, capture_output=True, text=True)
         quiron_planet_result = subprocess.run(quiron_planet, shell=True, check=True, capture_output=True, text=True)
-        lilith_planet_result = subprocess.run(lilith_planet, shell=True, check=True, capture_output=True, text=True)
+        # lilith_planet_result = subprocess.run(lilith_planet, shell=True, check=True, capture_output=True, text=True)
         cerus_planet_result = subprocess.run(cerus_planet, shell=True, check=True, capture_output=True, text=True)
         pallas_planet_result = subprocess.run(pallas_planet, shell=True, check=True, capture_output=True, text=True)
         juno_planet_result = subprocess.run(juno_planet, shell=True, check=True, capture_output=True, text=True)
@@ -1751,6 +1752,7 @@ def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
 
         # Vulcan
         vulcan_planet_parse_output = parse_asteroid_output(lilith_real_planet_result_output,'Vulcan ')
+        lilith_parse_output = parse_asteroid_output(lilith_real_planet_result_output,'mean Apogee')
 
         
 
@@ -1759,8 +1761,8 @@ def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
         quiron_output = quiron_planet_result.stdout
         quiron_parse_output= parse_asteroid_output(quiron_output,astro_objects[0])
         
-        lilith_output = lilith_planet_result.stdout
-        lilith_parse_output = parse_asteroid_output(lilith_output,astro_objects[1])
+        # lilith_output = lilith_planet_result.stdout
+        # lilith_parse_output = parse_asteroid_output(lilith_output,astro_objects[1])
 
         cerus_output = cerus_planet_result.stdout
         cerus_parse_output = parse_asteroid_output(cerus_output,astro_objects[3])
