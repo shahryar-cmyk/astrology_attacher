@@ -1024,7 +1024,7 @@ def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
                     "position_min":splitbySingleQuote[0],
                     "position_sec":splitbySingleQuote[1],
                     "retrograde": resultValue,
-                    # "commands": lines,              
+                    "commands": lines,              
                 
     
             }
@@ -1099,7 +1099,7 @@ def parse_houses_and_vertex(asteroid_pholus_output, house_number):
                 "position_min": splitbySingleQuote[0].replace(" ", ""),
                 "position_sec": splitbySingleQuote[1].replace(" ", ""),
                 "retrograde": "",
-                # "commands": lines
+                "commands": lines
             }
     return result
 
