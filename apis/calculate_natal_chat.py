@@ -39,14 +39,14 @@ zodiac_signs = {
 @calculate_natal_chat.route('/calculate_natal_chat', methods=['POST'])
 def run_excel_macro_changeData():
         # Use subprocess to kill all running instances of Excel
-    try:
-        os.system("taskkill /F /IM excel.exe /T")
-        subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
-        close_excel_without_save()
-    except Exception as e:
-            print("Error killing Excel process:", e)
-    # subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
-    pythoncom.CoInitialize()  # Initialize COM library
+    # try:
+    #     os.system("taskkill /F /IM excel.exe /T")
+    #     subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
+    #     close_excel_without_save()
+    # except Exception as e:
+    #         print("Error killing Excel process:", e)
+    # # subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
+    # pythoncom.CoInitialize()  # Initialize COM library
     try:
         # Get the parameters from the request data and ensure they are integers
         birth_date_year = int(request.json.get('birth_date_year'))
@@ -69,8 +69,7 @@ def run_excel_macro_changeData():
         sun_return_day = request.json.get('sunReturnDay')
         gender_type = request.json.get('gender')
 
-        xl = win32com.client.Dispatch("Excel.Application")
-        xl.Visible = False  # Set to True if you want Excel to be visible
+
 
         # Construct the command with zero-padded values
         # For House Data From Cell D5 to D10
@@ -877,11 +876,13 @@ def run_excel_macro_changeData():
 
         planets = []
 
-
+    
 
         # Open the workbook outside of the loop to avoid repeated opening and closing
         try:
-            
+            pythoncom.CoInitialize()
+            xl = win32com.client.Dispatch("Excel.Application")
+            xl.Visible = False  # Set to True if you want Excel to be visible
             original_path = r'C:\El Camino que Creas\Generador de Informes\Generador de Informes\Generador de Informes.xlsm'
             # base, ext = os.path.splitext(original_path)
             # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f_natal_chart")  # Format: YYYYMMDD_HHMMSS_milliseconds
@@ -965,7 +966,7 @@ def run_excel_macro_changeData():
     except Exception as e:
         print("Error initializing Excel:", e)
         logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error Error Side Wise": str(e)}), 500
     finally:
         pythoncom.CoUninitialize()  # Uninitialize COM library
 
