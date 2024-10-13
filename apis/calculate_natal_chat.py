@@ -972,7 +972,91 @@ def run_excel_macro_changeData():
             return jsonify({"error": str('Retry the Request....')}),400 
         print("Error initializing Excel:", e)
         logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
+        
         print("Error opening workbook:", asteroidsList)
+        try:
+            closeFile()
+            pythoncom.CoInitialize()
+            xl = win32com.client.Dispatch("Excel.Application")
+            xl.Visible = False  # Set to True if you want Excel to be visible
+            original_path = r'C:\El Camino que Creas\Generador de Informes\Generador de Informes\Generador de Informes.xlsm'
+            # base, ext = os.path.splitext(original_path)
+            # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f_natal_chart")  # Format: YYYYMMDD_HHMMSS_milliseconds
+            # copied_file_path = f"{base}_{timestamp}{ext}"
+            # # wb = xl.Workbooks.Open(file_path)  # Path to your Excel file
+            # shutil.copyfile(original_path, copied_file_path)
+            wb = xl.Workbooks.Open(original_path)  # Path to your Excel file
+            try:
+                
+                sheet_name = 'CN y RS (o RL)'  # Replace with your sheet name
+                sheet = wb.Sheets(sheet_name)
+
+                # List of Data for Natal Positions
+                asteroidsList = [houses_1_parse_output,houses_2_parse_output,houses_3_parse_output,houses_4_parse_output,houses_5_parse_output,houses_6_parse_output,planet_sun_parse_output,planet_moon_parse_output,planet_mercury_parse_output,planet_venus_parse_output,planet_mars_parse_output,planet_jupiter_parse_output,planet_saturn_parse_output,planet_uranus_parse_output,planet_neptune_parse_output,planet_pluto_parse_output,planet_true_node_parse_output,quiron_parse_output,lilith_parse_output,houses_vertex_parse_output,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,lilith_real_parse_output,sol_blanco_planet_parse_output,vulcan_planet_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
+                
+                
+                
+
+                solar_return_date = get_solar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec,sun_return_year,sun_return_month,sun_return_day)
+                # Solar Return Position Date
+                print("Getting Solar Return Date Shahryar %s" % solar_return_date.get('solar_return_date_start'))
+                # Solar Return Position Date
+                get_solar_return_position = get_solar_return_position_func(lat_deg,lon_deg,report_type_data,solar_return_date.get('solar_return_date_start')) 
+                print("Getting Solar Return Position Data Shahryar %s" % get_solar_return_position)
+                start_row = 5  # Row 29
+                start_column = 11  # Column S
+                for index, asteroid in enumerate(asteroidsList):
+                 row = start_row + index
+                #  sheet.Cells(row, start_column).Value = asteroid['name']
+                 sheet.Cells(row, start_column + 1).Value = asteroid['position_sign']
+               
+                 sheet.Cells(row, start_column + 2).Value =asteroid['positionDegree']
+                 sheet.Cells(row, start_column + 3).Value =  asteroid['position_min']
+                 sheet.Cells(row, start_column + 4).Value = asteroid['position_sec']
+                 sheet.Cells(row, start_column + 5).Value = asteroid['retrograde']
+                #  In 19 Col Row 5
+                # Put the name of the User
+                sheet.Cells(5,19).Value = person_name
+                # In Row 8 Local Birth date with seconds.
+                sheet.Cells(8,19).Value = person_birth_date_local
+                 
+                # In Row 11 Put the User Location. 
+                sheet.Cells(11,19).Value = person_location
+                # In Row 14 Put Natal Chart | Sun Return | Moon Return
+                sheet.Cells(14,19).Value = report_type_data 
+                # Sun Return Date
+                    # Sun Return Date In Row 17
+                sheet.Cells(17,19).Value = solar_return_date.get('solar_return_date_start')
+                sheet.Cells(20,19).Value = solar_return_date.get('solar_return_date_end')
+                    # Moon Return Date In Row 20
+                # sheet.Cells(20,19).Value = moon_return_date
+                    # Gender In 21 kah 5 
+                sheet.Cells(21,5).Value = gender_type
+
+                sun_col = 3
+                for index, sun_return_asteroids in enumerate(get_solar_return_position):
+                 row = start_row + index
+                #  sheet.Cells(row, sun_col).Value = sun_return_asteroids['name']
+                 sheet.Cells(row, sun_col + 1).Value = sun_return_asteroids['position_sign']
+               
+                 sheet.Cells(row, sun_col + 2).Value =sun_return_asteroids['positionDegree']
+                 sheet.Cells(row, sun_col + 3).Value =  sun_return_asteroids['position_min']
+                 sheet.Cells(row, sun_col + 4).Value = sun_return_asteroids['position_sec']
+                 sheet.Cells(row, sun_col + 5).Value = sun_return_asteroids['retrograde']
+
+
+
+
+                print("Data modified successfully.")
+                return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":original_path}), 200
+            finally:
+                wb.Close(SaveChanges=True)  # Save changes after running macro            
+        except Exception as e:
+            print("Error opening workbook:", asteroidsList)
+            return jsonify({"error": str(e)}), 500
+        finally:
+            xl.Quit()
+            pythoncom.CoUninitialize()
         return jsonify({"error Error Side Wise": str(e),"asteroidList":asteroidsList}), 500
     finally:
         pythoncom.CoUninitialize()  # Uninitialize COM library
@@ -2096,8 +2180,6 @@ def get_solar_return_position_func(lat_deg,lon_deg,report_type_data,date):
             "position_sign": "",
              "retrograde": ""
         } 
-
-        planets = []
                 # List of Data for Natal Positions
         asteroidsList = [houses_1_parse_output,houses_2_parse_output,houses_3_parse_output,houses_4_parse_output,houses_5_parse_output,houses_6_parse_output,planet_sun_parse_output,planet_moon_parse_output,planet_mercury_parse_output,planet_venus_parse_output,planet_mars_parse_output,planet_jupiter_parse_output,planet_saturn_parse_output,planet_uranus_parse_output,planet_neptune_parse_output,planet_pluto_parse_output,planet_true_node_parse_output,quiron_parse_output,lilith_parse_output,houses_vertex_parse_output,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,lilith_real_parse_output,sol_blanco_planet_parse_output,vulcan_planet_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
     
@@ -2137,4 +2219,12 @@ def close_excel_without_save():
         # Explicitly release COM objects and clean up
         excel = None
         gc.collect()  # Run garbage collection to release COM objects
+
+def closeFile():
+
+    try:
+        os.system('TASKKILL /F /IM excel.exe')
+
+    except Exception:
+        print("KU")
 
