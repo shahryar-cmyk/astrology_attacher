@@ -957,13 +957,19 @@ def run_excel_macro_changeData():
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
-            print("Error opening workbook:", e)
+            print("Error opening workbook:", asteroidsList)
             return jsonify({"error": str(e)}), 500
         finally:
             xl.Quit()
+            pythoncom.CoUninitialize()
    
    
     except Exception as e:
+        if(e == "Excel.Application.Quit"):
+            print("Error opening workbook:", e)
+            print("Error opening workbook:", asteroidsList)
+
+            return jsonify({"error": str('Retry the Request....')}),400 
         print("Error initializing Excel:", e)
         logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
         return jsonify({"error Error Side Wise": str(e)}), 500
