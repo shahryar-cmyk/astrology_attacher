@@ -36,11 +36,6 @@ zodiac_signs = {
 
 @calculate_moon_return.route('/calculate_moon_return', methods=['POST'])
 def run_excel_macro_moon_change_data():
-    try:
-        subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
-        close_excel_without_save()
-    except Exception as e:
-            print("Error killing Excel process:", e)
     pythoncom.CoInitialize()  # Initialize COM library
     try:
         # Get the parameters from the request data and ensure they are integers
