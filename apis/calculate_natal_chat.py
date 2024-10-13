@@ -973,7 +973,7 @@ def run_excel_macro_changeData():
         print("Error initializing Excel:", e)
         logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
         print("Error opening workbook:", asteroidsList)
-        return jsonify({"error Error Side Wise": str(e)}), 500
+        return jsonify({"error Error Side Wise": str(e),"asteroidList":asteroidsList}), 500
     finally:
         pythoncom.CoUninitialize()  # Uninitialize COM library
 
