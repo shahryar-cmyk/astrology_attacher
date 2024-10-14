@@ -967,6 +967,8 @@ def run_excel_macro_changeData():
         print("Error opening workbook:", asteroidsList)
         try:
             closeFile()
+            close_excel_without_save()
+            time.sleep(20)
             pythoncom.CoInitialize()
             xl = win32com.client.Dispatch("Excel.Application")
             xl.Visible = False  # Set to True if you want Excel to be visible
