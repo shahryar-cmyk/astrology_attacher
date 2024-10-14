@@ -2083,7 +2083,7 @@ def get_solar_return_position_func(lat_deg,lon_deg,report_type_data,date):
         logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
         return jsonify({"error": str(e)}), 500
     finally:
-        logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}") # Uninitialize COM library
+        logger.error(f"Error occurred") # Uninitialize COM library
 
 
 def close_excel_without_save():
