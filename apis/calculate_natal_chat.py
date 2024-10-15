@@ -1266,7 +1266,6 @@ def get_solar_return_position_func(lat_deg,lon_deg,report_type_data,date):
     print("Hour:", hour)
     print("Minute:", minute)
     print("Second:", second)
-    pythoncom.CoInitialize()  # Initialize COM library
     try:
         # Get the parameters from the request data and ensure they are integers
         birth_date_year = int(year)

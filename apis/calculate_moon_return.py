@@ -6,10 +6,12 @@ import pythoncom
 import os
 import shutil
 from datetime import datetime,timedelta
-# import logging
+import logging
 import traceback
 import swisseph as swe
 import gc
+import time
+
 
 
 calculate_moon_return = Blueprint('calculate_moon_return', __name__)
@@ -18,6 +20,9 @@ calculate_moon_return = Blueprint('calculate_moon_return', __name__)
 # logging.basicConfig(level=logging.DEBUG)
 # logger = logging.getLogger(__name__)
 # Mapeo de las abreviaturas de los signos del zodíaco a sus nombres completos
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 zodiac_signs = {
     'ar': 'Aries',
     'ta': 'Tauro',
@@ -36,7 +41,11 @@ zodiac_signs = {
 
 @calculate_moon_return.route('/calculate_moon_return', methods=['POST'])
 def run_excel_macro_moon_change_data():
-    pythoncom.CoInitialize()  # Initialize COM library
+    try:
+        subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
+        close_excel_without_save()
+    except Exception as e:
+            print("Error killing Excel process:", e)  # Initialize COM library
     try:
         # Get the parameters from the request data and ensure they are integers
         birth_date_year = int(request.json.get('birth_date_year'))
@@ -55,8 +64,6 @@ def run_excel_macro_moon_change_data():
         moon_return_date = request.json.get('moonReturnDate')
         gender_type = request.json.get('gender')
 
-        xl = win32com.client.Dispatch("Excel.Application")
-        xl.Visible = False  # Set to True if you want Excel to be visible
 
         # Construct the command with zero-padded values
         # For House Data From Cell D5 to D10
@@ -867,6 +874,9 @@ def run_excel_macro_moon_change_data():
 
         # Open the workbook outside of the loop to avoid repeated opening and closing
         try:
+            pythoncom.CoInitialize()
+            xl = win32com.client.Dispatch("Excel.Application")
+            xl.Visible = False  # Set to True if you want Excel to be visible
             original_path = r'C:\El Camino que Creas\Generador de Informes\Generador de Informes\Generador de Informes.xlsm'
             # base, ext = os.path.splitext(original_path)
             # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f_natal_chart")  # Format: YYYYMMDD_HHMMSS_milliseconds
@@ -944,14 +954,15 @@ def run_excel_macro_moon_change_data():
             return jsonify({"error": str(e)}), 500
         finally:
             xl.Quit()
+            del xl
    
    
     except Exception as e:
         print("Error initializing Excel:", e)
-        # logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
+        logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
         return jsonify({"error": str(e)}), 500
     finally:
-        pythoncom.CoUninitialize()  # Uninitialize COM library
+        pythoncom.CoUninitialize()   # Uninitialize COM library
 
 def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
     lines = asteroid_pholus_output.splitlines()  # Split by newline characters
@@ -1261,8 +1272,7 @@ def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
     print("Day:", day)
     print("Hour:", hour)
     print("Minute:", minute)
-    print("Second:", second)
-    pythoncom.CoInitialize()  # Initialize COM library
+    print("Second:", second) # Initialize COM library
     try:
         # Get the parameters from the request data and ensure they are integers
         birth_date_year = int(year)
@@ -2089,10 +2099,10 @@ def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
    
     except Exception as e:
         print("Error initializing Excel:", e)
-        # logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
+        logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
         return jsonify({"error": str(e)}), 500
     finally:
-        pythoncom.CoUninitialize()  # Uninitialize COM library
+        logger.error(f"Error occurred") # Uninitialize COM library
 
 
 def close_excel_without_save():
@@ -2102,13 +2112,16 @@ def close_excel_without_save():
     try:
         # Create an instance of the Excel application
         excel = win32com.client.Dispatch("Excel.Application")
+
         
         # Prevent the "Do you want to save changes?" prompt
         excel.DisplayAlerts = False
+
         
         # Loop through all the open workbooks and mark them as saved
         for wb in excel.Workbooks:
             wb.Saved = True  # Mark as saved to avoid save prompts
+            wb.Close(SaveChanges=False)
 
         # Quit the Excel application
         excel.Quit()
@@ -2118,4 +2131,10 @@ def close_excel_without_save():
         excel = None
         gc.collect()  # Run garbage collection to release COM objects
 
- 
+def closeFile():
+
+    try:
+        os.system('TASKKILL /F /IM excel.exe')
+
+    except Exception:
+        print("KU")
