@@ -38,15 +38,11 @@ zodiac_signs = {
 
 @calculate_natal_chat.route('/calculate_natal_chat', methods=['POST'])
 def run_excel_macro_changeData():
-        # Use subprocess to kill all running instances of Excel
-    # try:
-    #     os.system("taskkill /F /IM excel.exe /T")
-    #     subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
-    #     close_excel_without_save()
-    # except Exception as e:
-    #         print("Error killing Excel process:", e)
-    # # subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
-    # pythoncom.CoInitialize()  # Initialize COM library
+    try:
+        subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
+        close_excel_without_save()
+    except Exception as e:
+            print("Error killing Excel process:", e)
     try:
         # Get the parameters from the request data and ensure they are integers
         birth_date_year = int(request.json.get('birth_date_year'))
@@ -957,25 +953,19 @@ def run_excel_macro_changeData():
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after running macro
         except Exception as e:
-            print("Error opening workbook:", asteroidsList)
+            print("Error opening workbook:", e)
             return jsonify({"error": str(e)}), 500
         finally:
             xl.Quit()
-            pythoncom.CoUninitialize()
+            del xl
    
    
     except Exception as e:
-        if(e == "Excel.Application.Quit"):
-            print("Error opening workbook:", e)
-            print("Error opening workbook:", asteroidsList)
-
-            return jsonify({"error": str('Retry the Request....')}),400 
         print("Error initializing Excel:", e)
         logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
-        print("Error opening workbook:", asteroidsList)
-        return jsonify({"error Error Side Wise": str(e)}), 500
+        return jsonify({"error": str(e)}), 500
     finally:
-        pythoncom.CoUninitialize()  # Uninitialize COM library
+        pythoncom.CoUninitialize()   # Uninitialize COM library
 
 def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
     lines = asteroid_pholus_output.splitlines()  # Split by newline characters
@@ -2109,7 +2099,7 @@ def get_solar_return_position_func(lat_deg,lon_deg,report_type_data,date):
         logger.error(f"Error occurred: {str(e)}\n{traceback.format_exc()}")
         return jsonify({"error": str(e)}), 500
     finally:
-        pythoncom.CoUninitialize()  # Uninitialize COM library
+         logger.error(f"Error occurred") # Uninitialize COM library  # Uninitialize COM library
 
 
 def close_excel_without_save():
@@ -2137,4 +2127,12 @@ def close_excel_without_save():
         # Explicitly release COM objects and clean up
         excel = None
         gc.collect()  # Run garbage collection to release COM objects
+
+def closeFile():
+
+    try:
+        os.system('TASKKILL /F /IM excel.exe')
+
+    except Exception:
+        print("KU")
 
