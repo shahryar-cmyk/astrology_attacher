@@ -526,6 +526,15 @@ def run_excel_macro_moon_change_data():
         planet_pluto_parse_output = parse_planets(output2,planets_object[9])
         print(f"Data of the Pluto: {planet_pluto_parse_output}")
         planet_true_node_parse_output = parse_planets(output2,planets_object[10])
+        redrograde_logic_planet_true_node_parse_output = {
+                        "name": planet_true_node_parse_output.get('name'),
+                        "positionDegree": planet_true_node_parse_output.get('positionDegree'),
+                        "position_sign": planet_true_node_parse_output.get('position_sign'),
+                        "position_min": planet_true_node_parse_output.get('position_min'),
+                        "position_sec": planet_true_node_parse_output.get('position_sec'),
+                        "retrograde": '' if planet_true_node_parse_output.get('retrograde') == 'R' else 'Shah'
+                        }
+        planet_true_node_parse_output.update(redrograde_logic_planet_true_node_parse_output)
         print(f"Data of the True Node: {planet_true_node_parse_output}")
         # Hypothetical Planet 
         lilith_real_planet_result_output = lilith_real_planet_result.stdout
@@ -1143,6 +1152,7 @@ def parse_planets(planets_output, planet_name):
 
             resultValue = resultValue = "R" if '-' in speed else ""
             positionSign = first_two_alphabets[0]+first_two_alphabets[1]
+            
              
 
 
@@ -1749,6 +1759,15 @@ def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
         print(f"Data of the Pluto: {planet_pluto_parse_output}")
         planet_true_node_parse_output = parse_planets(output2,planets_object[10])
         print(f"Data of the True Node: {planet_true_node_parse_output}")
+        redrograde_logic_planet_true_node_parse_output = {
+                        "name": planet_true_node_parse_output.get('name'),
+                        "positionDegree": planet_true_node_parse_output.get('positionDegree'),
+                        "position_sign": planet_true_node_parse_output.get('position_sign'),
+                        "position_min": planet_true_node_parse_output.get('position_min'),
+                        "position_sec": planet_true_node_parse_output.get('position_sec'),
+                        "retrograde": '' if planet_true_node_parse_output.get('retrograde') == 'R' else 'Shah'
+                        }
+        planet_true_node_parse_output.update(redrograde_logic_planet_true_node_parse_output)
         # Hypothetical Planet 
         lilith_real_planet_result_output = lilith_real_planet_result.stdout
         lilith_real_parse_output = parse_asteroid_output(lilith_real_planet_result_output,'osc. Apogee')
