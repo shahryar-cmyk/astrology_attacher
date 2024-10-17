@@ -1027,9 +1027,8 @@ def parse_asteroid_output(asteroid_pholus_output,asteroid_object_name):
                     "position_sign": zodiac_signs.get(first_two_alphabets.lower(), first_two_alphabets),
                     "position_min":splitbySingleQuote[0],
                     "position_sec":splitbySingleQuote[1],
-                    "retrograde": resultValue
-                
-                    # "commands": lines,              
+                    "retrograde": resultValue,
+                    "commands": lines,              
                 
     
             }
@@ -1078,6 +1077,7 @@ def parse_houses_and_vertex(asteroid_pholus_output, house_number):
                 "position_min": splitbySingleQuote[0].replace(" ", ""),
                 "position_sec": splitbySingleQuote[1].replace(" ", ""),
                 "retrograde": "",
+                "commands": lines
             }
             break  # Exit the loop after finding the required house
         elif "Vertex" in line:
@@ -1162,7 +1162,8 @@ def parse_planets(planets_output, planet_name):
                         "position_sign": zodiac_signs.get(positionSign.lower(), positionSign),
                         "position_min": splitbySingleQuote[0],
                         "position_sec": splitbySingleQuote[1],
-                        "retrograde": resultValue      
+                        "retrograde": resultValue ,
+                        "commands": lines     
                         }
             
             
@@ -1290,7 +1291,7 @@ def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
         birth_date_day = int(day)
         ut_hour = int(hour)
         ut_min = int(minute)
-        ut_sec = int(second)
+        ut_sec = int(second)+1
         lat_deg = lat_deg
         lon_deg = lon_deg
         # Moon Return, Solar Return or Natal return 
