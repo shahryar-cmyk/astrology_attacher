@@ -1291,7 +1291,7 @@ def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
         birth_date_day = int(day)
         ut_hour = int(hour)
         ut_min = int(minute)
-        ut_sec = int(second)+1
+        ut_sec = int(second)+2
         lat_deg = lat_deg
         lon_deg = lon_deg
         # Moon Return, Solar Return or Natal return 
