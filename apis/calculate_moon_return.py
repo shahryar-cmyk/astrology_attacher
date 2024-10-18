@@ -532,7 +532,7 @@ def run_excel_macro_moon_change_data():
                         "position_sign": planet_true_node_parse_output.get('position_sign'),
                         "position_min": planet_true_node_parse_output.get('position_min'),
                         "position_sec": planet_true_node_parse_output.get('position_sec'),
-                        "retrograde": '' if planet_true_node_parse_output.get('retrograde') == 'R' else ''
+                        "retrograde": '' if planet_true_node_parse_output.get('retrograde') == 'R' else 'R'
                         }
         planet_true_node_parse_output.update(redrograde_logic_planet_true_node_parse_output)
         print(f"Data of the True Node: {planet_true_node_parse_output}")
@@ -1163,6 +1163,7 @@ def parse_planets(planets_output, planet_name):
                         "position_min": splitbySingleQuote[0],
                         "position_sec": splitbySingleQuote[1],
                         "retrograde": resultValue ,
+                        "speed": speed,
                         "commands": lines     
                         }
             
@@ -1766,7 +1767,7 @@ def get_lunar_return_position_func(lat_deg,lon_deg,report_type_data,date):
                         "position_sign": planet_true_node_parse_output.get('position_sign'),
                         "position_min": planet_true_node_parse_output.get('position_min'),
                         "position_sec": planet_true_node_parse_output.get('position_sec'),
-                        "retrograde": '' if planet_true_node_parse_output.get('retrograde') == 'R' else ''
+                        "retrograde": '' if planet_true_node_parse_output.get('retrograde') == 'R' else 'R'
                         }
         planet_true_node_parse_output.update(redrograde_logic_planet_true_node_parse_output)
         # Hypothetical Planet 
