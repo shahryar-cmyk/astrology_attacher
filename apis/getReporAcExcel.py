@@ -6,6 +6,8 @@ import subprocess
 
 get_report_ac_excel = Blueprint('getReportAcExcel', __name__)
 
+
+
 @get_report_ac_excel.route('/get_report_ac_excel', methods=['POST'])
 def get_report_ac_excel_route():
     try:
@@ -18,13 +20,12 @@ def get_report_ac_excel_route():
         if not file_name or not macro_name:
             return jsonify({'error': 'fileName and macroName are required'}), 400
         
-        # Check if Another Process is Running on the System (optional)
-        # Uncomment to kill Excel processes
-        # try:
-        #     subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
-        # except Exception as e:
-        #     print("Error killing Excel process:", e)
-
+        # Check if Another Process is Running on the System
+        try:
+            subprocess.call(["taskkill", "/F", "/IM", "EXCEL.EXE"])
+        except Exception as e:
+            print("Error killing Excel process:", e)
+        
         pythoncom.CoInitialize()  # Initialize COM library
 
         # Initialize Excel application
@@ -55,26 +56,19 @@ def get_report_ac_excel_route():
                 # Get the last file name
                 last_file_name = file_names[-1]
 
-                # Initialize Word application
-                word = win32com.client.Dispatch('Word.Application')
-                word.Visible = False  # Make Word invisible
+                # for file_name in file_names:
+                #     if file_name != last_file_name:
+                #         try:
+                #             os.remove(file_name)
+                #             print(f"Deleted {file_name}")
+                #         except FileNotFoundError:
+                #             print(f"File {file_name} not found.")
+                #         except Exception as e:
+                #             print(f"Error deleting file {file_name}: {e}")
 
-                # Open the Word document
-                doc = word.Documents.Open(last_file_name)
-
-                # Define the PDF file path based on the last file name
-                pdf_file = os.path.splitext(last_file_name)[0] + '.pdf'  # Change extension to .pdf
-
-                # Save as PDF
-                doc.SaveAs(pdf_file, FileFormat=17)  # 17 is the format for PDF
-
-                # Close the document and Word application
-                doc.Close()
-                word.Quit()
-
-                return jsonify({"message": "File Saved Successfully", "fileName": last_file_name, "pdf_file": pdf_file}), 200
+                return jsonify({"message": "File Saved Successfully", "fileName": last_file_name}), 200
             except Exception as e:
-                print("Error accessing the sheet or running macro:", e)
+                print("Error accessing the sheet:", e)
                 return jsonify({"error": str(e)}), 500
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after modifying data
