@@ -903,7 +903,7 @@ def run_excel_macro_moon_change_data():
                 asteroidsList = [houses_1_parse_output,houses_2_parse_output,houses_3_parse_output,houses_4_parse_output,houses_5_parse_output,houses_6_parse_output,planet_sun_parse_output,planet_moon_parse_output,planet_mercury_parse_output,planet_venus_parse_output,planet_mars_parse_output,planet_jupiter_parse_output,planet_saturn_parse_output,planet_uranus_parse_output,planet_neptune_parse_output,planet_pluto_parse_output,planet_true_node_parse_output,quiron_parse_output,lilith_parse_output,houses_vertex_parse_output,cerus_parse_output,pallas_parse_output,juno_parse_output,vesta_parse_output,eris_parse_output,white_moon_parse_output,quaoar_parse_output,sedna_parse_output,varuna_parse_output,nessus_parse_output,waltemath_parse_output,hygeia_parse_output,sylvia_parse_output,hektor_parse_output,europa_parse_output,davida_parse_output,interamnia_parse_output,camilla_parse_output,cybele_parse_output,sol_negro_parse_output,anti_vertex_parse_output,nodo_sur_real_parse_output,sol_negro_real_parse_output,lilith2_parse_output,waltemath_priapus_parse_output,sol_blanco_parse_output,chariklo_parse_output,iris_parse_output,eunomia_parse_output,euphrosyne_parse_output,orcus_parse_output,pholus_parse_output,hermione_parse_output,ixion_parse_output,haumea_parse_output,makemake_parse_output,bamberga_parse_output,patientia_parse_output,thisbe_parse_output,herculina_parse_output,doris_parse_output,ursula_parse_output,eugenia_parse_output,amphitrite_parse_output,diotima_parse_output,fortuna_parse_output,egeria_parse_output,themis_parse_output,aurora_parse_output,alauda_parse_output,aletheia_parse_output,palma_parse_output,nemesis_parse_output,psyche_parse_output,hebe_parse_output,lachesis_parse_output,daphne_parse_output,bertha_parse_output,freia_parse_output,winchester_parse_output,hilda_parse_output,pretoria_parse_output,metis_parse_output,aegle_parse_output,kalliope_parse_output,germania_parse_output,prokne_parse_output,stereoskopia_parse_output,agamemnon_parse_output,alexandra_parse_output,siegena_parse_output,elpis_parse_output,lilith_real_parse_output,sol_blanco_planet_parse_output,vulcan_planet_parse_output,borasisi_parse_output,lempo_parse_output,_1998_26308_parse_output,ceto_parse_output,teharonhiawako_parse_output,_2000_oj67_134860_parse_output,elektra_parse_output,typhon_parse_output,aspasia_parse_output,chicago_parse_output,loreley_parse_output,gyptis_parse_output,diomedes_parse_output,kreusa_parse_output,juewa_parse_output,eunike_parse_output,ino_parse_output,ismene_parse_output,merapi_parse_output]
                 
                 
-                
+                birth_date_moon_position_for_lunar = planet_moon_parse_output
                 date_moon_report = datetime.strptime(moon_return_date, "%Y-%m-%d")
                 lunar_return_date = get_lunar_return_data(birth_date_year,birth_date_month,birth_date_day,ut_hour,ut_min,ut_sec,date_moon_report.year,date_moon_report.month,date_moon_report.day)
                 # Solar Return Position Date
@@ -955,6 +955,13 @@ def run_excel_macro_moon_change_data():
 
 
                 print("Data modified successfully.")
+                print("Getting Lunar Return Date Shahryar %s" % lunar_return_date.get('lunar_return_date_start'))
+                print("Getting Lunar Return End Date Shahryar %s" % lunar_return_date.get('lunar_return_date_end'))
+                print("Getting Lunar Position Shahryar %s" % lunar_return_date.get('moon_position_at_birth'))
+                print("Getting Lunar Position Shahryar %s" % lunar_return_date.get('birth_date_current_year'))
+                print("Birth Lunar Position of Lunar Chart %s" % birth_date_moon_position_for_lunar.get('positionDegree'))
+                
+                print("Getting Lunar Position Shahryar %s" % lunar_return_date.get('without_calc'))
                 return jsonify({"message": "Data modified successfully.", "result2": planets, "asteriods": asteroidsList,"fileName":original_path,"LunarDateData":get_lunar_return_position}), 200
             finally:
                 wb.Close(SaveChanges=True)  # Save changes after running macro
@@ -1201,6 +1208,8 @@ def get_lunar_return_data(birth_date_year, birth_date_month, birth_date_day, ut_
     # Get the Moon position at birth
     moon_pos, ret = swe.calc_ut(jd_birth, swe.MOON)
     birth_moon_longitude = moon_pos[0]
+    # 
+    # print("Getting Moon position" % birth_moon_longitude)
     
     # Estimate Julian Day for the Moon return (close to the birthday)
     jd_estimate = swe.julday(birth_date_then.year, birth_date_then.month, birth_date_then.day, birth_date_then.hour + birth_date_then.minute / 60 + birth_date_then.second / 3600)
@@ -1219,6 +1228,7 @@ def get_lunar_return_data(birth_date_year, birth_date_month, birth_date_day, ut_
                                           int(((lunar_return_date[3] % 1) * 60 % 1) * 60))
     
     print(f"Getting Lunar Return Date {lunar_return_date_datetime}")
+    without_calc = lunar_return_date_datetime
     
     # Now find the difference between lunar_return_date_datetime and find_lunar_return_date
     difference = find_lunar_return_date - lunar_return_date_datetime
@@ -1231,7 +1241,7 @@ def get_lunar_return_data(birth_date_year, birth_date_month, birth_date_day, ut_
     # If difference is greater than time_delta_moon, then add time_delta_moon
     if difference > time_delta_moon:
         # Find the next moon cross
-        jd_moon_return = swe.mooncross_ut(birth_moon_longitude, jd_moon_return + 30 * (times_difference_times - 1), 0)
+        jd_moon_return = swe.mooncross_ut(birth_moon_longitude, jd_moon_return + 27.53 * (times_difference_times - 1), 0)
         
         # Convert Julian Day to calendar date and time
         lunar_return_date = swe.revjul(jd_moon_return)
@@ -1246,7 +1256,7 @@ def get_lunar_return_data(birth_date_year, birth_date_month, birth_date_day, ut_
     if difference < time_delta_moon:
         # difference value 
         # Remove the sign of the difference
-        const_value = 30 * (abs(times_difference_times) + 1)
+        const_value = 27.53 * (abs(times_difference_times) + 1)
         print(f"Const Value {const_value}")
         jd_moon_return = swe.mooncross_ut(birth_moon_longitude, jd_moon_return - const_value, 0)
         
@@ -1264,7 +1274,10 @@ def get_lunar_return_data(birth_date_year, birth_date_month, birth_date_day, ut_
     
     return {
         "lunar_return_date_start": lunar_return_date_datetime.strftime("%Y/%m/%d %H:%M:%S"),
-        "lunar_return_date_end": end_date_moon_cross_user.strftime("%Y/%m/%d %H:%M:%S")
+        "lunar_return_date_end": end_date_moon_cross_user.strftime("%Y/%m/%d %H:%M:%S"),
+        "moon_position_at_birth": birth_moon_longitude,
+        "birth_date_current_year": birth_date_current_year,
+        "without_calc":without_calc,
     }
 
     # Get the Solar Return Chart With Respect of get_lunar_return_data
